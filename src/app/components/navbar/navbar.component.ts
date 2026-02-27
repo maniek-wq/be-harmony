@@ -1,18 +1,19 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-    selector: 'app-navbar',
-    standalone: true,
-    imports: [CommonModule, RouterLink, RouterLinkActive],
-    template: `
+  selector: 'app-navbar',
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
+  template: `
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
          [class]="scrolled ? 'bg-terracotta shadow-lg' : 'bg-terracotta/95 backdrop-blur-sm'">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 md:h-20">
           <!-- Logo -->
           <a routerLink="/" class="flex items-center gap-3 group">
+            <img src="assets/img/be-harmony_logo.png" alt="Be Harmony Logo" class="h-10 md:h-14 w-auto rounded-full">
             <span class="font-display text-xl md:text-2xl font-semibold text-white group-hover:text-mint-100 transition-colors">
               Be Harmony
             </span>
@@ -21,8 +22,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           <!-- Desktop Menu -->
           <div class="hidden lg:flex items-center gap-1">
             <a *ngFor="let item of menuItems" 
-               [href]="item.href"
-               (click)="smoothScroll($event, item.href)"
+               href="javascript:void(0)"
+               (click)="navigateToSection(item.href)"
                class="px-4 py-2 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200">
               {{ item.label }}
             </a>
@@ -30,7 +31,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
                class="px-4 py-2 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200">
               Cennik
             </a>
-            <a href="#kontakt" (click)="smoothScroll($event, '#kontakt')"
+            <a href="javascript:void(0)" (click)="navigateToSection('#kontakt')"
                class="ml-2 px-5 py-2.5 bg-mint text-terracotta-800 font-semibold rounded-full hover:bg-mint-200 hover:shadow-lg transition-all duration-300 text-sm">
               Umów wizytę
             </a>
@@ -53,8 +54,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
            class="lg:hidden bg-terracotta-600 border-t border-white/10 animate-fade-in">
         <div class="px-4 py-4 space-y-1">
           <a *ngFor="let item of menuItems"
-             [href]="item.href"
-             (click)="smoothScroll($event, item.href); toggleMobile()"
+             href="javascript:void(0)"
+             (click)="navigateToSection(item.href); toggleMobile()"
              class="block px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-colors text-sm font-medium">
             {{ item.label }}
           </a>
@@ -62,7 +63,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
              class="block px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-colors text-sm font-medium">
             Cennik
           </a>
-          <a href="#kontakt" (click)="smoothScroll($event, '#kontakt'); toggleMobile()"
+          <a href="javascript:void(0)" (click)="navigateToSection('#kontakt'); toggleMobile()"
              class="block mx-4 mt-3 px-5 py-3 bg-mint text-terracotta-800 font-semibold rounded-full text-center hover:bg-mint-200 transition-all text-sm">
             Umów wizytę
           </a>
@@ -70,36 +71,51 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       </div>
     </nav>
   `,
-    styles: []
+  styles: []
 })
 export class NavbarComponent {
-    scrolled = false;
-    mobileOpen = false;
+  scrolled = false;
+  mobileOpen = false;
 
-    menuItems = [
-        { label: 'O nas', href: '#o-nas' },
-        { label: 'Usługi', href: '#uslugi' },
-        { label: 'Zespół', href: '#zespol' },
-        { label: 'Galeria', href: '#galeria' },
-        { label: 'Kontakt', href: '#kontakt' },
-    ];
+  menuItems = [
+    { label: 'O nas', href: '#o-nas' },
+    { label: 'Usługi', href: '#uslugi' },
+    { label: 'Zespół', href: '#zespol' },
+    { label: 'Galeria', href: '#galeria' },
+    { label: 'Kontakt', href: '#kontakt' },
+  ];
 
-    @HostListener('window:scroll')
-    onScroll() {
-        this.scrolled = window.scrollY > 50;
+  constructor(private router: Router) { }
+
+  @HostListener('window:scroll')
+  onScroll() {
+    this.scrolled = window.scrollY > 50;
+  }
+
+  toggleMobile() {
+    this.mobileOpen = !this.mobileOpen;
+  }
+
+  navigateToSection(hash: string) {
+    const sectionId = hash.replace('#', '');
+
+    if (this.router.url === '/' || this.router.url.startsWith('/#')) {
+      // Already on home page — just scroll
+      this.scrollToElement(sectionId);
+    } else {
+      // On a subpage — navigate to home first, then scroll
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => this.scrollToElement(sectionId), 100);
+      });
     }
+  }
 
-    toggleMobile() {
-        this.mobileOpen = !this.mobileOpen;
+  private scrollToElement(id: string) {
+    const el = document.getElementById(id);
+    if (el) {
+      const offset = 80;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
-
-    smoothScroll(event: Event, target: string) {
-        event.preventDefault();
-        const el = document.querySelector(target);
-        if (el) {
-            const offset = 80;
-            const top = el.getBoundingClientRect().top + window.scrollY - offset;
-            window.scrollTo({ top, behavior: 'smooth' });
-        }
-    }
+  }
 }
