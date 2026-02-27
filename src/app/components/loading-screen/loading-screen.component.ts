@@ -2,18 +2,16 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-loading-screen',
-    standalone: true,
-    imports: [CommonModule],
-    template: `
+  selector: 'app-loading-screen',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
     <div class="loading-overlay" [class.fade-out]="fadeOut">
       <div class="flex flex-col items-center gap-6">
         <!-- Logo animation -->
         <div class="relative">
-          <div class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-terracotta flex items-center justify-center animate-pulse">
-            <svg class="w-16 h-16 md:w-20 md:h-20 text-mint-50" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
+          <div class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-white flex items-center justify-center animate-pulse shadow-lg">
+            <img src="assets/img/be-harmony_logo.png" alt="Be Harmony Logo" class="w-20 h-20 md:w-28 md:h-28 object-contain rounded-full">
           </div>
           <!-- Spinning ring -->
           <div class="absolute inset-0 w-28 h-28 md:w-36 md:h-36 border-4 border-transparent border-t-mint rounded-full animate-spin-slow"></div>
@@ -34,18 +32,18 @@ import { CommonModule } from '@angular/common';
       </div>
     </div>
   `,
-    styles: []
+  styles: []
 })
 export class LoadingScreenComponent implements OnInit {
-    @Output() loadingComplete = new EventEmitter<void>();
-    fadeOut = false;
+  @Output() loadingComplete = new EventEmitter<void>();
+  fadeOut = false;
 
-    ngOnInit() {
-        setTimeout(() => {
-            this.fadeOut = true;
-            setTimeout(() => {
-                this.loadingComplete.emit();
-            }, 800);
-        }, 2000);
-    }
+  ngOnInit() {
+    setTimeout(() => {
+      this.fadeOut = true;
+      setTimeout(() => {
+        this.loadingComplete.emit();
+      }, 800);
+    }, 2000);
+  }
 }

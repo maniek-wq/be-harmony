@@ -4,10 +4,10 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 @Component({
-    selector: 'app-contact-form',
-    standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, ScrollRevealDirective],
-    template: `
+  selector: 'app-contact-form',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, ScrollRevealDirective],
+  template: `
     <section id="kontakt" class="py-20 md:py-28 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
@@ -32,7 +32,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-900 mb-1">Adres</h4>
-                  <p class="text-gray-500">Adres gabinetu — do uzupełnienia</p>
+                  <p class="text-gray-500">Przęsocin<br>ul. Orzechowa 33B/7</p>
                 </div>
               </div>
 
@@ -44,7 +44,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-900 mb-1">Telefon</h4>
-                  <p class="text-gray-500">+48 XXX XXX XXX</p>
+                  <p class="text-gray-500"><a href="tel:+48601160646" class="hover:text-terracotta transition-colors">601 160 646</a></p>
                 </div>
               </div>
 
@@ -56,7 +56,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-900 mb-1">Email</h4>
-                  <p class="text-gray-500">kontakt&#64;be-harmony.pl</p>
+                  <p class="text-gray-500"><a href="mailto:beharmonynataliamatusz@gmail.com" class="hover:text-terracotta transition-colors">beharmonynataliamatusz&#64;gmail.com</a></p>
                 </div>
               </div>
             </div>
@@ -130,30 +130,30 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       </div>
     </section>
   `,
-    styles: []
+  styles: []
 })
 export class ContactFormComponent {
-    contactForm: FormGroup;
-    submitted = false;
+  contactForm: FormGroup;
+  submitted = false;
 
-    constructor(private fb: FormBuilder) {
-        this.contactForm = this.fb.group({
-            name: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
-            phone: [''],
-            subject: [''],
-            message: ['', Validators.required],
-        });
-    }
+  constructor(private fb: FormBuilder) {
+    this.contactForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [''],
+      subject: [''],
+      message: ['', Validators.required],
+    });
+  }
 
-    onSubmit() {
-        if (this.contactForm.valid) {
-            console.log('Form submitted:', this.contactForm.value);
-            this.submitted = true;
-            this.contactForm.reset();
-            setTimeout(() => this.submitted = false, 5000);
-        } else {
-            this.contactForm.markAllAsTouched();
-        }
+  onSubmit() {
+    if (this.contactForm.valid) {
+      console.log('Form submitted:', this.contactForm.value);
+      this.submitted = true;
+      this.contactForm.reset();
+      setTimeout(() => this.submitted = false, 5000);
+    } else {
+      this.contactForm.markAllAsTouched();
     }
+  }
 }
