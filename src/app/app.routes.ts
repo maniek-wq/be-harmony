@@ -5,7 +5,7 @@ import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.co
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'precios', component: PricingPageComponent },
-    { path: 'politica-de-privacidad', component: PrivacyPolicyComponent },
+    { path: 'cennik', component: PricingPageComponent },
+    { path: 'polityka-prywatnosci', component: PrivacyPolicyComponent },
     { path: '**', redirectTo: '' }
 ];

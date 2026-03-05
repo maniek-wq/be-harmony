@@ -15,8 +15,8 @@ import { RouterLink } from '@angular/router';
             <h3 class="font-display text-2xl font-semibold text-white mb-2">Be Harmony</h3>
             <p class="text-mint italic text-sm font-display mb-4">Natalia Matusz</p>
             <p class="text-gray-400 text-sm leading-relaxed">
-              Centro de entrenamiento EMS.<br>
-              Cuida tu cuerpo, cuida de ti, encuentra la armonía.
+              Gabinet fizjoterapii.<br>
+              Zadbaj o ciało, zadbaj o siebie, znajdź harmonię.
             </p>
 
             <!-- Social media -->
@@ -44,27 +44,32 @@ import { RouterLink } from '@angular/router';
 
           <!-- Navigation -->
           <div>
-            <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Navegación</h4>
+            <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Nawigacja</h4>
             <ul class="space-y-3">
-              <li><a href="#sobre-nosotros" class="text-gray-400 hover:text-mint transition-colors text-sm">Sobre nosotros</a></li>
-              <li><a href="#servicios" class="text-gray-400 hover:text-mint transition-colors text-sm">Servicios</a></li>
-              <li><a href="#equipo" class="text-gray-400 hover:text-mint transition-colors text-sm">Equipo</a></li>
-              <li><a href="#galeria" class="text-gray-400 hover:text-mint transition-colors text-sm">Galería</a></li>
-              <li><a routerLink="/precios" class="text-gray-400 hover:text-mint transition-colors text-sm">Precios</a></li>
+              <li><a href="#o-nas" class="text-gray-400 hover:text-mint transition-colors text-sm">O nas</a></li>
+              <li><a href="#uslugi" class="text-gray-400 hover:text-mint transition-colors text-sm">Usługi</a></li>
+              <li><a href="#zespol" class="text-gray-400 hover:text-mint transition-colors text-sm">Zespół</a></li>
+              <li><a href="#galeria" class="text-gray-400 hover:text-mint transition-colors text-sm">Galeria</a></li>
+              <li><a routerLink="/cennik" class="text-gray-400 hover:text-mint transition-colors text-sm">Cennik</a></li>
             </ul>
           </div>
 
           <!-- Services -->
           <div>
-            <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Servicios</h4>
+            <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Usługi</h4>
             <ul class="space-y-3">
-              <li><span class="text-gray-400 text-sm">Entrenamiento EMS</span></li>
+              <li><span class="text-gray-400 text-sm">Trening EMS</span></li>
+              <li><span class="text-gray-400 text-sm">Terapia ciała</span></li>
+              <li><span class="text-gray-400 text-sm">Masaże</span></li>
+              <li><span class="text-gray-400 text-sm">Terapia wisceralna</span></li>
+              <li><span class="text-gray-400 text-sm">HTR</span></li>
+              <li><span class="text-gray-400 text-sm">Trening Funkcjonalny</span></li>
             </ul>
           </div>
 
           <!-- Contact -->
           <div>
-            <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Contacto</h4>
+            <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Kontakt</h4>
             <ul class="space-y-3">
               <li class="flex items-center gap-2 text-gray-400 text-sm">
                 <svg class="w-4 h-4 text-mint flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,11 +96,11 @@ import { RouterLink } from '@angular/router';
         <!-- Bottom bar -->
         <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
           <p class="text-gray-500 text-sm">
-            &copy; {{ currentYear }} Be Harmony — Natalia Matusz. Todos los derechos reservados.
+            &copy; {{ currentYear }} Be Harmony — Natalia Matusz. Wszelkie prawa zastrzeżone.
           </p>
           <div class="flex gap-4">
-            <a routerLink="/politica-de-privacidad" class="text-gray-500 hover:text-mint transition-colors text-sm">
-              Política de privacidad
+            <a routerLink="/polityka-prywatnosci" class="text-gray-500 hover:text-mint transition-colors text-sm">
+              Polityka prywatności
             </a>
           </div>
         </div>

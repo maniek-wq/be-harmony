@@ -17,12 +17,12 @@ interface GalleryImage {
     <section id="galeria" class="py-20 md:py-28 bg-mint-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
-          <span class="inline-block px-4 py-1.5 bg-white text-terracotta rounded-full text-sm font-medium mb-4 shadow-sm">Galería</span>
+          <span class="inline-block px-4 py-1.5 bg-white text-terracotta rounded-full text-sm font-medium mb-4 shadow-sm">Galeria</span>
           <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Nuestro <span class="text-terracotta">centro</span>
+            Nasz <span class="text-terracotta">gabinet</span>
           </h2>
           <p class="text-gray-600 max-w-2xl mx-auto text-lg">
-            Un espacio creado pensando en tu comodidad
+            Przestrzeń stworzona z myślą o Twoim komforcie
           </p>
         </div>
 
@@ -86,11 +86,11 @@ interface GalleryImage {
         <!-- Navigation -->
         <div class="flex justify-between mt-4">
           <button (click)="prevImage($event)" class="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors">
-            ← Anterior
+            ← Poprzednie
           </button>
           <span class="text-white/50 self-center text-sm">{{ selectedImage + 1 }} / {{ galleryImages.length }}</span>
           <button (click)="nextImage($event)" class="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors">
-            Siguiente →
+            Następne →
           </button>
         </div>
       </div>
@@ -114,12 +114,12 @@ export class GalleryComponent {
   selectedImage = 0;
 
   galleryImages: GalleryImage[] = [
-    { label: 'Centro', src: 'assets/img/10445.jpg', size: 'large', loaded: false },
-    { label: 'Interior del estudio', src: 'assets/img/10507.jpg', size: 'large', loaded: false },
-    { label: 'Zona de entrenamiento', src: 'assets/img/10498.jpg', size: 'large', loaded: false },
-    { label: 'Sala de tratamientos', src: 'assets/img/10517.jpg', size: 'large', loaded: false },
-    { label: 'Bienvenidos', src: 'assets/img/10469.jpg', size: 'normal', loaded: false },
-    { label: 'Ambiente', src: 'assets/img/10460.jpg', size: 'normal', loaded: false },
+    { label: 'Gabinet', src: 'assets/img/10445.jpg', size: 'large', loaded: false },
+    { label: 'Wnętrze studia', src: 'assets/img/10507.jpg', size: 'large', loaded: false },
+    { label: 'Strefa treningowa', src: 'assets/img/10498.jpg', size: 'large', loaded: false },
+    { label: 'Sala zabiegowa', src: 'assets/img/10517.jpg', size: 'large', loaded: false },
+    { label: 'Zapraszamy', src: 'assets/img/10469.jpg', size: 'normal', loaded: false },
+    { label: 'Atmosfera', src: 'assets/img/10460.jpg', size: 'normal', loaded: false },
   ];
 
   openLightbox(index: number) {

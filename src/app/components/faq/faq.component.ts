@@ -3,25 +3,25 @@ import { CommonModule } from '@angular/common';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 interface FaqItem {
-  question: string;
-  answer: string;
-  open: boolean;
+    question: string;
+    answer: string;
+    open: boolean;
 }
 
 @Component({
-  selector: 'app-faq',
-  standalone: true,
-  imports: [CommonModule, ScrollRevealDirective],
-  template: `
+    selector: 'app-faq',
+    standalone: true,
+    imports: [CommonModule, ScrollRevealDirective],
+    template: `
     <section class="py-20 md:py-28 bg-white">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
           <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">FAQ</span>
           <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Preguntas <span class="text-terracotta">frecuentes</span>
+            Najczęściej zadawane <span class="text-terracotta">pytania</span>
           </h2>
           <p class="text-gray-600 text-lg">
-            Respuestas a las preguntas que recibimos con más frecuencia
+            Odpowiedzi na pytania, które otrzymujemy najczęściej
           </p>
         </div>
 
@@ -60,43 +60,43 @@ interface FaqItem {
       </div>
     </section>
   `,
-  styles: []
+    styles: []
 })
 export class FaqComponent {
-  faqItems: FaqItem[] = [
-    {
-      question: '¿Qué es el entrenamiento EMS?',
-      answer: 'EMS (Electrical Muscle Stimulation) es una tecnología de entrenamiento innovadora que utiliza impulsos eléctricos para estimular simultáneamente todos los grupos musculares principales. Una sesión de 20 minutos equivale a varias horas de entrenamiento convencional en el gimnasio. Es seguro, efectivo y adecuado para todos los niveles.',
-      open: false,
-    },
-    {
-      question: '¿Cómo prepararme para el entrenamiento EMS?',
-      answer: 'Para el entrenamiento EMS, trae ropa cómoda (camiseta y pantalones cortos/leggins) y zapatillas deportivas. Come una comida ligera al menos 1,5 horas antes y recuerda hidratarte bien. Todo el equipamiento EMS lo proporcionamos nosotros.',
-      open: false,
-    },
-    {
-      question: '¿Cuánto dura la primera sesión?',
-      answer: 'La primera sesión dura aproximadamente de 30 a 40 minutos. Incluye una entrevista detallada, evaluación funcional y la primera sesión de entrenamiento EMS. Las sesiones siguientes duran 20 minutos de entrenamiento activo.',
-      open: false,
-    },
-    {
-      question: '¿Puedo cancelar una cita?',
-      answer: 'Sí, te pedimos que canceles la cita con al menos 24 horas de antelación, por teléfono o mensaje. De esta manera podemos ofrecer el horario a otro cliente. En caso de no cancelar, puede aplicarse un cargo.',
-      open: false,
-    },
-    {
-      question: '¿Para quién es el entrenamiento EMS? ¿Hay contraindicaciones?',
-      answer: 'El entrenamiento EMS es seguro para la mayoría de las personas, independientemente de su nivel de forma física. Las contraindicaciones incluyen: embarazo, marcapasos, epilepsia, estados inflamatorios activos y enfermedades oncológicas. Antes del primer entrenamiento siempre realizamos una entrevista de salud.',
-      open: false,
-    },
-    {
-      question: '¿Ofrecen tarjetas regalo?',
-      answer: '¡Sí! Ofrecemos elegantes tarjetas regalo para cualquier servicio o una cantidad específica. Es el regalo perfecto para tus seres queridos, ya sea para un cumpleaños, festivos o simplemente porque sí. Pregunta por los detalles por teléfono o a través del formulario de contacto.',
-      open: false,
-    },
-  ];
+    faqItems: FaqItem[] = [
+        {
+            question: 'Czy potrzebuję skierowania od lekarza?',
+            answer: 'Nie, do naszego gabinetu nie potrzebujesz skierowania. Możesz umówić się na wizytę bezpośrednio, dzwoniąc pod numer 601 160 646 lub wypełniając formularz kontaktowy na stronie. Na pierwszej wizycie przeprowadzimy szczegółowy wywiad i badanie funkcjonalne.',
+            open: false,
+        },
+        {
+            question: 'Jak przygotować się do treningu EMS?',
+            answer: 'Na trening EMS weź ze sobą wygodne ubranie (koszulka i spodenki/leginsy) oraz buty sportowe. Przed treningiem jedz lekki posiłek minimum 1,5 godziny wcześniej i pamiętaj o nawodnieniu. Cały sprzęt EMS zapewniamy na miejscu.',
+            open: false,
+        },
+        {
+            question: 'Ile trwa pierwsza wizyta?',
+            answer: 'Pierwsza wizyta trwa zazwyczaj od 60 do 90 minut. Obejmuje szczegółowy wywiad, ocenę funkcjonalną oraz pierwszą sesję terapeutyczną. Kolejne wizyty trwają zgodnie z czasem opisanym przy danej usłudze.',
+            open: false,
+        },
+        {
+            question: 'Czy mogę odwołać wizytę?',
+            answer: 'Tak, prosimy o odwołanie wizyty minimum 24 godziny wcześniej, telefonicznie lub za pośrednictwem wiadomości. Dzięki temu możemy zaproponować termin innemu pacjentowi. W przypadku braku odwołania może zostać naliczona opłata.',
+            open: false,
+        },
+        {
+            question: 'Dla kogo jest trening EMS? Czy są przeciwwskazania?',
+            answer: 'Trening EMS jest bezpieczny dla większości osób, niezależnie od poziomu sprawności. Przeciwwskazaniami są m.in. ciąża, rozrusznik serca, epilepsja, aktywne stany zapalne i choroby nowotworowe. Przed pierwszym treningiem zawsze przeprowadzamy wywiad zdrowotny.',
+            open: false,
+        },
+        {
+            question: 'Czy oferujecie bony podarunkowe?',
+            answer: 'Tak! Oferujemy eleganckie bony podarunkowe na dowolną usługę lub konkretną kwotę. To idealny prezent dla bliskich — na urodziny, święta lub po prostu tak. Zapytaj o szczegóły telefonicznie lub przez formularz kontaktowy.',
+            open: false,
+        },
+    ];
 
-  toggle(index: number) {
-    this.faqItems[index].open = !this.faqItems[index].open;
-  }
+    toggle(index: number) {
+        this.faqItems[index].open = !this.faqItems[index].open;
+    }
 }

@@ -3,19 +3,19 @@ import { CommonModule } from '@angular/common';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 @Component({
-  selector: 'app-team',
-  standalone: true,
-  imports: [CommonModule, ScrollRevealDirective],
-  template: `
-    <section id="equipo" class="py-20 md:py-28 bg-white">
+    selector: 'app-team',
+    standalone: true,
+    imports: [CommonModule, ScrollRevealDirective],
+    template: `
+    <section id="zespol" class="py-20 md:py-28 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
-          <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">Nuestro equipo</span>
+          <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">Nasz zespół</span>
           <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Conoce a <span class="text-terracotta">nuestro equipo</span>
+            Poznaj <span class="text-terracotta">nasz zespół</span>
           </h2>
           <p class="text-gray-600 max-w-2xl mx-auto text-lg">
-            Especialistas cualificados con pasión por ayudar
+            Wykwalifikowani specjaliści z pasją do pomagania
           </p>
         </div>
 
@@ -42,24 +42,24 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       </div>
     </section>
   `,
-  styles: []
+    styles: []
 })
 export class TeamComponent {
-  teamMembers = [
-    {
-      name: 'Natalia Matusz',
-      role: 'Fisioterapeuta / Fundadora',
-      bio: 'Fisioterapeuta apasionada por el enfoque holístico del cuerpo. Especializada en terapia manual y entrenamiento EMS.',
-    },
-    {
-      name: 'Nombre Apellido',
-      role: 'Especialista / Terapeuta',
-      bio: 'Descripción de la persona — experiencia, especialización y enfoque en el trabajo con el paciente.',
-    },
-    {
-      name: 'Nombre Apellido',
-      role: 'Especialista / Terapeuta',
-      bio: 'Descripción de la persona — experiencia, especialización y enfoque en el trabajo con el paciente.',
-    },
-  ];
+    teamMembers = [
+        {
+            name: 'Natalia Matusz',
+            role: 'Fizjoterapeutka / Założycielka',
+            bio: 'Fizjoterapeutka z pasją do holistycznego podejścia do ciała. Specjalizuje się w terapii manualnej i treningu EMS.',
+        },
+        {
+            name: 'Imię Nazwisko',
+            role: 'Specjalista / Terapeuta',
+            bio: 'Opis osoby — doświadczenie, specjalizacja i podejście do pracy z pacjentem.',
+        },
+        {
+            name: 'Imię Nazwisko',
+            role: 'Specjalista / Terapeuta',
+            bio: 'Opis osoby — doświadczenie, specjalizacja i podejście do pracy z pacjentem.',
+        },
+    ];
 }

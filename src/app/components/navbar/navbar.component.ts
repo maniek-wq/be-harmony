@@ -27,13 +27,13 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
                class="px-4 py-2 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200">
               {{ item.label }}
             </a>
-            <a routerLink="/precios"
+            <a routerLink="/cennik"
                class="px-4 py-2 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200">
-              Precios
+              Cennik
             </a>
-            <a href="javascript:void(0)" (click)="navigateToSection('#contacto')"
+            <a href="javascript:void(0)" (click)="navigateToSection('#kontakt')"
                class="ml-2 px-5 py-2.5 bg-mint text-terracotta-800 font-semibold rounded-full hover:bg-mint-200 hover:shadow-lg transition-all duration-300 text-sm">
-              Reservar cita
+              Umów wizytę
             </a>
           </div>
 
@@ -59,13 +59,13 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
              class="block px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-colors text-sm font-medium">
             {{ item.label }}
           </a>
-          <a routerLink="/precios" (click)="toggleMobile()"
+          <a routerLink="/cennik" (click)="toggleMobile()"
              class="block px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-colors text-sm font-medium">
-            Precios
+            Cennik
           </a>
-          <a href="javascript:void(0)" (click)="navigateToSection('#contacto'); toggleMobile()"
+          <a href="javascript:void(0)" (click)="navigateToSection('#kontakt'); toggleMobile()"
              class="block mx-4 mt-3 px-5 py-3 bg-mint text-terracotta-800 font-semibold rounded-full text-center hover:bg-mint-200 transition-all text-sm">
-            Reservar cita
+            Umów wizytę
           </a>
         </div>
       </div>
@@ -78,11 +78,11 @@ export class NavbarComponent {
   mobileOpen = false;
 
   menuItems = [
-    { label: 'Sobre nosotros', href: '#sobre-nosotros' },
-    { label: 'Servicios', href: '#servicios' },
-    { label: 'Equipo', href: '#equipo' },
-    { label: 'Galería', href: '#galeria' },
-    { label: 'Contacto', href: '#contacto' },
+    { label: 'O nas', href: '#o-nas' },
+    { label: 'Usługi', href: '#uslugi' },
+    { label: 'Zespół', href: '#zespol' },
+    { label: 'Galeria', href: '#galeria' },
+    { label: 'Kontakt', href: '#kontakt' },
   ];
 
   constructor(private router: Router) { }

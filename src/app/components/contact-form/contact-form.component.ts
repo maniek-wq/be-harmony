@@ -8,18 +8,18 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, ScrollRevealDirective],
   template: `
-    <section id="contacto" class="py-20 md:py-28 bg-white">
+    <section id="kontakt" class="py-20 md:py-28 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
           <!-- Left: Info -->
           <div appScrollReveal>
-            <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">Contacto</span>
+            <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">Kontakt</span>
             <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Escríbenos <span class="text-terracotta">un mensaje</span>
+              Napisz <span class="text-terracotta">do nas</span>
             </h2>
             <p class="text-gray-600 text-lg leading-relaxed mb-8">
-              ¿Tienes preguntas sobre nuestros servicios? ¿Quieres reservar una cita? 
-              Rellena el formulario y te responderemos lo antes posible.
+              Masz pytania dotyczące naszych usług? Chcesz umówić wizytę? 
+              Wypełnij formularz, a odezwiemy się najszybciej jak to możliwe.
             </p>
 
             <div class="space-y-6">
@@ -31,7 +31,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                   </svg>
                 </div>
                 <div>
-                  <h4 class="font-semibold text-gray-900 mb-1">Dirección</h4>
+                  <h4 class="font-semibold text-gray-900 mb-1">Adres</h4>
                   <p class="text-gray-500">Przęsocin<br>ul. Orzechowa 33B/7</p>
                 </div>
               </div>
@@ -43,7 +43,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                   </svg>
                 </div>
                 <div>
-                  <h4 class="font-semibold text-gray-900 mb-1">Teléfono</h4>
+                  <h4 class="font-semibold text-gray-900 mb-1">Telefon</h4>
                   <p class="text-gray-500"><a href="tel:+48601160646" class="hover:text-terracotta transition-colors">601 160 646</a></p>
                 </div>
               </div>
@@ -69,60 +69,60 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
               
               <div class="grid sm:grid-cols-2 gap-4 mb-4">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Nombre y apellido *</label>
-                  <input formControlName="name" type="text" placeholder="Juan García"
+                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Imię i nazwisko *</label>
+                  <input formControlName="name" type="text" placeholder="Jan Kowalski"
                          class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm"
                          [class.border-red-300]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
                   <p *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
-                     class="mt-1 text-xs text-red-500">Por favor, introduce tu nombre y apellido</p>
+                     class="mt-1 text-xs text-red-500">Proszę podać imię i nazwisko</p>
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Teléfono</label>
-                  <input formControlName="phone" type="tel" placeholder="+34 XXX XXX XXX"
+                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Telefon</label>
+                  <input formControlName="phone" type="tel" placeholder="+48 XXX XXX XXX"
                          class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm">
                 </div>
               </div>
 
               <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Email *</label>
-                <input formControlName="email" type="email" placeholder="juan@ejemplo.com"
+                <input formControlName="email" type="email" placeholder="jan@example.com"
                        class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm"
                        [class.border-red-300]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
                 <p *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
-                   class="mt-1 text-xs text-red-500">Por favor, introduce un email válido</p>
+                   class="mt-1 text-xs text-red-500">Proszę podać poprawny adres email</p>
               </div>
 
               <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1.5">Asunto</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Temat</label>
                 <select formControlName="subject"
                         class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm">
-                  <option value="">Seleccionar asunto...</option>
-                  <option value="cita">Reservar una cita</option>
-                  <option value="ems">Entrenamiento EMS</option>
-                  <option value="precios">Pregunta sobre precios</option>
-                  <option value="otro">Otro</option>
+                  <option value="">Wybierz temat...</option>
+                  <option value="wizyta">Umówienie wizyty</option>
+                  <option value="ems">Trening EMS</option>
+                  <option value="cennik">Pytanie o cennik</option>
+                  <option value="inne">Inne</option>
                 </select>
               </div>
 
               <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-1.5">Mensaje *</label>
-                <textarea formControlName="message" rows="5" placeholder="Tu mensaje..."
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Wiadomość *</label>
+                <textarea formControlName="message" rows="5" placeholder="Twoja wiadomość..."
                           class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm resize-none"
                           [class.border-red-300]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"></textarea>
                 <p *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
-                   class="mt-1 text-xs text-red-500">Por favor, escribe un mensaje</p>
+                   class="mt-1 text-xs text-red-500">Proszę wpisać wiadomość</p>
               </div>
 
               <button type="submit"
                       [disabled]="contactForm.invalid"
                       class="w-full px-8 py-4 bg-terracotta text-white font-semibold rounded-xl hover:bg-terracotta-600 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 text-sm">
-                Enviar mensaje
+                Wyślij wiadomość
               </button>
 
               <!-- Success message -->
               <div *ngIf="submitted"
                    class="mt-4 p-4 bg-mint-100 text-mint-800 rounded-xl text-sm text-center animate-fade-in">
-                ✅ ¡Mensaje enviado! Nos pondremos en contacto contigo pronto.
+                ✅ Wiadomość została wysłana! Skontaktujemy się wkrótce.
               </div>
             </form>
           </div>
