@@ -36,7 +36,7 @@ interface GalleryImage {
             <div class="relative aspect-square overflow-hidden bg-mint-100 w-full">
               <!-- Skeleton shimmer -->
               <div *ngIf="!img.loaded" class="absolute inset-0 skeleton-shimmer"></div>
-              <img [src]="img.src" [alt]="img.label" decoding="async"
+              <img [src]="img.src" [alt]="img.label" decoding="async" loading="lazy"
                    (load)="img.loaded = true"
                    class="block w-full h-full max-w-full max-h-full object-cover object-center img-content img-scale-mobile group-hover:scale-110 transition-all duration-500"
                    [class.opacity-0]="!img.loaded"
@@ -69,10 +69,19 @@ interface GalleryImage {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </button>
-        <img [src]="galleryImages[selectedImage].src" 
-             [alt]="galleryImages[selectedImage].label"
-             decoding="async"
-             class="w-full max-w-full max-h-[80vh] object-contain rounded-xl img-content img-scale-mobile">
+        <div class="relative">
+          <!-- Lightbox skeleton -->
+          <div *ngIf="!lightboxImageLoaded" class="absolute inset-0 flex items-center justify-center">
+            <div class="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+          </div>
+          <img [src]="galleryImages[selectedImage].src" 
+               [alt]="galleryImages[selectedImage].label"
+               decoding="async"
+               (load)="lightboxImageLoaded = true"
+               class="w-full max-w-full max-h-[80vh] object-contain rounded-xl img-content img-scale-mobile transition-opacity duration-300"
+               [class.opacity-0]="!lightboxImageLoaded"
+               [class.opacity-100]="lightboxImageLoaded">
+        </div>
         <p class="text-white text-center mt-3 font-display text-lg">{{ galleryImages[selectedImage].label }}</p>
         <!-- Navigation -->
         <div class="flex justify-between mt-4">
@@ -101,6 +110,7 @@ interface GalleryImage {
 })
 export class GalleryComponent {
   lightboxOpen = false;
+  lightboxImageLoaded = false;
   selectedImage = 0;
 
   galleryImages: GalleryImage[] = [
@@ -115,6 +125,7 @@ export class GalleryComponent {
   openLightbox(index: number) {
     this.selectedImage = index;
     this.lightboxOpen = true;
+    this.lightboxImageLoaded = false;
     document.body.style.overflow = 'hidden';
   }
 
@@ -125,11 +136,13 @@ export class GalleryComponent {
 
   prevImage(e: Event) {
     e.stopPropagation();
+    this.lightboxImageLoaded = false;
     this.selectedImage = this.selectedImage > 0 ? this.selectedImage - 1 : this.galleryImages.length - 1;
   }
 
   nextImage(e: Event) {
     e.stopPropagation();
+    this.lightboxImageLoaded = false;
     this.selectedImage = this.selectedImage < this.galleryImages.length - 1 ? this.selectedImage + 1 : 0;
   }
 }
