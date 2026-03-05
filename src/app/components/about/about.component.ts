@@ -36,18 +36,13 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
             </div>
           </div>
 
-          <div appScrollReveal [revealDelay]="0.2" class="relative">
-            <div class="aspect-[4/5] rounded-2xl bg-gradient-to-br from-mint-100 to-mint-200 overflow-hidden shadow-2xl">
-              <div class="w-full h-full flex items-center justify-center">
-                <div class="text-center p-8">
-                  <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-terracotta/10 flex items-center justify-center">
-                    <svg class="w-16 h-16 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                    </svg>
-                  </div>
-                  <p class="font-display text-2xl text-terracotta font-semibold">Be Harmony</p>
-                  <p class="text-mint-700 mt-2 italic">Twój gabinet fizjoterapii</p>
-                </div>
+          <div appScrollReveal [revealDelay]="0.2" class="relative min-w-0">
+            <div class="aspect-[4/5] max-h-[70vh] md:max-h-none rounded-2xl overflow-hidden shadow-2xl relative w-full">
+              <img src="assets/img/104691.jpg" alt="Be Harmony — Natalia Matusz, gabinet fizjoterapii" class="block w-full h-full max-w-full max-h-full object-cover object-center img-content img-scale-mobile" decoding="async" fetchpriority="high" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 text-center p-6">
+                <p class="font-display text-2xl text-white font-semibold drop-shadow">Be Harmony</p>
+                <p class="text-white/90 mt-2 italic drop-shadow text-sm">Twój gabinet fizjoterapii</p>
               </div>
             </div>
             <!-- Decorative element -->

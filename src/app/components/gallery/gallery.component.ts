@@ -30,11 +30,11 @@ interface GalleryImage {
           <div *ngFor="let img of galleryImages; let i = index"
                appScrollReveal [revealDelay]="i * 0.08"
                (click)="openLightbox(i)"
-               class="group cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300"
+               class="group cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 min-w-0"
                [ngClass]="{'col-span-2 row-span-2': img.size === 'large'}">
-            <div class="relative aspect-square overflow-hidden bg-mint-100">
-              <img [src]="img.src" [alt]="img.label"
-                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            <div class="relative aspect-square overflow-hidden bg-mint-100 w-full">
+              <img [src]="img.src" [alt]="img.label" decoding="async"
+                   class="block w-full h-full max-w-full max-h-full object-cover object-center img-content img-scale-mobile group-hover:scale-110 transition-transform duration-500">
               <!-- Hover overlay -->
               <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-end">
                 <div class="w-full p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -65,7 +65,8 @@ interface GalleryImage {
         </button>
         <img [src]="galleryImages[selectedImage].src" 
              [alt]="galleryImages[selectedImage].label"
-             class="w-full max-h-[80vh] object-contain rounded-xl">
+             decoding="async"
+             class="w-full max-w-full max-h-[80vh] object-contain rounded-xl img-content img-scale-mobile">
         <p class="text-white text-center mt-3 font-display text-lg">{{ galleryImages[selectedImage].label }}</p>
         <!-- Navigation -->
         <div class="flex justify-between mt-4">
@@ -87,13 +88,13 @@ export class GalleryComponent {
   selectedImage = 0;
 
   galleryImages: GalleryImage[] = [
-    { label: 'Gabinet', src: 'assets/img/1.jpeg', size: 'large' },
-    { label: 'Strefa EMS', src: 'assets/img/foto_ems1.jpg', size: 'normal' },
-    { label: 'Sala zabiegowa', src: 'assets/img/3.jpeg', size: 'normal' },
-    { label: 'Strefa relaksu', src: 'assets/img/6.jpeg', size: 'normal' },
-    { label: 'Sprzęt EMS', src: 'assets/img/5.jpg', size: 'large' },
-    { label: 'Wnętrze', src: 'assets/img/2.jpeg', size: 'normal' },
-    { label: 'Atmosfera', src: 'assets/img/4.jpg', size: 'normal' },
+    { label: 'Gabinet', src: 'assets/img/10445.jpg', size: 'large' },
+    { label: 'Wnętrze studia', src: 'assets/img/10507.jpg', size: 'large' },
+    { label: 'Strefa treningowa', src: 'assets/img/10498.jpg', size: 'large' },
+    { label: 'Sala zabiegowa', src: 'assets/img/10517.jpg', size: 'large' },
+    { label: 'Zapraszamy', src: 'assets/img/10469.jpg', size: 'normal' },
+    { label: 'Atmosfera', src: 'assets/img/10460.jpg', size: 'normal' },
+    { label: 'Bon podarunkowy', src: 'assets/img/10453.jpg', size: 'normal' },
   ];
 
   openLightbox(index: number) {

@@ -29,10 +29,21 @@ body {
   transform: translateY(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+.reveal-delay-4 {
+  transition-delay: 0.4s;
+}
 
 /* Loading screen */
 .loading-overlay {
@@ -95,7 +106,42 @@ body {
 }
 
 @keyframes gradientBorder {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Ostrość zdjęć: wysokiej jakości skalowanie w dół dla fotografii.
+   Zdjęcia źródłowe mają 2000–4000 px, więc na mobilkach są skalowane
+   znacząco — ważne, aby przeglądarka używała interpolacji bikubicznej,
+   a nie nearest-neighbor (co powodowało pikselozę). */
+img.img-content {
+  image-rendering: auto;
+  /* domyślna, najlepsza jakość */
+  image-rendering: -webkit-optimize-quality;
+  /* hint dla starszych WebKit  */
+  image-rendering: smooth;
+  /* hint dla Firefox           */
+  backface-visibility: hidden;
+  will-change: transform;
+  /* GPU compositing bez translateZ(0) */
+}
+
+/* Na telefonie: dopasowanie do kontenera + wymuszenie wygładzenia */
+@media (max-width: 767px) {
+  img.img-scale-mobile {
+    max-width: 100%;
+    width: 100%;
+    image-rendering: auto;
+    image-rendering: -webkit-optimize-quality;
+    image-rendering: smooth;
+  }
 }
