@@ -7,9 +7,9 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
   standalone: true,
   imports: [CommonModule, ScrollRevealDirective],
   template: `
-    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-white">
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-white" style="transform: translateZ(0);">
       <!-- Background Images Marquee -->
-      <div class="absolute inset-0 z-0 overflow-hidden">
+      <div class="absolute inset-0 z-0 overflow-hidden" style="transform: translateZ(0);">
         <img src="assets/img/10507.jpg" alt="Gabinet Fizjoterapii" class="hero-bg-img img-scale-mobile" style="animation-delay: 0s;">
         <img src="assets/img/2.jpeg" alt="Fizjoterapia Be Harmony" class="hero-bg-img img-scale-mobile" style="animation-delay: 6s;">
         <img src="assets/img/6.jpeg" alt="Masaż relaksacyjny" class="hero-bg-img img-scale-mobile" style="animation-delay: 12s;">

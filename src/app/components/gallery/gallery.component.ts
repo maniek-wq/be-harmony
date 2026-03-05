@@ -6,6 +6,7 @@ interface GalleryImage {
   label: string;
   src: string;
   size: 'normal' | 'large';
+  loaded: boolean;
 }
 
 @Component({
@@ -33,8 +34,13 @@ interface GalleryImage {
                class="group cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 min-w-0"
                [ngClass]="{'col-span-2 row-span-2': img.size === 'large'}">
             <div class="relative aspect-square overflow-hidden bg-mint-100 w-full">
+              <!-- Skeleton shimmer -->
+              <div *ngIf="!img.loaded" class="absolute inset-0 skeleton-shimmer"></div>
               <img [src]="img.src" [alt]="img.label" decoding="async"
-                   class="block w-full h-full max-w-full max-h-full object-cover object-center img-content img-scale-mobile group-hover:scale-110 transition-transform duration-500">
+                   (load)="img.loaded = true"
+                   class="block w-full h-full max-w-full max-h-full object-cover object-center img-content img-scale-mobile group-hover:scale-110 transition-all duration-500"
+                   [class.opacity-0]="!img.loaded"
+                   [class.opacity-100]="img.loaded">
               <!-- Hover overlay -->
               <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-end">
                 <div class="w-full p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -81,19 +87,29 @@ interface GalleryImage {
       </div>
     </div>
   `,
-  styles: []
+  styles: [`
+    .skeleton-shimmer {
+      background: linear-gradient(90deg, #e6f4ea 25%, #d4eede 50%, #e6f4ea 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  `]
 })
 export class GalleryComponent {
   lightboxOpen = false;
   selectedImage = 0;
 
   galleryImages: GalleryImage[] = [
-    { label: 'Gabinet', src: 'assets/img/10445.jpg', size: 'large' },
-    { label: 'Wnętrze studia', src: 'assets/img/10507.jpg', size: 'large' },
-    { label: 'Strefa treningowa', src: 'assets/img/10498.jpg', size: 'large' },
-    { label: 'Sala zabiegowa', src: 'assets/img/10517.jpg', size: 'large' },
-    { label: 'Zapraszamy', src: 'assets/img/10469.jpg', size: 'normal' },
-    { label: 'Atmosfera', src: 'assets/img/10460.jpg', size: 'normal' },
+    { label: 'Gabinet', src: 'assets/img/10445.jpg', size: 'large', loaded: false },
+    { label: 'Wnętrze studia', src: 'assets/img/10507.jpg', size: 'large', loaded: false },
+    { label: 'Strefa treningowa', src: 'assets/img/10498.jpg', size: 'large', loaded: false },
+    { label: 'Sala zabiegowa', src: 'assets/img/10517.jpg', size: 'large', loaded: false },
+    { label: 'Zapraszamy', src: 'assets/img/10469.jpg', size: 'normal', loaded: false },
+    { label: 'Atmosfera', src: 'assets/img/10460.jpg', size: 'normal', loaded: false },
   ];
 
   openLightbox(index: number) {

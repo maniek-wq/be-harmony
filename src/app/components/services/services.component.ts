@@ -87,9 +87,9 @@ interface Service {
           <div *ngFor="let service of services; let i = index"
                appScrollReveal [revealDelay]="i * 0.1"
                (click)="openModal(service)"
-               class="group cursor-pointer bg-white rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-mint-100 hover:border-mint-300 hover:-translate-y-1">
+               class="group cursor-pointer bg-white rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-mint-100 hover:border-terracotta/30 hover:-translate-y-1.5 active:scale-[0.98] active:shadow-md">
             
-            <div class="w-14 h-14 rounded-xl bg-mint-50 flex items-center justify-center mb-5 group-hover:bg-mint-100 transition-colors">
+            <div class="w-14 h-14 rounded-xl bg-mint-50 flex items-center justify-center mb-5 group-hover:bg-terracotta/10 group-hover:scale-110 transition-all duration-300">
               <span class="text-2xl" [innerHTML]="service.icon"></span>
             </div>
 

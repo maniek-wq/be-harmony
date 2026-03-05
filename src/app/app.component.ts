@@ -6,11 +6,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CookieBannerComponent } from './components/cookie-banner/cookie-banner.component';
 import { BackToTopComponent } from './components/back-to-top/back-to-top.component';
+import { FloatingCtaComponent } from './components/floating-cta/floating-cta.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LoadingScreenComponent, NavbarComponent, FooterComponent, CookieBannerComponent, BackToTopComponent],
+  imports: [CommonModule, RouterOutlet, LoadingScreenComponent, NavbarComponent, FooterComponent, CookieBannerComponent, BackToTopComponent, FloatingCtaComponent],
   template: `
     <app-loading-screen *ngIf="showLoading"></app-loading-screen>
     <div [class.opacity-0]="showLoading" class="transition-opacity duration-500">
@@ -21,6 +22,7 @@ import { BackToTopComponent } from './components/back-to-top/back-to-top.compone
       <app-footer></app-footer>
       <app-cookie-banner></app-cookie-banner>
       <app-back-to-top></app-back-to-top>
+      <app-floating-cta></app-floating-cta>
     </div>
   `,
   styles: []
