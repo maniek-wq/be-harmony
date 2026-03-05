@@ -34,22 +34,26 @@ interface Service {
 
         <!-- EMS HIGHLIGHT CARD -->
         <div appScrollReveal class="mb-12">
-          <div (click)="openModal(emsService)" class="cursor-pointer relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+          <div (click)="openModal(emsService)" class="group cursor-pointer relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
             <!-- Animated gradient border -->
             <div class="absolute inset-0 bg-gradient-to-r from-mint via-terracotta to-mint bg-[length:200%_100%] animate-[gradientBorder_3s_ease_infinite] p-[3px] rounded-3xl">
               <div class="w-full h-full bg-white rounded-3xl"></div>
             </div>
             
-            <div class="relative bg-white rounded-3xl p-8 md:p-12">
+            <div class="relative bg-white rounded-3xl p-6 sm:p-8 md:p-10">
               <div class="flex flex-col lg:flex-row items-center gap-8">
-                <div class="flex-shrink-0">
-                  <div class="relative">
-                    <div class="w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br from-mint to-mint-400 flex items-center justify-center shadow-lg animate-pulse-glow">
-                      <svg class="w-12 h-12 md:w-16 md:h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                      </svg>
+                <div class="w-full lg:w-5/12 flex-shrink-0">
+                  <div class="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-lg">
+                    <img src="assets/img/foto_ems1.jpg" alt="Trening EMS" class="w-full h-full object-cover object-center img-content img-scale-mobile scale-100 group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div class="flex items-center gap-2">
+                        <svg class="w-6 h-6 text-mint-300 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <span class="text-white font-medium text-sm drop-shadow-md">Zobacz szczegóły</span>
+                      </div>
                     </div>
-                    <span class="absolute -top-3 -right-3 px-3 py-1 bg-terracotta text-white text-xs font-bold rounded-full shadow-lg uppercase tracking-wider animate-bounce">
+                    <span class="absolute top-4 left-4 px-3 py-1.5 bg-terracotta text-white text-xs font-bold rounded-full shadow-xl uppercase tracking-wider animate-bounce">
                       Nowość!
                     </span>
                   </div>

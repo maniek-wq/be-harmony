@@ -3,18 +3,20 @@ import { CommonModule } from '@angular/common';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 @Component({
-    selector: 'app-hero',
-    standalone: true,
-    imports: [CommonModule, ScrollRevealDirective],
-    template: `
+  selector: 'app-hero',
+  standalone: true,
+  imports: [CommonModule, ScrollRevealDirective],
+  template: `
     <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      <!-- Background gradient -->
-      <div class="absolute inset-0 bg-gradient-to-br from-mint-50 via-mint-100 to-mint-200"></div>
-      
-      <!-- Decorative shapes -->
-      <div class="absolute top-20 right-10 w-64 h-64 bg-terracotta/10 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-20 left-10 w-96 h-96 bg-mint/30 rounded-full blur-3xl"></div>
-      <div class="absolute top-1/3 left-1/4 w-32 h-32 bg-terracotta/5 rounded-full blur-2xl"></div>
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0">
+        <img src="assets/img/10507.jpg" alt="Gabinet Fizjoterapii Be Harmony" 
+             class="w-full h-full object-cover object-center img-content img-scale-mobile" fetchpriority="high">
+        <!-- Gradient Overlay for text readability -->
+        <div class="absolute inset-0 bg-gradient-to-r from-mint-50/95 via-white/80 to-white/40 sm:from-mint-50/90 sm:via-white/70 sm:to-white/30"></div>
+        <!-- Additional gradient from bottom for content blending -->
+        <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+      </div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20 md:py-32">
         <div appScrollReveal class="mb-6">
@@ -59,6 +61,6 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       </div>
     </section>
   `,
-    styles: []
+  styles: []
 })
 export class HeroComponent { }
