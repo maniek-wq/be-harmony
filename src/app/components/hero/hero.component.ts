@@ -7,7 +7,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
   standalone: true,
   imports: [CommonModule, ScrollRevealDirective],
   template: `
-    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-mint-900">
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-white">
       <!-- Background Images Marquee -->
       <div class="absolute inset-0 z-0 overflow-hidden">
         <img src="assets/img/10507.jpg" alt="Gabinet Fizjoterapii" class="hero-bg-img img-scale-mobile" style="animation-delay: 0s;">
@@ -66,21 +66,23 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
   styles: [`
     .hero-bg-img {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      /* Oversize slightly to prevent edge bleeding/rendering artifacts during scale animation */
+      top: -1%;
+      left: -1%;
+      width: 102%;
+      height: 102%;
       object-fit: cover;
       object-position: center;
       opacity: 0;
       animation: heroCrossfade 24s linear infinite;
       will-change: transform, opacity;
       image-rendering: auto; /* Fallback rendering */
+      backface-visibility: hidden; /* Prevent flickering */
     }
     
     @keyframes heroCrossfade {
-      0% { opacity: 0; transform: scale(1); }
-      5% { opacity: 1; transform: scale(1.02); }
+      0% { opacity: 0; transform: scale(1.01); }
+      5% { opacity: 1; transform: scale(1.03); }
       25% { opacity: 1; transform: scale(1.08); }
       30% { opacity: 0; transform: scale(1.1); }
       100% { opacity: 0; transform: scale(1.1); }
