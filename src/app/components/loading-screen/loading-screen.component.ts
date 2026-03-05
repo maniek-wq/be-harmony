@@ -34,16 +34,14 @@ import { CommonModule } from '@angular/common';
   `,
   styles: []
 })
-export class LoadingScreenComponent implements OnInit {
-  @Output() loadingComplete = new EventEmitter<void>();
+export class LoadingScreenComponent {
   fadeOut = false;
 
-  ngOnInit() {
+  public hide() {
+    this.fadeOut = true;
     setTimeout(() => {
-      this.fadeOut = true;
-      setTimeout(() => {
-        this.loadingComplete.emit();
-      }, 800);
-    }, 2000);
+      // Allow time for the CSS opacity transition to finish
+      // The parent component can use this to remove the component from the DOM if desired
+    }, 800);
   }
 }
