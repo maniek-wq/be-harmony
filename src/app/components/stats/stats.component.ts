@@ -2,18 +2,18 @@ import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Stat {
-    label: string;
-    value: number;
-    suffix: string;
-    icon: string;
-    current: number;
+  label: string;
+  value: number;
+  suffix: string;
+  icon: string;
+  current: number;
 }
 
 @Component({
-    selector: 'app-stats',
-    standalone: true,
-    imports: [CommonModule],
-    template: `
+  selector: 'app-stats',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
     <section class="py-16 md:py-20 bg-gradient-to-r from-mint-800 via-mint-700 to-mint-800 relative overflow-hidden">
       <!-- Decorative elements -->
       <div class="absolute inset-0 opacity-10">
@@ -37,55 +37,55 @@ interface Stat {
       </div>
     </section>
   `,
-    styles: []
+  styles: []
 })
 export class StatsComponent implements OnInit, OnDestroy {
-    private observer!: IntersectionObserver;
-    private animated = false;
+  private observer!: IntersectionObserver;
+  private animated = false;
 
-    stats: Stat[] = [
-        { label: 'Zadowolonych klientów', value: 500, suffix: '+', icon: '👥', current: 0 },
-        { label: 'Lat doświadczenia', value: 5, suffix: '+', icon: '🏆', current: 0 },
-        { label: 'Rodzajów terapii', value: 10, suffix: '+', icon: '💆', current: 0 },
-        { label: 'Przeprowadzonych sesji', value: 1000, suffix: '+', icon: '✅', current: 0 },
-    ];
+  stats: Stat[] = [
+    { label: 'Clientes satisfechos', value: 500, suffix: '+', icon: '👥', current: 0 },
+    { label: 'Años de experiencia', value: 5, suffix: '+', icon: '🏆', current: 0 },
+    { label: 'Tipos de terapia', value: 10, suffix: '+', icon: '💆', current: 0 },
+    { label: 'Sesiones realizadas', value: 1000, suffix: '+', icon: '✅', current: 0 },
+  ];
 
-    constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef) { }
 
-    ngOnInit() {
-        this.observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting && !this.animated) {
-                        this.animated = true;
-                        this.animateCounters();
-                    }
-                });
-            },
-            { threshold: 0.3 }
-        );
-        this.observer.observe(this.el.nativeElement);
-    }
-
-    ngOnDestroy() {
-        this.observer?.disconnect();
-    }
-
-    private animateCounters() {
-        this.stats.forEach((stat) => {
-            const duration = 2000; // 2 seconds
-            const steps = 60;
-            const increment = stat.value / steps;
-            let current = 0;
-            const interval = setInterval(() => {
-                current += increment;
-                if (current >= stat.value) {
-                    stat.current = stat.value;
-                    clearInterval(interval);
-                } else {
-                    stat.current = Math.floor(current);
-                }
-            }, duration / steps);
+  ngOnInit() {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !this.animated) {
+            this.animated = true;
+            this.animateCounters();
+          }
         });
-    }
+      },
+      { threshold: 0.3 }
+    );
+    this.observer.observe(this.el.nativeElement);
+  }
+
+  ngOnDestroy() {
+    this.observer?.disconnect();
+  }
+
+  private animateCounters() {
+    this.stats.forEach((stat) => {
+      const duration = 2000; // 2 seconds
+      const steps = 60;
+      const increment = stat.value / steps;
+      let current = 0;
+      const interval = setInterval(() => {
+        current += increment;
+        if (current >= stat.value) {
+          stat.current = stat.value;
+          clearInterval(interval);
+        } else {
+          stat.current = Math.floor(current);
+        }
+      }, duration / steps);
+    });
+  }
 }

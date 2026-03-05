@@ -3,26 +3,26 @@ import { CommonModule } from '@angular/common';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 interface Testimonial {
-    quote: string;
-    name: string;
-    service: string;
-    stars: number;
+  quote: string;
+  name: string;
+  service: string;
+  stars: number;
 }
 
 @Component({
-    selector: 'app-testimonials',
-    standalone: true,
-    imports: [CommonModule, ScrollRevealDirective],
-    template: `
+  selector: 'app-testimonials',
+  standalone: true,
+  imports: [CommonModule, ScrollRevealDirective],
+  template: `
     <section class="py-20 md:py-28 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
-          <span class="inline-block px-4 py-1.5 bg-terracotta/10 text-terracotta rounded-full text-sm font-medium mb-4">Opinie</span>
+          <span class="inline-block px-4 py-1.5 bg-terracotta/10 text-terracotta rounded-full text-sm font-medium mb-4">Opiniones</span>
           <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Co mówią <span class="text-terracotta">nasi klienci</span>
+            Lo que dicen <span class="text-terracotta">nuestros clientes</span>
           </h2>
           <p class="text-gray-600 max-w-2xl mx-auto text-lg">
-            Zaufanie i zadowolenie pacjentów to nasza największa nagroda
+            La confianza y satisfacción de nuestros clientes es nuestra mayor recompensa
           </p>
         </div>
 
@@ -58,37 +58,37 @@ interface Testimonial {
       </div>
     </section>
   `,
-    styles: []
+  styles: []
 })
 export class TestimonialsComponent {
-    testimonials: Testimonial[] = [
-        {
-            quote: 'Po kilku sesjach terapii ciała ból pleców, z którym chodziłam latami, w końcu ustąpił. Natalia ma niesamowite ręce i podejście do pacjenta.',
-            name: 'Anna K.',
-            service: 'Terapia ciała',
-            stars: 5,
-        },
-        {
-            quote: 'Trening EMS to strzał w dziesiątkę! W 20 minut czuję więcej niż po godzinie na siłowni. Efekty widoczne już po kilku tygodniach.',
-            name: 'Michał W.',
-            service: 'Trening EMS',
-            stars: 5,
-        },
-        {
-            quote: 'Masaż Kobido to czysta magia. Twarz wygląda na odmłodzoną i wypoczętą. Polecam każdej kobiecie, która chce naturalnego liftingu.',
-            name: 'Katarzyna M.',
-            service: 'Masaż Kobido',
-            stars: 5,
-        },
-        {
-            quote: 'Trafiłam tu po operacji i jestem wdzięczna za profesjonalną rehabilitację. Wrócenie do formy przyszło szybciej niż się spodziewałam.',
-            name: 'Joanna P.',
-            service: 'Terapia pooperacyjna',
-            stars: 5,
-        },
-    ];
+  testimonials: Testimonial[] = [
+    {
+      quote: 'Después de varias sesiones de entrenamiento EMS, el dolor de espalda que tenía desde hace años finalmente desapareció. Natalia tiene unas manos increíbles y un trato excepcional.',
+      name: 'Ana G.',
+      service: 'Entrenamiento EMS',
+      stars: 5,
+    },
+    {
+      quote: '¡El entrenamiento EMS es un acierto total! En 20 minutos siento más que después de una hora en el gimnasio. Los resultados se notan desde las primeras semanas.',
+      name: 'Miguel R.',
+      service: 'Entrenamiento EMS',
+      stars: 5,
+    },
+    {
+      quote: 'Empecé el entrenamiento EMS por curiosidad y ahora no puedo dejarlo. Mi cuerpo está más tonificado y me siento con más energía que nunca.',
+      name: 'Carmen M.',
+      service: 'Entrenamiento EMS',
+      stars: 5,
+    },
+    {
+      quote: 'Vine aquí por recomendación y estoy encantada con los resultados. El entrenamiento EMS me ha ayudado a recuperar mi forma física después del embarazo.',
+      name: 'Laura P.',
+      service: 'Entrenamiento EMS',
+      stars: 5,
+    },
+  ];
 
-    getStars(count: number): number[] {
-        return Array(count).fill(0);
-    }
+  getStars(count: number): number[] {
+    return Array(count).fill(0);
+  }
 }
