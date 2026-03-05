@@ -94,7 +94,6 @@ export class GalleryComponent {
     { label: 'Sala zabiegowa', src: 'assets/img/10517.jpg', size: 'large' },
     { label: 'Zapraszamy', src: 'assets/img/10469.jpg', size: 'normal' },
     { label: 'Atmosfera', src: 'assets/img/10460.jpg', size: 'normal' },
-    { label: 'Bon podarunkowy', src: 'assets/img/10453.jpg', size: 'normal' },
   ];
 
   openLightbox(index: number) {

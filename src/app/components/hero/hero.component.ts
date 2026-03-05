@@ -7,11 +7,13 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
   standalone: true,
   imports: [CommonModule, ScrollRevealDirective],
   template: `
-    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      <!-- Background Image -->
-      <div class="absolute inset-0 z-0">
-        <img src="assets/img/10507.jpg" alt="Gabinet Fizjoterapii Be Harmony" 
-             class="w-full h-full object-cover object-center img-content img-scale-mobile" fetchpriority="high">
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-mint-900">
+      <!-- Background Images Marquee -->
+      <div class="absolute inset-0 z-0 overflow-hidden">
+        <img src="assets/img/10507.jpg" alt="Gabinet Fizjoterapii" class="hero-bg-img img-scale-mobile" style="animation-delay: 0s;">
+        <img src="assets/img/2.jpeg" alt="Fizjoterapia Be Harmony" class="hero-bg-img img-scale-mobile" style="animation-delay: 6s;">
+        <img src="assets/img/6.jpeg" alt="Masaż relaksacyjny" class="hero-bg-img img-scale-mobile" style="animation-delay: 12s;">
+        <img src="assets/img/5.jpg" alt="Strefa Treningowa" class="hero-bg-img img-scale-mobile" style="animation-delay: 18s;">
         <!-- Gradient Overlay for text readability -->
         <div class="absolute inset-0 bg-gradient-to-r from-mint-50/95 via-white/80 to-white/40 sm:from-mint-50/90 sm:via-white/70 sm:to-white/30"></div>
         <!-- Additional gradient from bottom for content blending -->
@@ -61,6 +63,28 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       </div>
     </section>
   `,
-  styles: []
+  styles: [`
+    .hero-bg-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      animation: heroCrossfade 24s linear infinite;
+      will-change: transform, opacity;
+      image-rendering: auto; /* Fallback rendering */
+    }
+    
+    @keyframes heroCrossfade {
+      0% { opacity: 0; transform: scale(1); }
+      5% { opacity: 1; transform: scale(1.02); }
+      25% { opacity: 1; transform: scale(1.08); }
+      30% { opacity: 0; transform: scale(1.1); }
+      100% { opacity: 0; transform: scale(1.1); }
+    }
+  `]
 })
 export class HeroComponent { }
