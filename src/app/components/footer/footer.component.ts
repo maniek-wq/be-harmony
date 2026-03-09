@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
-    <footer class="bg-gray-900 text-white">
+    <footer class="bg-brand-dark text-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           <!-- Brand -->
@@ -15,8 +15,8 @@ import { RouterLink } from '@angular/router';
             <h3 class="font-display text-2xl font-semibold text-white mb-2">Be Harmony</h3>
             <p class="text-mint italic text-sm font-display mb-4">Natalia Matusz</p>
             <p class="text-gray-400 text-sm leading-relaxed">
-              Gabinet fizjoterapii.<br>
-              Zadbaj o ciało, zadbaj o siebie, znajdź harmonię.
+              Przestrzeń pracy z ciałem.<br>
+              Zadbaj o siebie. Znajdź harmonię.
             </p>
 
             <!-- Social media -->

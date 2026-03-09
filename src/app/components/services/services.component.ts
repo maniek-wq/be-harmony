@@ -13,6 +13,11 @@ interface Service {
   icon: string;
   isEms?: boolean;
   subItems?: { name: string; price: string; description?: string }[];
+  regularTherapy?: string[];
+  forWhom?: string;
+  benefitsHeading?: string;
+  combinesSection?: { heading: string; items: string[] };
+  whyBeHarmony?: { heading: string; paragraphs: string[] };
 }
 
 @Component({
@@ -20,7 +25,7 @@ interface Service {
   standalone: true,
   imports: [CommonModule, RouterLink, ScrollRevealDirective],
   template: `
-    <section id="uslugi" class="py-20 md:py-28 bg-mint-50">
+    <section id="uslugi" class="py-20 md:py-28 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
           <span class="inline-block px-4 py-1.5 bg-white text-terracotta rounded-full text-sm font-medium mb-4 shadow-sm">Usługi</span>
@@ -28,7 +33,7 @@ interface Service {
             Nasze <span class="text-terracotta">usługi</span>
           </h2>
           <p class="text-gray-600 max-w-2xl mx-auto text-lg">
-            Kompleksowa oferta łącząca fizjoterapię, techniki manualne i nowoczesne technologie
+            Kompleksowa oferta łącząca wiedzę fizjoterapeutyczną, trenerską oraz holistyczne podejście do zdrowia i ruchu.
           </p>
         </div>
 
@@ -87,9 +92,9 @@ interface Service {
           <div *ngFor="let service of services; let i = index"
                appScrollReveal [revealDelay]="i * 0.1"
                (click)="openModal(service)"
-               class="group cursor-pointer bg-white rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-mint-100 hover:border-terracotta/30 hover:-translate-y-1.5 active:scale-[0.98] active:shadow-md">
+               class="group cursor-pointer bg-white rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-warm hover:ring-2 hover:ring-beige-300 transition-all duration-300 border border-beige-200 hover:border-beige-300 hover:-translate-y-1.5 active:scale-[0.98] active:shadow-md">
             
-            <div class="w-14 h-14 rounded-xl bg-mint-50 flex items-center justify-center mb-5 group-hover:bg-terracotta/10 group-hover:scale-110 transition-all duration-300">
+            <div class="w-14 h-14 rounded-xl bg-mint-50 flex items-center justify-center mb-5 group-hover:bg-beige-100 group-hover:scale-110 transition-all duration-300">
               <span class="text-2xl" [innerHTML]="service.icon"></span>
             </div>
 
@@ -126,7 +131,7 @@ interface Service {
         <!-- CTA -->
         <div appScrollReveal class="text-center mt-14">
           <a routerLink="/cennik"
-             class="inline-flex items-center gap-2 px-8 py-4 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-600 hover:shadow-xl transition-all duration-300 text-lg transform hover:-translate-y-0.5">
+             class="inline-flex items-center gap-2 px-8 py-4 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-600 hover:shadow-xl hover:shadow-warm transition-all duration-300 text-lg transform hover:-translate-y-0.5">
             Zobacz pełny cennik
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -185,13 +190,41 @@ interface Service {
             </p>
           </div>
 
-          <!-- Benefits -->
-          <div *ngIf="selectedService.benefits.length > 0">
+          <!-- Łączy w sobie (np. HTR) -->
+          <div *ngIf="selectedService.combinesSection?.items?.length" class="space-y-2">
+            <h3 class="font-semibold text-gray-900 mb-3">{{ selectedService.combinesSection?.heading }}</h3>
+            <ul class="space-y-2">
+              <li *ngFor="let item of selectedService.combinesSection?.items"
+                  class="flex items-start gap-3 text-gray-600 text-sm">
+                <svg class="w-4 h-4 text-mint-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                {{ item }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Regularna terapia (checkpoints) -->
+          <div *ngIf="selectedService.regularTherapy?.length">
+            <h3 class="font-semibold text-gray-900 mb-3">Regularna terapia:</h3>
+            <ul class="space-y-2">
+              <li *ngFor="let item of selectedService.regularTherapy"
+                  class="flex items-start gap-3 text-gray-600 text-sm">
+                <svg class="w-4 h-4 text-mint-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                {{ item }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Korzyści / Korzyści terapii -->
+          <div *ngIf="selectedService.benefits.length && !selectedService.regularTherapy?.length">
             <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
-              Korzyści
+              {{ selectedService.benefitsHeading || 'Korzyści' }}
             </h3>
             <ul class="space-y-2">
               <li *ngFor="let benefit of selectedService.benefits"
@@ -202,6 +235,19 @@ interface Service {
                 {{ benefit }}
               </li>
             </ul>
+          </div>
+
+          <!-- Dla kogo -->
+          <div *ngIf="selectedService.forWhom" class="space-y-2">
+            <h3 class="font-semibold text-gray-900 mb-2">Dla kogo?</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{{ selectedService.forWhom }}</p>
+          </div>
+
+          <!-- Dlaczego w Be Harmony? -->
+          <div *ngIf="selectedService.whyBeHarmony?.paragraphs?.length" class="space-y-3">
+            <h3 class="font-semibold text-gray-900 mb-2">{{ selectedService.whyBeHarmony?.heading }}</h3>
+            <p *ngFor="let p of selectedService.whyBeHarmony?.paragraphs"
+               class="text-gray-600 text-sm leading-relaxed">{{ p }}</p>
           </div>
 
           <!-- Sub items (for massages) -->
@@ -225,7 +271,7 @@ interface Service {
               <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Czas trwania</p>
               <p class="font-semibold text-gray-900">{{ selectedService.duration }}</p>
             </div>
-            <div *ngIf="!selectedService.subItems" class="flex-1 p-4 bg-terracotta/5 rounded-xl text-center">
+            <div *ngIf="!selectedService.subItems" class="flex-1 p-4 bg-beige-100 rounded-xl text-center">
               <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Cena</p>
               <p class="text-2xl font-bold text-terracotta">
                 {{ selectedService.price }}
@@ -257,17 +303,17 @@ export class ServicesComponent {
   emsService: Service = {
     name: 'Trening EMS',
     description: 'Nowoczesna technologia treningowa wykorzystująca impulsy elektryczne do stymulacji mięśni.',
-    detailedDescription: 'Trening EMS (Electrical Muscle Stimulation) to rewolucyjna metoda treningowa, która wykorzystuje impulsy elektryczne do jednoczesnej stymulacji wszystkich głównych grup mięśniowych. Podczas 20-minutowej sesji Twoje mięśnie wykonują tysiące skurczów, co odpowiada kilkugodzinnemu treningowi na siłowni. Technologia EMS jest bezpieczna, skuteczna i idealnie nadaje się zarówno dla osób rozpoczynających swoją przygodę z treningiem, jak i dla doświadczonych sportowców szukających intensywnego bodźca treningowego. Każdy trening jest indywidualnie dostosowany do Twojego poziomu zaawansowania i celów.',
+    detailedDescription: 'Trening EMS (Electrical Muscle Stimulation) to rewolucyjna metoda treningowa, która wykorzystuje impulsy elektryczne do jednoczesnej stymulacji wszystkich głównych grup mięśniowych. Podczas 30-minutowej sesji Twoje mięśnie wykonują tysiące skurczów, co odpowiada kilkugodzinnemu treningowi na siłowni. Technologia EMS jest bezpieczna, skuteczna i idealnie nadaje się zarówno dla osób rozpoczynających swoją przygodę z treningiem, jak i dla doświadczonych sportowców szukających intensywnego bodźca treningowego. Każdy trening jest indywidualnie dostosowany do Twojego poziomu zaawansowania i celów.',
     benefits: [
       'Wzmocnienie i ujędrnienie całego ciała w krótkim czasie',
       'Spalanie tkanki tłuszczowej i poprawa sylwetki',
       'Redukcja bólu pleców i poprawa postawy ciała',
       'Łagodny dla stawów — idealny przy kontuzjach',
       'Zwiększenie wydolności i siły mięśniowej',
-      'Tylko 20 minut na jedną sesję treningową',
+      'Tylko 30 minut na jedną sesję treningową',
       'Indywidualnie dobrana intensywność impulsu',
     ],
-    duration: '20 min',
+    duration: '30 min',
     price: '90',
     icon: '⚡',
     isEms: true,
@@ -276,17 +322,19 @@ export class ServicesComponent {
   services: Service[] = [
     {
       name: 'Terapia ciała',
-      description: 'Kompleksowa praca z ciałem łącząca techniki fizjoterapeutyczne, masaż i ruch.',
-      detailedDescription: 'Terapia ciała w Be Harmony to kompleksowe podejście do pracy z ciałem, które łączy wiedzę fizjoterapeutyczną z technikami manualnymi, masażem i ruchem. Podczas sesji terapeuta przeprowadza szczegółową ocenę funkcjonalną, identyfikuje zaburzenia w obrębie układu ruchu i opracowuje indywidualny plan terapii. Metody dobierane są pod kątem konkretnych potrzeb pacjenta — od technik tkanek miękkich, przez mobilizacje stawowe, po ćwiczenia korekcyjne. Celem jest nie tylko leczenie dolegliwości, ale także edukacja pacjenta i zapobieganie nawrotom.',
-      benefits: [
-        'Indywidualnie dobierany plan terapeutyczny',
-        'Redukcja bólu i napięć mięśniowych',
-        'Poprawa zakresu ruchu i elastyczności',
-        'Korekcja postawy ciała',
-        'Łączenie różnych technik terapeutycznych',
-        'Edukacja pacjenta w zakresie autoterapii',
+      description: 'Kompleksowa praca manualna, narzędziowa i ruchowa ukierunkowana na poprawę funkcjonowania organizmu.',
+      detailedDescription: 'To kompleksowa praca manualna, narzędziowa i ruchowa ukierunkowana na poprawę funkcjonowania całego organizmu. Jej celem jest przywrócenie równowagi w ciele, poprawa mobilności, oddechu i swobody ruchu. To spotkanie, podczas którego pracujemy nad problemami nagromadzonymi często przez lata — zarówno na poziomie fizycznym, jak i emocjonalnym.',
+      regularTherapy: [
+        'wspiera przy bólach i napięciach kręgosłupa,',
+        'pomaga zmniejszać bóle głowy i przewlekłe napięcia,',
+        'poprawia mobilność stawów i elastyczność tkanek,',
+        'wspiera prawidłowe wzorce oddechowe,',
+        'redukuje przeciążenia i poczucie sztywności,',
+        'działa całościowo — łącząc pracę z ciałem i świadomością, co sprzyja lepszemu samopoczuciu.',
       ],
-      duration: '60 min',
+      forWhom: 'Dla osób z bólami kręgosłupa, przewlekłymi napięciami, ograniczoną mobilnością, problemami oddechowymi oraz szukających holistycznego podejścia do ciała i lepszego samopoczucia.',
+      benefits: [],
+      duration: '50 min',
       price: '180',
       icon: '🧘',
     },
@@ -302,14 +350,14 @@ export class ServicesComponent {
         'Zmniejszenie dyskomfortu i bólu',
         'Poprawa elastyczności skóry w miejscu zabiegu',
       ],
-      duration: '60-90 min',
+      duration: '50 min',
       price: '200',
       icon: '✨',
     },
     {
       name: 'Masaże',
-      description: 'Profesjonalne masaże dostosowane do Twoich potrzeb.',
-      detailedDescription: 'Oferujemy trzy rodzaje masaży profesjonalnych, z których każdy jest ukierunkowany na inne potrzeby ciała. Masaż głęboki pracuje na głębokich warstwach mięśni, rozluźniając przewlekłe napięcia i zrosty powięziowe. Masaż powięziowy skupia się na rozluźnieniu powięzi — tkanki łącznej otaczającej mięśnie, co przywraca naturalną elastyczność i swobodę ruchu. Masaż relaksacyjny to z kolei sesja odprężeniowa, która łagodzi stres, uspokaja układ nerwowy i przywraca równowagę ciała i umysłu. Każdy masaż jest indywidualnie dostosowany do Twoich potrzeb.',
+      description: 'Masaż indywidualnie dopasowany do Twoich potrzeb i oczekiwań.',
+      detailedDescription: 'Masaż łączy różne techniki — głęboki, powięziowy, relaksacyjny i elementy pracy manualnej — dopasowane do aktualnych potrzeb ciała i oczekiwań klienta. Każda sesja rozpoczyna się krótką rozmową, w której rozmawiamy o tym, co czujesz i czego potrzebujesz. Dzięki temu masaż jest w pełni indywidualny — nie bazuje na wyuczonym schemacie ani jednym rodzaju technik powtarzanych mechanicznie. To ręce terapeuty i ciało klienta prowadzą masaż — dobierając techniki, siłę nacisku i tempo, aby ciało i umysł skorzystały jak najbardziej. Sesja może być zarówno głęboka i intensywna, jak i delikatna i relaksacyjna, przynosząc rozluźnienie, regenerację i lekkość w ruchu.',
       benefits: [
         'Rozluźnienie głębokich napięć mięśniowych',
         'Poprawa elastyczności i mobilności tkanek',
@@ -318,109 +366,90 @@ export class ServicesComponent {
         'Łagodzenie bólu głowy i migreny',
         'Wsparcie regeneracji po wysiłku fizycznym',
       ],
-      duration: '60 min',
-      price: '170/180',
+      duration: '50 min',
+      price: '180',
       icon: '💆',
-      subItems: [
-        { name: 'Masaż głęboki', price: '170 zł', description: 'Praca na głębokich warstwach mięśni' },
-        { name: 'Masaż powięziowy', price: '180 zł', description: 'Rozluźnianie powięzi i tkanki łącznej' },
-        { name: 'Masaż relaksacyjny', price: '170 zł', description: 'Sesja odprężeniowa dla ciała i umysłu' },
-      ]
     },
     {
       name: 'Praca z blizną i obrzękami',
-      description: 'Terapia manualna blizn i redukcja obrzęków.',
-      detailedDescription: 'Terapia manualna blizn pooperacyjnych, pourazowych oraz powstałych w wyniku cięcia cesarskiego. Praca z blizną polega na rozluźnieniu zrostów tkankowych, przywróceniu elastyczności i ruchomości tkanek w okolicy blizny. Terapia obrzęków obejmuje drenaż limfatyczny manualny oraz techniki wspierające odpływ limfy. Regularne sesje pomagają zmniejszyć dyskomfort, poprawić estetykę blizny i przywrócić comfortowy zakres ruchu. Im wcześniej rozpoczniesz terapię, tym lepsze efekty.',
+      description: 'Terapia manualna i narzędziowa blizn oraz obrzęków.',
+      detailedDescription: 'Blizna to naturalny efekt procesu gojenia, jednak nie zawsze przebiega on w sposób optymalny. Niekiedy blizny mogą ograniczać ruchomość tkanek, powodować dyskomfort lub wpływać na estetykę. Podobnie obrzęki, pojawiające się po urazach czy zabiegach, mogą spowalniać regenerację i utrudniać powrót do pełnej sprawności. W Be Harmony stosuję techniki manualne oraz narzędziowe, które poprawiają ruchomość i elastyczność tkanek, wspierają prawidłowe układanie się blizny, zmniejszają uczucie napięcia, bólu czy ciągnięcia, przyspieszają redukcję obrzęków i poprawiają krążenie oraz korzystnie wpływają na wygląd i komfort w miejscu blizny. Terapia polecana jest osobom po operacjach, zabiegach lub urazach, a także po cesarskim cięciu.',
       benefits: [
-        'Rozluźnienie zrostów i zwłóknień bliznowatych',
-        'Poprawa elastyczności i wyglądu blizny',
-        'Redukcja obrzęków limfatycznych',
-        'Przywrócenie ruchomości w okolicy blizny',
-        'Zmniejszenie nadwrażliwości tkankowej',
-        'Wsparcie procesu gojenia po operacjach',
+        'Poprawa ruchomości i elastyczności tkanek',
+        'Wsparcie prawidłowego układania się blizny',
+        'Zmniejszenie uczucia napięcia, bólu czy ciągnięcia',
+        'Przyspieszenie redukcji obrzęków i poprawa krążenia',
+        'Korzystny wpływ na wygląd i komfort w miejscu blizny',
       ],
-      duration: '60-90 min',
+      duration: '50 min',
       price: '180/200',
       icon: '🩹',
     },
     {
       name: 'Terapia wisceralna',
-      description: 'Delikatna terapia manualna narządów wewnętrznych.',
-      detailedDescription: 'Terapia wisceralna to delikatna, ale głęboko działająca metoda terapii manualnej, która koncentruje się na narządach wewnętrznych (trzewnych). Terapeuta za pomocą precyzyjnego dotyku pracuje nad przywróceniem prawidłowej mobilności i motylności narządów jamy brzusznej, klatki piersiowej i miednicy. Terapia pomaga w przypadku zaburzeń trawienia, problemów z układem moczowym, bólów brzucha, a także stanów pooperacyjnych. Wisceralna praca z ciałem wpływa korzystnie na cały organizm, łącząc układ trzewny z mięśniowo-szkieletowym.',
+      description: 'Delikatna, manualna praca w obrębie jamy brzusznej i klatki piersiowej.',
+      detailedDescription: 'Terapia wisceralna to delikatna, manualna praca w obrębie jamy brzusznej i klatki piersiowej. Jej celem jest przywrócenie naturalnej ruchomości narządów wewnętrznych oraz tkanek, które je otaczają. Dzięki temu możliwe jest zmniejszenie napięć, poprawa krążenia i funkcjonowania układu trawiennego, a także wpływ na postawę i ogólne samopoczucie.',
+      benefitsHeading: 'Korzyści terapii:',
       benefits: [
-        'Poprawa funkcjonowania narządów wewnętrznych',
-        'Łagodzenie zaburzeń trawienia i wzdęć',
-        'Redukcja napięć w jamie brzusznej',
-        'Wsparcie po operacjach w obrębie brzucha',
-        'Poprawa postawy poprzez oddziaływanie na powięź',
-        'Holistyczne podejście do zdrowia ciała',
+        'wsparcie pracy układu trawiennego (m.in. przy refluksie, SIBO, IBS, zaparciach, wzdęciach),',
+        'redukcja napięć w obrębie brzucha i klatki piersiowej,',
+        'poprawa postawy i zmniejszenie dolegliwości w obrębie dolnego odcinka kręgosłupa,',
+        'złagodzenie dolegliwości związanych z bolesnymi miesiączkami,',
+        'profilaktyczne wspieranie zdrowia i lepszego funkcjonowania organizmu.',
       ],
-      duration: '60 min',
+      forWhom: 'Dla osób zmagających się z problemami trawiennymi, prowadzących siedzący tryb życia, w trakcie rehabilitacji dolnego odcinka kręgosłupa, przy bolesnych miesiączkach, a także dla tych, którzy chcą zadbać o ciało w ramach profilaktyki zdrowotnej.',
+      duration: '50 min',
       price: '200',
       icon: '🫀',
     },
     {
       name: 'HTR — Holistyczna Terapia Relaksacyjna',
-      description: 'Głęboka relaksacja łącząca techniki manualne, oddechowe i energetyczne.',
-      detailedDescription: 'HTR (Holistyczna Terapia Relaksacyjna) to unikalna sesja terapeutyczna łącząca techniki manualne, pracę oddechową, elementy aromaterapii i techniki energetyczne. To kompleksowe doświadczenie, które adresuje potrzeby zarówno ciała, jak i umysłu. Podczas sesji terapeuta prowadzi Cię przez głęboką relaksację, uwalniając nagromadzone napięcia emocjonalne i fizyczne. HTR jest idealnym wyborem dla osób zmagających się z chronicznym stresem, bezsennością, stanami lękowymi lub po prostu potrzebujących głębokiego odpoczynku i regeneracji.',
+      description: 'Autorska metoda wspierająca regenerację poprzez głęboki relaks i harmonizację układu nerwowego.',
+      detailedDescription: 'HTR to autorska metoda wspierająca regenerację organizmu poprzez głęboki relaks i harmonizację układu nerwowego. To nie tylko chwila odprężenia — to intensywna i świadoma praca z układem nerwowym, która uruchamia naturalne mechanizmy samonaprawy ciała. Dzięki temu możliwe jest obniżenie poziomu stresu, napięcia i lęku, redukcja kortyzolu oraz poprawa nastroju i równowagi emocjonalnej. Regularne sesje wspierają też odzyskiwanie energii i wewnętrznej stabilności.',
+      combinesSection: {
+        heading: 'Holistyczna Terapia Relaksacyjna łączy w sobie:',
+        items: [
+          'aromaterapię — najwyższej jakości, w 100% naturalne olejki eteryczne wspierające układ nerwowy i wprowadzające w stan ukojenia,',
+          'muzykoterapię — starannie dobraną muzykę, która sprzyja wyciszeniu i prowadzi ciało do głębokiego relaksu,',
+          'elementy medycyny chińskiej — wspierające przepływ energii i równowagę organizmu,',
+          'działanie ciepłem — rozluźniające tkanki i sprzyjające odprężeniu,',
+          'różnorodne techniki relaksacyjne i regenerujące — wypracowane na bazie wieloletniego doświadczenia, praktyki oraz licznych szkoleń.',
+        ],
+      },
+      benefitsHeading: 'Korzyści terapii:',
       benefits: [
-        'Głęboka relaksacja ciała i umysłu',
-        'Redukcja chronicznego stresu i napięcia',
-        'Poprawa jakości snu i rozluźnienie',
-        'Uwolnienie emocji i napięć psychosomatycznych',
-        'Wzmocnienie naturalnych mechanizmów regeneracji',
-        'Przywrócenie równowagi energetycznej ciała',
-        'Holistyczne podejście — ciało, umysł i duch',
+        'głęboka regeneracja i praca z układem nerwowym,',
+        'redukcja napięcia nerwowego i mięśniowego,',
+        'poprawa jakości snu i zmniejszenie bezsenności,',
+        'większa równowaga emocjonalna i lepsze samopoczucie,',
+        'odzyskanie energii, spokoju i witalności.',
       ],
-      duration: '90-120 min',
+      forWhom: 'Dla osób przemęczonych, zestresowanych, z objawami napięcia nerwowego, bezsennością, spadkiem energii lub przeciążeniem układu nerwowego.',
+      duration: '90 min',
       price: '380',
       icon: '🌿',
     },
     {
-      name: 'Masaż Kobido',
-      description: 'Japoński masaż liftingujący twarzy — naturalny lifting bez skalpela.',
-      detailedDescription: 'Masaż Kobido to starożytna japońska technika masażu twarzy, sięgająca XV wieku, uznawana za „niechirurgiczny lifting twarzy". Podczas sesji terapeuta wykonuje ponad 47 różnych technik obejmujących szybkie, delikatne ruchy stymulujące głębokie warstwy skóry i mięśnie twarzy. Masaż pobudza produkcję kolagenu i elastyny, poprawia krążenie, obrys twarzy i napięcie skóry. Efekty widoczne są już po pierwszej sesji — twarz wygląda na odprężoną, odmłodzoną i promienną. Regularne sesje przynoszą trwałe efekty liftingujące.',
-      benefits: [
-        'Naturalny efekt liftingu bez zabiegów inwazyjnych',
-        'Stymulacja produkcji kolagenu i elastyny',
-        'Poprawa owalu i konturu twarzy',
-        'Redukcja zmarszczek i linii mimicznych',
-        'Poprawa kolorytu i blasku skóry',
-        'Głębokie rozluźnienie mięśni mimicznych',
-      ],
-      duration: '60 min',
-      price: 'Do ustalenia',
-      icon: '🌸',
-    },
-    {
-      name: 'Masaż Transbukalny',
-      description: 'Innowacyjny masaż modelujący twarz od wewnątrz.',
-      detailedDescription: 'Masaż transbukalny to innowacyjna technika masażu twarzy wykonywana zarówno od zewnątrz, jak i od wewnątrz jamy ustnej (w rękawiczkach). Dzięki temu terapeuta dociera do mięśni żwaczy, skroniowych i policzków, które są niedostępne przy tradycyjnym masażu. Technika ta jest niezwykle skuteczna w redukcji napięcia w okolicy szczęki (częstego przy bruksizmie), poprawie owalu twarzy, zmniejszeniu obrzęków i modelowaniu rysów. Efekt widoczny już po pierwszym zabiegu — twarz wygląda na szczuplejszą, bardziej wyrzeźbioną i zrelaksowaną.',
-      benefits: [
-        'Modelowanie i wyrzeźbienie rysów twarzy',
-        'Redukcja napięcia mięśni żwaczy (bruksizm)',
-        'Poprawa owalu twarzy i linii żuchwy',
-        'Zmniejszenie obrzęków i podbródka',
-        'Stymulacja krążenia w obrębie twarzy',
-        'Efekt odmładzający widoczny po pierwszej sesji',
-      ],
-      duration: '45-60 min',
-      price: 'Do ustalenia',
-      icon: '💎',
-    },
-    {
       name: 'Trening Funkcjonalny',
-      description: 'Indywidualny program treningowy dopasowany do Twoich celów.',
-      detailedDescription: 'Trening funkcjonalny w Be Harmony to indywidualnie dobrany program ćwiczeń, który poprawia codzienną sprawność fizyczną, wydolność, siłę i koordynację ruchową. Trener przeprowadza wstępną ocenę funkcjonalną, identyfikuje ograniczenia i słabe ogniwa w łańcuchach ruchowych, a następnie projektuje program treningowy dopasowany do Twoich celów i poziomu zaawansowania. Treningi mogą obejmować ćwiczenia z masą własnego ciała, TRX, kettlebell, gumy oporowe i inne narzędzia. Idealny dla osób po rehabilitacji, chcących wrócić do aktywności lub poprawić swoją formę.',
+      description: 'Indywidualnie dobrany program ćwiczeń poprawiający siłę, koordynację i mobilność.',
+      detailedDescription: 'Trening funkcjonalny w Be Harmony to indywidualnie dobrany program ćwiczeń, który poprawia siłę, koordynację, mobilność i ogólną sprawność w codziennym funkcjonowaniu. Ta forma aktywności oparta jest na naturalnych wzorcach ruchowych, skutecznie wzmacnia ciało, przygotowuje je do codziennych wyzwań i zmniejsza ryzyko kontuzji. Ćwiczenia angażują całe ciało, poprawiają stabilizację i uczą prawidłowej pracy mięśni podczas ruchu, co przekłada się na wszechstronne efekty w życiu codziennym i sporcie.',
+      benefitsHeading: 'Korzyści treningu funkcjonalnego:',
       benefits: [
-        'Indywidualnie dobrany plan treningowy',
-        'Poprawa siły, wydolności i koordynacji',
-        'Profilaktyka urazów i kontuzji',
-        'Korekcja wzorców ruchowych',
-        'Idealny po rehabilitacji jako kontynuacja',
-        'Treningi z różnorodnym sprzętem',
+        'zwiększenie siły, wytrzymałości i sprawności ogólnej,',
+        'poprawa koordynacji i zakresu ruchu,',
+        'przygotowanie ciała do większej aktywności (np. narty, snowboard, maraton),',
+        'wsparcie w powrocie do formy po urazach,',
+        'profilaktyka przeciążeń i kontuzji.',
       ],
-      duration: '60 min',
+      forWhom: 'Dla osób wracających do formy po urazach, chcących poprawić swoją sprawność, wzmocnić ciało, zwiększyć mobilność lub przygotować się do wyzwań sportowych i rekreacyjnych.',
+      whyBeHarmony: {
+        heading: 'Dlaczego trening funkcjonalny w Be Harmony?',
+        paragraphs: [
+          'Sesje prowadzone są przez fizjoterapeutę i trenera przygotowania motorycznego z wieloletnim doświadczeniem w pracy ze sportowcami oraz osobami wracającymi do formy po urazach. Gwarantuje to indywidualne podejście, bezpieczeństwo oraz efektywny dobór ćwiczeń.',
+          'Współpraca z norweską reprezentacją mężczyzn w siatkówce U20 i U21, praca w Szkole Mistrzostwa Sportowego oraz Siatkarskich Ośrodkach Szkolnych, a także ponad 15 lat kariery sportowej sprawiają, że każdy trening funkcjonalny w Be Harmony opiera się na sprawdzonych metodach, doświadczeniu i pasji do ruchu.',
+        ],
+      },
+      duration: '45 min',
       price: '180',
       icon: '💪',
     },

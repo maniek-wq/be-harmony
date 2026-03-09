@@ -14,7 +14,7 @@ interface GalleryImage {
   standalone: true,
   imports: [CommonModule, ScrollRevealDirective],
   template: `
-    <section id="galeria" class="py-20 md:py-28 bg-mint-50">
+    <section id="galeria" class="py-20 md:py-28 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
           <span class="inline-block px-4 py-1.5 bg-white text-terracotta rounded-full text-sm font-medium mb-4 shadow-sm">Galeria</span>
@@ -22,7 +22,7 @@ interface GalleryImage {
             Nasz <span class="text-terracotta">gabinet</span>
           </h2>
           <p class="text-gray-600 max-w-2xl mx-auto text-lg">
-            Przestrzeń stworzona z myślą o Twoim komforcie
+            Miejsce, w którym ciało i umysł odnajdują równowagę
           </p>
         </div>
 
@@ -98,7 +98,7 @@ interface GalleryImage {
   `,
   styles: [`
     .skeleton-shimmer {
-      background: linear-gradient(90deg, #e6f4ea 25%, #d4eede 50%, #e6f4ea 75%);
+      background: linear-gradient(90deg, #FAF6F1 25%, #F5EFE8 50%, #FAF6F1 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite;
     }
@@ -113,13 +113,11 @@ export class GalleryComponent {
   lightboxImageLoaded = false;
   selectedImage = 0;
 
+  // Zdjęcia 1, 3, 5 — resztę można dodać później
   galleryImages: GalleryImage[] = [
     { label: 'Gabinet', src: 'assets/img/10445.jpg', size: 'large', loaded: false },
-    { label: 'Wnętrze studia', src: 'assets/img/10507.jpg', size: 'large', loaded: false },
     { label: 'Strefa treningowa', src: 'assets/img/10498.jpg', size: 'large', loaded: false },
-    { label: 'Sala zabiegowa', src: 'assets/img/10517.jpg', size: 'large', loaded: false },
     { label: 'Zapraszamy', src: 'assets/img/10469.jpg', size: 'normal', loaded: false },
-    { label: 'Atmosfera', src: 'assets/img/10460.jpg', size: 'normal', loaded: false },
   ];
 
   openLightbox(index: number) {

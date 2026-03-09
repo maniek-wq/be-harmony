@@ -7,7 +7,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     standalone: true,
     imports: [CommonModule, ScrollRevealDirective],
     template: `
-    <section id="zespol" class="py-20 md:py-28 bg-white">
+    <section id="zespol" class="py-20 md:py-28 bg-cream-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
           <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">Nasz zespół</span>
@@ -19,7 +19,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
           </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="flex flex-wrap justify-center gap-8 max-w-5xl mx-auto">
           <div *ngFor="let member of teamMembers; let i = index"
                appScrollReveal [revealDelay]="i * 0.15"
                class="group text-center">
@@ -30,7 +30,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                 </svg>
               </div>
               <!-- Decorative ring -->
-              <div class="absolute inset-0 rounded-full border-2 border-dashed border-terracotta/20 scale-110 group-hover:scale-115 group-hover:border-terracotta/40 transition-all duration-300"></div>
+              <div class="absolute inset-0 rounded-full border-2 border-dashed border-beige-300 scale-110 group-hover:scale-115 group-hover:border-beige-400 transition-all duration-300"></div>
             </div>
             <h3 class="font-display text-xl font-semibold text-gray-900 mb-1 group-hover:text-terracotta transition-colors">
               {{ member.name }}
@@ -45,21 +45,12 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     styles: []
 })
 export class TeamComponent {
+    // Dodaj nowe osoby do tablicy, gdy będzie taka potrzeba
     teamMembers = [
         {
             name: 'Natalia Matusz',
             role: 'Fizjoterapeutka / Założycielka',
-            bio: 'Fizjoterapeutka z pasją do holistycznego podejścia do ciała. Specjalizuje się w terapii manualnej i treningu EMS.',
-        },
-        {
-            name: 'Imię Nazwisko',
-            role: 'Specjalista / Terapeuta',
-            bio: 'Opis osoby — doświadczenie, specjalizacja i podejście do pracy z pacjentem.',
-        },
-        {
-            name: 'Imię Nazwisko',
-            role: 'Specjalista / Terapeuta',
-            bio: 'Opis osoby — doświadczenie, specjalizacja i podejście do pracy z pacjentem.',
+            bio: 'Fizjoterapeutka z pasją do ruchu i holistycznego podejścia do ciała.',
         },
     ];
 }

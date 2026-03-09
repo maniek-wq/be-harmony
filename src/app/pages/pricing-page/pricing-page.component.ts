@@ -8,6 +8,7 @@ interface PricingCategory {
   icon: string;
   items: PricingItem[];
   isEms?: boolean;
+  hideHeader?: boolean; // bez nagłówka kategorii — tylko pozycje
 }
 
 interface PricingItem {
@@ -90,7 +91,7 @@ interface PricingItem {
                appScrollReveal [revealDelay]="ci * 0.1"
                class="bg-white rounded-2xl shadow-sm overflow-hidden border border-mint-100 hover:shadow-md transition-shadow">
             
-            <div class="px-8 py-6 bg-gradient-to-r from-mint-50 to-white border-b border-mint-100">
+            <div *ngIf="!category.hideHeader" class="px-8 py-6 bg-gradient-to-r from-mint-50 to-white border-b border-mint-100">
               <div class="flex items-center gap-3">
                 <span class="text-2xl">{{ category.icon }}</span>
                 <h2 class="font-display text-xl md:text-2xl font-bold text-gray-900">{{ category.name }}</h2>
@@ -101,7 +102,7 @@ interface PricingItem {
               <div *ngFor="let item of category.items"
                    class="px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-mint-50/30 transition-colors">
                 <div class="flex-1">
-                  <h3 class="font-medium text-gray-900">{{ item.name }}</h3>
+                  <h3 *ngIf="item.name" class="font-medium text-gray-900">{{ item.name }}</h3>
                   <p *ngIf="item.description" class="text-gray-500 text-sm mt-0.5">{{ item.description }}</p>
                 </div>
                 <div class="flex items-baseline gap-1 flex-shrink-0">
@@ -133,41 +134,30 @@ export class PricingPageComponent {
       name: 'Terapia',
       icon: '🧘',
       items: [
-        { name: 'Terapia ciała', description: 'Kompleksowa praca z ciałem łącząca techniki fizjoterapeutyczne', price: '180' },
-        { name: 'Terapia po zabiegach medycyny estetycznej i chirurgii plastycznej', description: 'Specjalistyczna terapia wspierająca regenerację', price: '200' },
-        { name: 'Terapia wisceralna', description: 'Terapia manualna narządów wewnętrznych', price: '200' },
+        { name: 'Terapia ciała', description: '50 min — kompleksowa praca z ciałem', price: '180' },
+        { name: 'Terapia po zabiegach medycyny estetycznej i chirurgii plastycznej', description: '50 min — specjalistyczna terapia wspierająca regenerację', price: '200' },
+        { name: 'Terapia wisceralna', description: '50 min — delikatna praca w obrębie jamy brzusznej i klatki piersiowej', price: '200' },
       ]
     },
     {
       name: 'Masaże',
       icon: '💆',
       items: [
-        { name: 'Masaż głęboki', price: '170' },
-        { name: 'Masaż powięziowy', price: '180' },
-        { name: 'Masaż relaksacyjny', price: '170' },
-        { name: 'Masaż Kobido', description: 'Japoński masaż liftingujący twarzy', price: 'Do ustalenia' },
-        { name: 'Masaż Transbukalny', description: 'Innowacyjny masaż modelujący twarz', price: 'Do ustalenia' },
+        { name: 'Masaż indywidualnie dopasowany', description: '50 min', price: '180' },
       ]
     },
     {
-      name: 'Praca z ciałem',
-      icon: '🩹',
-      items: [
-        { name: 'Praca z blizną i obrzękami', description: 'Terapia blizn pooperacyjnych i pourazowych', price: '180/200' },
-      ]
-    },
-    {
-      name: 'Terapie holistyczne',
+      name: 'HTR — Holistyczna Terapia Relaksacyjna',
       icon: '🌿',
       items: [
-        { name: 'HTR — Holistyczna Terapia Relaksacyjna', description: 'Głęboka relaksacja łącząca techniki manualne, oddechowe i energetyczne', price: '380' },
+        { name: '', description: '90 min — głęboka relaksacja łącząca techniki manualne, oddechowe i energetyczne', price: '380' },
       ]
     },
     {
       name: 'Trening',
       icon: '💪',
       items: [
-        { name: 'Trening Funkcjonalny', description: 'Indywidualny program treningowy', price: '180' },
+        { name: 'Trening Funkcjonalny', description: '45 min — indywidualny program ćwiczeń', price: '180' },
       ]
     },
   ];

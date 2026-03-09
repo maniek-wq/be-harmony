@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -49,24 +49,44 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
         </div>
       </div>
 
-      <!-- Mobile Menu -->
-      <div *ngIf="mobileOpen"
-           class="lg:hidden bg-terracotta-600 border-t border-white/10 animate-fade-in">
-        <div class="px-4 py-4 space-y-1">
-          <a *ngFor="let item of menuItems"
-             href="javascript:void(0)"
-             (click)="navigateToSection(item.href); toggleMobile()"
-             class="block px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-colors text-sm font-medium">
-            {{ item.label }}
-          </a>
-          <a routerLink="/cennik" (click)="toggleMobile()"
-             class="block px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-colors text-sm font-medium">
-            Cennik
-          </a>
-          <a href="javascript:void(0)" (click)="navigateToSection('#kontakt'); toggleMobile()"
-             class="block mx-4 mt-3 px-5 py-3 bg-mint text-terracotta-800 font-semibold rounded-full text-center hover:bg-mint-200 transition-all text-sm">
-            Umów wizytę
-          </a>
+      <!-- Mobile Menu (offcanvas slide) -->
+      <div class="lg:hidden overflow-hidden transition-all duration-300 ease-out"
+           [style.max-height]="mobileOpen ? '36rem' : '0'"
+           [class.opacity-100]="mobileOpen"
+           [class.opacity-0]="!mobileOpen">
+        <div class="bg-terracotta-600 border-t border-white/10">
+          <div class="px-4 py-4 pb-10 space-y-0.5">
+            <a *ngFor="let item of menuItems"
+               href="javascript:void(0)"
+               (click)="navigateToSection(item.href); toggleMobile()"
+               class="flex items-center gap-3 px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-xl transition-colors text-sm font-medium">
+              <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white">
+                <ng-container [ngSwitch]="item.icon">
+                  <svg *ngSwitchCase="'about'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <svg *ngSwitchCase="'services'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                  <svg *ngSwitchCase="'team'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                  <svg *ngSwitchCase="'gallery'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  <svg *ngSwitchCase="'contact'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </ng-container>
+              </span>
+              {{ item.label }}
+            </a>
+            <a routerLink="/cennik" (click)="toggleMobile()"
+               class="flex items-center gap-3 px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-xl transition-colors text-sm font-medium">
+              <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+              </span>
+              Cennik
+            </a>
+            <div class="border-t border-white/10 mt-4 mb-0"></div>
+            <div class="pt-6">
+              <a href="javascript:void(0)" (click)="navigateToSection('#kontakt'); toggleMobile()"
+                 class="flex items-center justify-center gap-2 mx-4 px-5 py-3.5 bg-mint text-terracotta-800 font-semibold rounded-xl hover:bg-mint-200 transition-all text-sm shadow-sm">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              Umów wizytę
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -76,24 +96,44 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 export class NavbarComponent {
   scrolled = false;
   mobileOpen = false;
+  private ignoreNextDocumentClick = false;
 
   menuItems = [
-    { label: 'O nas', href: '#o-nas' },
-    { label: 'Usługi', href: '#uslugi' },
-    { label: 'Zespół', href: '#zespol' },
-    { label: 'Galeria', href: '#galeria' },
-    { label: 'Kontakt', href: '#kontakt' },
+    { label: 'O nas', href: '#o-nas', icon: 'about' },
+    { label: 'Usługi', href: '#uslugi', icon: 'services' },
+    { label: 'Zespół', href: '#zespol', icon: 'team' },
+    { label: 'Galeria', href: '#galeria', icon: 'gallery' },
+    { label: 'Kontakt', href: '#kontakt', icon: 'contact' },
   ];
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private el: ElementRef<HTMLElement>
+  ) { }
 
   @HostListener('window:scroll')
   onScroll() {
     this.scrolled = window.scrollY > 50;
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (this.ignoreNextDocumentClick) {
+      this.ignoreNextDocumentClick = false;
+      return;
+    }
+    if (!this.mobileOpen) return;
+    const target = event.target as Node;
+    if (target && !this.el.nativeElement.contains(target)) {
+      this.mobileOpen = false;
+    }
+  }
+
   toggleMobile() {
     this.mobileOpen = !this.mobileOpen;
+    if (this.mobileOpen) {
+      this.ignoreNextDocumentClick = true;
+    }
   }
 
   navigateToSection(hash: string) {

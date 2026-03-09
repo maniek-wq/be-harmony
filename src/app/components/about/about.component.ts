@@ -7,7 +7,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     standalone: true,
     imports: [CommonModule, ScrollRevealDirective],
     template: `
-    <section id="o-nas" class="py-20 md:py-28 bg-white">
+    <section id="o-nas" class="py-20 md:py-28 bg-cream-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
           <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">O nas</span>
@@ -30,8 +30,9 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
             </p>
             <div class="flex flex-wrap gap-3 mt-8">
               <span *ngFor="let tag of tags"
-                    class="px-4 py-2 bg-mint-50 text-mint-800 rounded-full text-sm font-medium border border-mint-200">
-                {{ tag }}
+                    class="px-4 py-2 rounded-full text-sm font-medium border"
+                    [ngClass]="tag.variant">
+                {{ tag.label }}
               </span>
             </div>
           </div>
@@ -42,11 +43,11 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
               <div class="absolute bottom-0 left-0 right-0 text-center p-6">
                 <p class="font-display text-2xl text-white font-semibold drop-shadow">Be Harmony</p>
-                <p class="text-white/90 mt-2 italic drop-shadow text-sm">Twój gabinet fizjoterapii</p>
+                <p class="text-white/90 mt-2 italic drop-shadow text-sm">Twój gabinet pracy z ciałem</p>
               </div>
             </div>
             <!-- Decorative element -->
-            <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-terracotta/10 rounded-2xl -z-10"></div>
+            <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-beige-300/40 rounded-2xl -z-10"></div>
             <div class="absolute -top-4 -left-4 w-16 h-16 bg-mint-300/30 rounded-xl -z-10"></div>
           </div>
         </div>
@@ -56,5 +57,12 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     styles: []
 })
 export class AboutComponent {
-    tags = ['Fizjoterapia', 'Masaż', 'Trening EMS', 'Holistyczne podejście', 'Indywidualny plan'];
+    tags: { label: string; variant: string }[] = [
+        { label: 'Terapia ciała', variant: 'bg-terracotta/15 text-terracotta-700 border-terracotta/30' },
+        { label: 'Masaż', variant: 'bg-terracotta/15 text-terracotta-700 border-terracotta/30' },
+        { label: 'Trening EMS', variant: 'bg-terracotta/15 text-terracotta-700 border-terracotta/30' },
+        { label: 'Trening Funkcjonalny', variant: 'bg-terracotta/15 text-terracotta-700 border-terracotta/30' },
+        { label: 'Holistyczne podejście', variant: 'bg-terracotta/15 text-terracotta-700 border-terracotta/30' },
+        { label: 'Indywidualny plan', variant: 'bg-terracotta/15 text-terracotta-700 border-terracotta/30' },
+    ];
 }

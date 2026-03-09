@@ -42,7 +42,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 
         <div appScrollReveal [revealDelay]="0.3" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a href="#uslugi"
-             class="px-8 py-4 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-600 hover:shadow-xl hover:shadow-terracotta/20 transition-all duration-300 text-lg transform hover:-translate-y-0.5">
+             class="px-8 py-4 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-600 hover:shadow-xl hover:shadow-warm transition-all duration-300 text-lg transform hover:-translate-y-0.5">
             Poznaj nasze usługi
           </a>
           <a href="#kontakt"

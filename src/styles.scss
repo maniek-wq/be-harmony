@@ -13,8 +13,8 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: #e6f4ea;
-  color: #2d3436;
+  background-color: #FAF6F1;
+  color: #1E1B1B;
 }
 
 /* Scroll reveal animations */
@@ -53,7 +53,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e6f4ea;
+  background-color: #FAF6F1;
   transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
 }
 
@@ -68,16 +68,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #e6f4ea;
+  background: #FAF6F1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #9fd8cb;
+  background: #BCB7B4;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7fcbbb;
+  background: #596831;
 }
 
 /* Glassmorphism utility */
@@ -98,7 +98,7 @@ body {
   content: '';
   position: absolute;
   inset: -2px;
-  background: linear-gradient(45deg, #9fd8cb, #A4532E, #9fd8cb, #A4532E);
+  background: linear-gradient(45deg, #BCB7B4, #596831, #BCB7B4, #596831);
   background-size: 400% 400%;
   animation: gradientBorder 3s ease infinite;
   border-radius: inherit;

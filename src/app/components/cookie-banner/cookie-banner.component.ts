@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
     template: `
     <div *ngIf="showBanner"
          class="fixed bottom-0 left-0 right-0 z-40 p-4 md:p-6 animate-slide-up">
-      <div class="max-w-4xl mx-auto bg-gray-900 text-white rounded-2xl p-6 shadow-2xl border border-gray-700">
+      <div class="max-w-4xl mx-auto bg-brand-dark text-white rounded-2xl p-6 shadow-2xl border border-charcoal">
         <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
           <div class="flex-1">
             <h3 class="font-semibold text-sm mb-1">🍪 Ta strona używa plików cookies</h3>

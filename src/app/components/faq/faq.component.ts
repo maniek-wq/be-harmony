@@ -13,7 +13,7 @@ interface FaqItem {
     standalone: true,
     imports: [CommonModule, ScrollRevealDirective],
     template: `
-    <section class="py-20 md:py-28 bg-white">
+    <section class="py-20 md:py-28 bg-cream-100">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
           <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">FAQ</span>
@@ -66,17 +66,12 @@ export class FaqComponent {
     faqItems: FaqItem[] = [
         {
             question: 'Czy potrzebuję skierowania od lekarza?',
-            answer: 'Nie, do naszego gabinetu nie potrzebujesz skierowania. Możesz umówić się na wizytę bezpośrednio, dzwoniąc pod numer 601 160 646 lub wypełniając formularz kontaktowy na stronie. Na pierwszej wizycie przeprowadzimy szczegółowy wywiad i badanie funkcjonalne.',
+            answer: 'Nie, do naszego gabinetu nie potrzebujesz skierowania. Możesz umówić się na wizytę bezpośrednio, dzwoniąc pod numer 601 160 646 lub wypełniając formularz kontaktowy na stronie. Na pierwszej wizycie przeprowadzimy szczegółowy wywiad i badanie funkcjonalne. Świadczymy usługi wyłącznie prywatnie, bez współpracy z NFZ.',
             open: false,
         },
         {
             question: 'Jak przygotować się do treningu EMS?',
-            answer: 'Na trening EMS weź ze sobą wygodne ubranie (koszulka i spodenki/leginsy) oraz buty sportowe. Przed treningiem jedz lekki posiłek minimum 1,5 godziny wcześniej i pamiętaj o nawodnieniu. Cały sprzęt EMS zapewniamy na miejscu.',
-            open: false,
-        },
-        {
-            question: 'Ile trwa pierwsza wizyta?',
-            answer: 'Pierwsza wizyta trwa zazwyczaj od 60 do 90 minut. Obejmuje szczegółowy wywiad, ocenę funkcjonalną oraz pierwszą sesję terapeutyczną. Kolejne wizyty trwają zgodnie z czasem opisanym przy danej usłudze.',
+            answer: 'Trening odbywa się na nowoczesnym, bezprzewodowym sprzęcie – suchych kamizelkach, bez kabli, co daje pełną swobodę ruchu. Kamizelka jest po każdym użyciu dokładnie dezynfekowana i prana, aby zapewnić pełną czystość i komfort. Przygotowanie: Ubieramy się w swoją bieliznę, na wierzch kamizelkę EMS. Możesz ćwiczyć w obuwiu sportowym lub po prostu na boso/skarpetkach. Nie jedz ciężkiego posiłku na 1,5 godziny przed treningiem. Pij wodę, aby być odpowiednio nawodnionym. Jeśli masz suchą skórę, możesz użyć nawilżającego balsamu w dniu treningu. Dzięki temu trening będzie komfortowy, bezpieczny i maksymalnie skuteczny.',
             open: false,
         },
         {
