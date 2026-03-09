@@ -59,9 +59,8 @@ import { RouterLink } from '@angular/router';
             <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Usługi</h4>
             <ul class="space-y-3">
               <li><span class="text-gray-400 text-sm">Trening EMS</span></li>
-              <li><span class="text-gray-400 text-sm">Terapia ciała</span></li>
+              <li><span class="text-gray-400 text-sm">Terapia</span></li>
               <li><span class="text-gray-400 text-sm">Masaże</span></li>
-              <li><span class="text-gray-400 text-sm">Terapia wisceralna</span></li>
               <li><span class="text-gray-400 text-sm">HTR</span></li>
               <li><span class="text-gray-400 text-sm">Trening Funkcjonalny</span></li>
             </ul>

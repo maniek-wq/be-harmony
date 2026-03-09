@@ -137,6 +137,7 @@ export class PricingPageComponent {
         { name: 'Terapia ciała', description: '50 min — kompleksowa praca z ciałem', price: '180' },
         { name: 'Terapia po zabiegach medycyny estetycznej i chirurgii plastycznej', description: '50 min — specjalistyczna terapia wspierająca regenerację', price: '200' },
         { name: 'Terapia wisceralna', description: '50 min — delikatna praca w obrębie jamy brzusznej i klatki piersiowej', price: '200' },
+        { name: 'Praca z blizną i obrzękami', description: '50 min — terapia blizn i obrzęków po zabiegach lub urazach', price: '180' },
       ]
     },
     {
