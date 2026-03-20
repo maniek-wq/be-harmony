@@ -81,23 +81,6 @@ interface PricingItem {
                     </div>
                   </div>
                 </div>
-                <div class="mt-4 rounded-xl overflow-hidden relative group/video">
-                  <video #pricingEmsVideo src="assets/videos/ems.mov" controls playsinline
-                         class="w-full aspect-video object-cover rounded-xl"
-                         (play)="showPricingPlayOverlay = false"
-                         (pause)="showPricingPlayOverlay = true">
-                    Twoja przeglądarka nie obsługuje odtwarzania wideo.
-                  </video>
-                  <div *ngIf="showPricingPlayOverlay"
-                       (click)="pricingEmsVideo.play()"
-                       class="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer hover:bg-black/40 transition-colors rounded-xl">
-                    <div class="w-16 h-16 rounded-full bg-white/95 flex items-center justify-center shadow-xl group-hover/video:scale-110 transition-transform">
-                      <svg class="w-8 h-8 text-terracotta ml-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -150,8 +133,6 @@ interface PricingItem {
   styles: []
 })
 export class PricingPageComponent {
-  showPricingPlayOverlay = true;
-
   constructor(private router: Router) {}
 
   navigateToContact() {

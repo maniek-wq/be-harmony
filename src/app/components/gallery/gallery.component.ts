@@ -9,6 +9,11 @@ interface GalleryImage {
   loaded: boolean;
 }
 
+interface GallerySection {
+  title: string;
+  images: GalleryImage[];
+}
+
 @Component({
   selector: 'app-gallery',
   standalone: true,
@@ -26,31 +31,34 @@ interface GalleryImage {
           </p>
         </div>
 
-        <!-- Gallery Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <div *ngFor="let img of galleryImages; let i = index"
-               appScrollReveal [revealDelay]="i * 0.08"
-               (click)="openLightbox(i)"
-               class="group cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 min-w-0"
-               [ngClass]="{'col-span-2 row-span-2': img.size === 'large'}">
-            <div class="relative aspect-square overflow-hidden bg-mint-100 w-full">
-              <!-- Skeleton shimmer -->
-              <div *ngIf="!img.loaded" class="absolute inset-0 skeleton-shimmer"></div>
-              <img [src]="img.src" [alt]="img.label" decoding="async" loading="lazy"
-                   (load)="img.loaded = true"
-                   class="block w-full h-full max-w-full max-h-full object-cover object-center img-content img-scale-mobile group-hover:scale-110 transition-all duration-500"
-                   [class.opacity-0]="!img.loaded"
-                   [class.opacity-100]="img.loaded">
-              <!-- Hover overlay -->
-              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-end">
-                <div class="w-full p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <p class="text-white text-sm font-medium drop-shadow-lg">{{ img.label }}</p>
+        <!-- Gallery Sections -->
+        <div *ngFor="let section of gallerySections; let sIdx = index" class="mb-16 last:mb-0" appScrollReveal [revealDelay]="sIdx * 0.1">
+          <h3 class="font-display text-xl md:text-2xl font-semibold text-gray-800 mb-6 pb-2 border-b border-terracotta/30">
+            {{ section.title }}
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div *ngFor="let img of section.images; let i = index"
+                 appScrollReveal [revealDelay]="(sIdx * 0.1) + (i * 0.08)"
+                 (click)="openLightbox(getFlatIndex(sIdx, i))"
+                 class="group cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 min-w-0"
+                 [ngClass]="{'col-span-2 row-span-2': img.size === 'large'}">
+              <div class="relative aspect-square overflow-hidden bg-mint-100 w-full">
+                <div *ngIf="!img.loaded" class="absolute inset-0 skeleton-shimmer"></div>
+                <img [src]="img.src" [alt]="img.label" decoding="async" loading="lazy"
+                     (load)="img.loaded = true"
+                     class="block w-full h-full max-w-full max-h-full object-cover object-center img-content img-scale-mobile group-hover:scale-110 transition-all duration-500"
+                     [class.opacity-0]="!img.loaded"
+                     [class.opacity-100]="img.loaded">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-end">
+                  <div class="w-full p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p class="text-white text-sm font-medium drop-shadow-lg">{{ img.label }}</p>
+                  </div>
                 </div>
-              </div>
-              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <svg class="w-8 h-8 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
-                </svg>
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <svg class="w-8 h-8 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
@@ -74,21 +82,21 @@ interface GalleryImage {
           <div *ngIf="!lightboxImageLoaded" class="absolute inset-0 flex items-center justify-center">
             <div class="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
           </div>
-          <img [src]="galleryImages[selectedImage].src" 
-               [alt]="galleryImages[selectedImage].label"
+          <img [src]="allGalleryImages[selectedImage].src" 
+               [alt]="allGalleryImages[selectedImage].label"
                decoding="async"
                (load)="lightboxImageLoaded = true"
                class="w-full max-w-full max-h-[80vh] object-contain rounded-xl img-content img-scale-mobile transition-opacity duration-300"
                [class.opacity-0]="!lightboxImageLoaded"
                [class.opacity-100]="lightboxImageLoaded">
         </div>
-        <p class="text-white text-center mt-3 font-display text-lg">{{ galleryImages[selectedImage].label }}</p>
+        <p class="text-white text-center mt-3 font-display text-lg">{{ allGalleryImages[selectedImage].label }}</p>
         <!-- Navigation -->
         <div class="flex justify-between mt-4">
           <button (click)="prevImage($event)" class="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors">
             ← Poprzednie
           </button>
-          <span class="text-white/50 self-center text-sm">{{ selectedImage + 1 }} / {{ galleryImages.length }}</span>
+          <span class="text-white/50 self-center text-sm">{{ selectedImage + 1 }} / {{ allGalleryImages.length }}</span>
           <button (click)="nextImage($event)" class="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors">
             Następne →
           </button>
@@ -113,12 +121,43 @@ export class GalleryComponent {
   lightboxImageLoaded = false;
   selectedImage = 0;
 
-  // Zdjęcia 1, 3, 5 — resztę można dodać później
-  galleryImages: GalleryImage[] = [
-    { label: 'Gabinet', src: 'assets/img/10445.jpg', size: 'large', loaded: false },
-    { label: 'Strefa treningowa', src: 'assets/img/10498.jpg', size: 'large', loaded: false },
-    { label: 'Zapraszamy', src: 'assets/img/10469.jpg', size: 'normal', loaded: false },
+  gallerySections: GallerySection[] = [
+    {
+      title: 'Wejście i recepcja',
+      images: [
+        { label: 'Witryna gabinetu', src: 'assets/img/10445.jpg', size: 'large', loaded: false },
+        { label: 'Wejście do gabinetu', src: 'assets/img/20260216_145321.jpg', size: 'normal', loaded: false },
+        { label: 'Zapraszamy', src: 'assets/img/10469.jpg', size: 'normal', loaded: false },
+      ],
+    },
+    {
+      title: 'Poczekalnia',
+      images: [
+        { label: 'Poczekalnia', src: 'assets/img/20260216_145207.jpg', size: 'large', loaded: false },
+        { label: 'Wnętrze – kanapa', src: 'assets/img/10460.jpg', size: 'normal', loaded: false },
+      ],
+    },
+    {
+      title: 'Sale zabiegowe',
+      images: [
+        { label: 'Sala zabiegowa', src: 'assets/img/20260216_143921.jpg', size: 'large', loaded: false },
+        { label: 'Gabinet zabiegowy', src: 'assets/img/20260216_143912.jpg', size: 'normal', loaded: false },
+      ],
+    },
+    {
+      title: 'Strefa treningowa EMS',
+      images: [
+        { label: 'Strefa EMS – sprzęt i interfejs', src: 'assets/img/20260205_160321.jpg', size: 'large', loaded: false },
+        { label: 'Trening EMS', src: 'assets/img/20250919_142036.jpg', size: 'normal', loaded: false },
+        { label: 'Strefa treningowa z kamizelkami EMS', src: 'assets/img/20260216_145437.jpg', size: 'normal', loaded: false },
+        { label: 'Sala treningowa', src: 'assets/img/10498.jpg', size: 'normal', loaded: false },
+      ],
+    },
   ];
+
+  get allGalleryImages(): GalleryImage[] {
+    return this.gallerySections.flatMap((s) => s.images);
+  }
 
   openLightbox(index: number) {
     this.selectedImage = index;
@@ -132,15 +171,23 @@ export class GalleryComponent {
     document.body.style.overflow = '';
   }
 
+  getFlatIndex(sectionIdx: number, imageIdx: number): number {
+    let idx = 0;
+    for (let s = 0; s < sectionIdx; s++) idx += this.gallerySections[s].images.length;
+    return idx + imageIdx;
+  }
+
   prevImage(e: Event) {
     e.stopPropagation();
     this.lightboxImageLoaded = false;
-    this.selectedImage = this.selectedImage > 0 ? this.selectedImage - 1 : this.galleryImages.length - 1;
+    const n = this.allGalleryImages.length;
+    this.selectedImage = this.selectedImage > 0 ? this.selectedImage - 1 : n - 1;
   }
 
   nextImage(e: Event) {
     e.stopPropagation();
     this.lightboxImageLoaded = false;
-    this.selectedImage = this.selectedImage < this.galleryImages.length - 1 ? this.selectedImage + 1 : 0;
+    const n = this.allGalleryImages.length;
+    this.selectedImage = this.selectedImage < n - 1 ? this.selectedImage + 1 : 0;
   }
 }

@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
+
+const MAX_FILE_SIZE_MB = 5;
 
 @Component({
   selector: 'app-contact-form',
@@ -131,6 +133,30 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                    class="mt-1 text-xs text-red-500">Proszę wpisać wiadomość</p>
               </div>
 
+              <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Załącznik</label>
+                <div class="flex flex-wrap gap-2 items-center">
+                  <label class="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-mint-200 bg-white hover:bg-mint-50/50 cursor-pointer transition-colors text-sm">
+                    <svg class="w-5 h-5 text-mint-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                    </svg>
+                    Wybierz plik
+                    <input type="file" #fileInput (change)="onFileSelected($event)"
+                           accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                           class="sr-only">
+                  </label>
+                  <span *ngIf="selectedFile" class="text-sm text-gray-600 truncate max-w-[200px]" [title]="selectedFile.name">
+                    {{ selectedFile.name }}
+                  </span>
+                  <button *ngIf="selectedFile" type="button"
+                          (click)="removeFile()"
+                          class="text-red-500 hover:text-red-600 text-sm font-medium">
+                    Usuń
+                  </button>
+                </div>
+                <p class="mt-1 text-xs text-gray-500">PDF, DOC, DOCX, JPG, PNG — maks. 5 MB</p>
+              </div>
+
               <button type="submit"
                       [disabled]="contactForm.invalid"
                       class="w-full px-8 py-4 bg-olive text-white font-semibold rounded-xl hover:bg-olive-600 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 text-sm">
@@ -160,8 +186,10 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
   `]
 })
 export class ContactFormComponent {
+  @ViewChild('fileInput') fileInputRef?: ElementRef<HTMLInputElement>;
   contactForm: FormGroup;
   submitted = false;
+  selectedFile: File | null = null;
 
   constructor(private fb: FormBuilder) {
     this.contactForm = this.fb.group({
@@ -183,14 +211,34 @@ export class ContactFormComponent {
     }
   }
 
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      alert(`Plik jest za duży. Maksymalny rozmiar: ${MAX_FILE_SIZE_MB} MB.`);
+      input.value = '';
+      return;
+    }
+    this.selectedFile = file;
+  }
+
+  removeFile() {
+    this.selectedFile = null;
+    if (this.fileInputRef?.nativeElement) {
+      this.fileInputRef.nativeElement.value = '';
+    }
+  }
+
   onSubmit() {
     if (this.contactForm.valid) {
       const phone = this.contactForm.value.phoneNumber
         ? `${this.contactForm.value.phonePrefix} ${this.contactForm.value.phoneNumber}`
         : '';
-      console.log('Form submitted:', { ...this.contactForm.value, phone });
+      console.log('Form submitted:', { ...this.contactForm.value, phone, attachment: this.selectedFile?.name });
       this.submitted = true;
       this.contactForm.reset({ name: '', email: '', phonePrefix: '+48', phoneNumber: '', subject: '', message: '' });
+      this.removeFile();
       setTimeout(() => this.submitted = false, 5000);
     } else {
       this.contactForm.markAllAsTouched();
