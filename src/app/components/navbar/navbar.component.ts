@@ -32,7 +32,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
               Cennik
             </a>
             <a href="javascript:void(0)" (click)="navigateToSection('#kontakt')"
-               class="ml-2 px-5 py-2.5 bg-mint text-terracotta-800 font-semibold rounded-full hover:bg-mint-200 hover:shadow-lg transition-all duration-300 text-sm">
+               class="ml-2 px-5 py-2.5 bg-olive text-white font-semibold rounded-full hover:bg-olive-600 hover:shadow-lg transition-all duration-300 text-sm">
               Umów wizytę
             </a>
           </div>
@@ -81,7 +81,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
             <div class="border-t border-white/10 mt-4 mb-0"></div>
             <div class="pt-6">
               <a href="javascript:void(0)" (click)="navigateToSection('#kontakt'); toggleMobile()"
-                 class="flex items-center justify-center gap-2 mx-4 px-5 py-3.5 bg-mint text-terracotta-800 font-semibold rounded-xl hover:bg-mint-200 transition-all text-sm shadow-sm">
+                 class="flex items-center justify-center gap-2 mx-4 px-5 py-3.5 bg-olive text-white font-semibold rounded-xl hover:bg-olive-600 transition-all text-sm shadow-sm">
               <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               Umów wizytę
               </a>

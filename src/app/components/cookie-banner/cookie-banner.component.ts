@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
           </div>
           <div class="flex gap-3 flex-shrink-0">
             <button (click)="acceptCookies()"
-                    class="px-5 py-2 bg-mint text-gray-900 font-semibold rounded-lg hover:bg-mint-200 transition-colors text-sm">
+                    class="px-5 py-2 bg-olive text-white font-semibold rounded-lg hover:bg-olive-600 transition-colors text-sm">
               Akceptuję
             </button>
             <button (click)="declineCookies()"

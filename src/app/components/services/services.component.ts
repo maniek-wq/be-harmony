@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 interface Service {
@@ -47,18 +47,24 @@ interface Service {
             
             <div class="relative bg-white rounded-3xl p-6 sm:p-8 md:p-10">
               <div class="flex flex-col lg:flex-row items-center gap-8">
-                <div class="w-full lg:w-5/12 flex-shrink-0">
-                  <div class="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-lg">
-                    <img src="assets/img/foto_ems1.jpg" alt="Trening EMS" class="w-full h-full object-cover object-center img-content img-scale-mobile scale-100 group-hover:scale-105 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div class="flex items-center gap-2">
-                        <svg class="w-6 h-6 text-mint-300 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                <div class="w-full lg:w-5/12 flex-shrink-0" (click)="$event.stopPropagation()">
+                  <div class="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-lg group/video">
+                    <video #emsVideo src="assets/videos/ems.mov" controls playsinline
+                           class="w-full h-full object-cover rounded-2xl"
+                           (play)="showEmsPlayOverlay = false"
+                           (pause)="showEmsPlayOverlay = true">
+                      Twoja przeglądarka nie obsługuje odtwarzania wideo.
+                    </video>
+                    <div *ngIf="showEmsPlayOverlay"
+                         (click)="emsVideo.play()"
+                         class="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer hover:bg-black/40 transition-colors rounded-2xl">
+                      <div class="w-20 h-20 rounded-full bg-white/95 flex items-center justify-center shadow-xl group-hover/video:scale-110 transition-transform">
+                        <svg class="w-10 h-10 text-terracotta ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
                         </svg>
-                        <span class="text-white font-medium text-sm drop-shadow-md">Zobacz szczegóły</span>
                       </div>
                     </div>
-                    <span class="absolute top-4 left-4 px-3 py-1.5 bg-terracotta text-white text-xs font-bold rounded-full shadow-xl uppercase tracking-wider animate-bounce">
+                    <span class="absolute top-4 left-4 px-3 py-1.5 bg-terracotta text-white text-xs font-bold rounded-full shadow-xl uppercase tracking-wider animate-bounce z-10">
                       Nowość!
                     </span>
                   </div>
@@ -92,24 +98,24 @@ interface Service {
           <div *ngFor="let service of services; let i = index"
                appScrollReveal [revealDelay]="i * 0.1"
                (click)="openModal(service)"
-               class="group cursor-pointer bg-white rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-warm hover:ring-2 hover:ring-beige-300 transition-all duration-300 border border-beige-200 hover:border-beige-300 hover:-translate-y-1.5 active:scale-[0.98] active:shadow-md">
+               class="group cursor-pointer bg-cream-100 rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-terracotta hover:ring-2 hover:ring-terracotta/20 transition-all duration-300 border border-terracotta/10 hover:border-terracotta/30 hover:-translate-y-1.5 active:scale-[0.98] active:shadow-md">
             
-            <div class="w-14 h-14 rounded-xl bg-mint-50 flex items-center justify-center mb-5 group-hover:bg-beige-100 group-hover:scale-110 transition-all duration-300">
+            <div class="w-14 h-14 rounded-xl bg-terracotta/10 flex items-center justify-center mb-5 group-hover:bg-terracotta/20 group-hover:scale-110 transition-all duration-300">
               <span class="text-2xl" [innerHTML]="service.icon"></span>
             </div>
 
-            <h3 class="font-display text-xl font-semibold text-gray-900 mb-3 group-hover:text-terracotta transition-colors">
+            <h3 class="font-display text-xl font-semibold text-gray-900 mb-3 group-hover:text-terracotta-700 transition-colors">
               {{ service.name }}
             </h3>
             
-            <p class="text-gray-500 text-sm leading-relaxed mb-5">
+            <p class="text-gray-600 text-sm leading-relaxed mb-5">
               {{ service.description }}
             </p>
 
             <!-- Sub items for massages -->
             <div *ngIf="service.subItems" class="space-y-2 mb-5">
               <div *ngFor="let sub of service.subItems"
-                   class="flex justify-between items-center py-1.5 border-b border-gray-100 last:border-0">
+                   class="flex justify-between items-center py-1.5 border-b border-terracotta/10 last:border-0">
                 <span class="text-sm text-gray-600">{{ sub.name }}</span>
                 <span class="text-sm font-semibold text-terracotta">{{ sub.price }}</span>
               </div>
@@ -120,7 +126,7 @@ interface Service {
                 <span class="text-2xl font-bold text-terracotta">{{ service.price }}</span>
                 <span *ngIf="service.price !== 'Do ustalenia'" class="text-gray-400 text-sm ml-1">zł</span>
               </div>
-              <span class="text-xs text-mint-600 font-medium flex items-center gap-1 ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+              <span class="text-xs text-terracotta-600 font-medium flex items-center gap-1 ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
                 Szczegóły
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
               </span>
@@ -154,8 +160,8 @@ interface Service {
         
         <!-- Close button -->
         <button (click)="closeModal()"
-                class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
-          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-terracotta/10 hover:bg-terracotta/20 flex items-center justify-center transition-colors">
+          <svg class="w-5 h-5 text-terracotta-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </button>
@@ -164,7 +170,7 @@ interface Service {
         <div class="p-8 pb-0">
           <div class="flex items-start gap-5">
             <div class="w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0"
-                 [class]="selectedService.isEms ? 'bg-gradient-to-br from-mint to-mint-400' : 'bg-mint-50'">
+                 [class]="selectedService.isEms ? 'bg-terracotta' : 'bg-terracotta/10'">
               <span *ngIf="!selectedService.isEms" class="text-3xl" [innerHTML]="selectedService.icon"></span>
               <svg *ngIf="selectedService.isEms" class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
@@ -196,7 +202,7 @@ interface Service {
             <ul class="space-y-2">
               <li *ngFor="let item of selectedService.combinesSection?.items"
                   class="flex items-start gap-3 text-gray-600 text-sm">
-                <svg class="w-4 h-4 text-mint-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-4 h-4 text-terracotta mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
                 {{ item }}
@@ -210,7 +216,7 @@ interface Service {
             <ul class="space-y-2">
               <li *ngFor="let item of selectedService.regularTherapy"
                   class="flex items-start gap-3 text-gray-600 text-sm">
-                <svg class="w-4 h-4 text-mint-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-4 h-4 text-terracotta mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
                 {{ item }}
@@ -221,7 +227,7 @@ interface Service {
           <!-- Korzyści / Korzyści terapii -->
           <div *ngIf="selectedService.benefits.length && !selectedService.regularTherapy?.length">
             <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-              <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
               {{ selectedService.benefitsHeading || 'Korzyści' }}
@@ -229,7 +235,7 @@ interface Service {
             <ul class="space-y-2">
               <li *ngFor="let benefit of selectedService.benefits"
                   class="flex items-start gap-3 text-gray-600 text-sm">
-                <svg class="w-4 h-4 text-mint-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-4 h-4 text-terracotta mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
                 {{ benefit }}
@@ -255,7 +261,7 @@ interface Service {
             <h3 class="font-semibold text-gray-900 mb-3">Rodzaje</h3>
             <div class="space-y-3">
               <div *ngFor="let sub of selectedService.subItems"
-                   class="flex items-center justify-between p-4 bg-mint-50/50 rounded-xl border border-mint-100">
+                   class="flex items-center justify-between p-4 bg-terracotta/5 rounded-xl border border-terracotta/10">
                 <div>
                   <span class="font-medium text-gray-900">{{ sub.name }}</span>
                   <p *ngIf="sub.description" class="text-gray-500 text-xs mt-0.5">{{ sub.description }}</p>
@@ -267,12 +273,12 @@ interface Service {
 
           <!-- Duration & Price -->
           <div class="flex flex-col sm:flex-row gap-4">
-            <div *ngIf="selectedService.duration" class="flex-1 p-4 bg-gray-50 rounded-xl text-center">
-              <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Czas trwania</p>
+            <div *ngIf="selectedService.duration" class="flex-1 p-4 bg-cream-100 rounded-xl text-center">
+              <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Czas trwania</p>
               <p class="font-semibold text-gray-900">{{ selectedService.duration }}</p>
             </div>
-            <div *ngIf="!selectedService.subItems" class="flex-1 p-4 bg-beige-100 rounded-xl text-center">
-              <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Cena</p>
+            <div *ngIf="!selectedService.subItems" class="flex-1 p-4 bg-terracotta/10 rounded-xl text-center">
+              <p class="text-xs text-terracotta-700 uppercase tracking-wider mb-1">Cena</p>
               <p class="text-2xl font-bold text-terracotta">
                 {{ selectedService.price }}
                 <span *ngIf="selectedService.price !== 'Do ustalenia'" class="text-sm text-gray-400 font-normal">zł</span>
@@ -281,7 +287,7 @@ interface Service {
           </div>
 
           <!-- CTA -->
-          <a href="#kontakt" (click)="closeModal()"
+          <a href="javascript:void(0)" (click)="navigateToContact()"
              class="block w-full px-6 py-4 bg-terracotta text-white font-semibold rounded-xl text-center hover:bg-terracotta-600 hover:shadow-lg transition-all duration-300">
             Umów wizytę
           </a>
@@ -299,6 +305,29 @@ interface Service {
 })
 export class ServicesComponent {
   selectedService: Service | null = null;
+  showEmsPlayOverlay = true;
+
+  constructor(private router: Router) {}
+
+  navigateToContact() {
+    this.closeModal();
+    if (this.router.url === '/' || this.router.url.startsWith('/#')) {
+      this.scrollToSection('kontakt');
+    } else {
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => this.scrollToSection('kontakt'), 100);
+      });
+    }
+  }
+
+  private scrollToSection(id: string) {
+    const el = document.getElementById(id);
+    if (el) {
+      const offset = 80;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
 
   emsService: Service = {
     name: 'Trening EMS',
@@ -369,21 +398,6 @@ export class ServicesComponent {
       duration: '50 min',
       price: '180',
       icon: '💆',
-    },
-    {
-      name: 'Praca z blizną i obrzękami',
-      description: 'Terapia manualna i narzędziowa blizn oraz obrzęków.',
-      detailedDescription: 'Blizna to naturalny efekt procesu gojenia, jednak nie zawsze przebiega on w sposób optymalny. Niekiedy blizny mogą ograniczać ruchomość tkanek, powodować dyskomfort lub wpływać na estetykę. Podobnie obrzęki, pojawiające się po urazach czy zabiegach, mogą spowalniać regenerację i utrudniać powrót do pełnej sprawności. W Be Harmony stosuję techniki manualne oraz narzędziowe, które poprawiają ruchomość i elastyczność tkanek, wspierają prawidłowe układanie się blizny, zmniejszają uczucie napięcia, bólu czy ciągnięcia, przyspieszają redukcję obrzęków i poprawiają krążenie oraz korzystnie wpływają na wygląd i komfort w miejscu blizny. Terapia polecana jest osobom po operacjach, zabiegach lub urazach, a także po cesarskim cięciu.',
-      benefits: [
-        'Poprawa ruchomości i elastyczności tkanek',
-        'Wsparcie prawidłowego układania się blizny',
-        'Zmniejszenie uczucia napięcia, bólu czy ciągnięcia',
-        'Przyspieszenie redukcji obrzęków i poprawa krążenia',
-        'Korzystny wpływ na wygląd i komfort w miejscu blizny',
-      ],
-      duration: '50 min',
-      price: '180/200',
-      icon: '🩹',
     },
     {
       name: 'Terapia wisceralna',

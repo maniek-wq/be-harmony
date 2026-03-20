@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 @Component({
@@ -10,7 +11,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-white" style="transform: translateZ(0);">
       <!-- Background Images Marquee -->
       <div class="absolute inset-0 z-0 overflow-hidden" style="transform: translateZ(0);">
-        <img src="assets/img/10507.jpg" alt="Gabinet Fizjoterapii" class="hero-bg-img img-scale-mobile" style="animation-delay: 0s;">
+        <img src="assets/img/10507.jpg" alt="Gabinet terapii ciała" class="hero-bg-img img-scale-mobile" style="animation-delay: 0s;">
         <img src="assets/img/2.jpeg" alt="Fizjoterapia Be Harmony" class="hero-bg-img img-scale-mobile" style="animation-delay: 6s;">
         <img src="assets/img/6.jpeg" alt="Masaż relaksacyjny" class="hero-bg-img img-scale-mobile" style="animation-delay: 12s;">
         <img src="assets/img/5.jpg" alt="Strefa Treningowa" class="hero-bg-img img-scale-mobile" style="animation-delay: 18s;">
@@ -23,7 +24,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20 md:py-32">
         <div appScrollReveal class="mb-6">
           <span class="inline-block px-4 py-1.5 bg-terracotta/10 text-terracotta rounded-full text-sm font-medium border border-terracotta/20">
-            Gabinet Fizjoterapii
+            Gabinet terapii ciała
           </span>
         </div>
 
@@ -41,11 +42,11 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
         </p>
 
         <div appScrollReveal [revealDelay]="0.3" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a href="#uslugi"
+          <a href="javascript:void(0)" (click)="navigateToSection('#uslugi')"
              class="px-8 py-4 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-600 hover:shadow-xl hover:shadow-warm transition-all duration-300 text-lg transform hover:-translate-y-0.5">
             Poznaj nasze usługi
           </a>
-          <a href="#kontakt"
+          <a href="javascript:void(0)" (click)="navigateToSection('#kontakt')"
              class="px-8 py-4 bg-white/70 text-terracotta font-semibold rounded-full border-2 border-terracotta/20 hover:border-terracotta hover:bg-white hover:shadow-lg transition-all duration-300 text-lg transform hover:-translate-y-0.5 backdrop-blur-sm">
             Skontaktuj się
           </a>
@@ -89,4 +90,26 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     }
   `]
 })
-export class HeroComponent { }
+export class HeroComponent {
+  constructor(private router: Router) {}
+
+  navigateToSection(hash: string) {
+    const sectionId = hash.replace('#', '');
+    if (this.router.url === '/' || this.router.url.startsWith('/#')) {
+      this.scrollToElement(sectionId);
+    } else {
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => this.scrollToElement(sectionId), 100);
+      });
+    }
+  }
+
+  private scrollToElement(id: string) {
+    const el = document.getElementById(id);
+    if (el) {
+      const offset = 80;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+}

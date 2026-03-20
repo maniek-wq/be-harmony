@@ -47,7 +47,7 @@ export class PrivacyPolicyComponent {
             title: '1. Administrator danych',
             paragraphs: [
                 'Administratorem Twoich danych osobowych jest Be Harmony — Natalia Matusz, z siedzibą pod adresem gabinetu (do uzupełnienia).',
-                'W sprawach dotyczących ochrony danych osobowych można kontaktować się za pośrednictwem adresu e-mail: kontakt@be-harmony.pl.'
+                'W sprawach dotyczących ochrony danych osobowych można kontaktować się za pośrednictwem adresu e-mail: nataliamatuszbeharmony@gmail.com.'
             ]
         },
         {
@@ -87,7 +87,7 @@ export class PrivacyPolicyComponent {
             title: '7. Prawa użytkownika',
             paragraphs: [
                 'Masz prawo do: dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania, przenoszenia danych, wniesienia sprzeciwu wobec przetwarzania, cofnięcia zgody w dowolnym momencie.',
-                'Aby skorzystać ze swoich praw, skontaktuj się z nami pod adresem: kontakt@be-harmony.pl.'
+                'Aby skorzystać ze swoich praw, skontaktuj się z nami pod adresem: nataliamatuszbeharmony@gmail.com.'
             ]
         },
         {

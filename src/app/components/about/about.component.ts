@@ -39,7 +39,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 
           <div appScrollReveal [revealDelay]="0.2" class="relative min-w-0">
             <div class="aspect-[4/5] max-h-[70vh] md:max-h-none rounded-2xl overflow-hidden shadow-2xl relative w-full">
-              <img src="assets/img/104691.jpg" alt="Be Harmony — Natalia Matusz, gabinet fizjoterapii" class="block w-full h-full max-w-full max-h-full object-cover object-center img-content img-scale-mobile" decoding="async" fetchpriority="high" />
+              <img src="assets/img/104691.jpg" alt="Be Harmony — Natalia Matusz, gabinet terapii ciała" class="block w-full h-full max-w-full max-h-full object-cover object-center img-content img-scale-mobile" decoding="async" fetchpriority="high" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
               <div class="absolute bottom-0 left-0 right-0 text-center p-6">
                 <p class="font-display text-2xl text-white font-semibold drop-shadow">Be Harmony</p>

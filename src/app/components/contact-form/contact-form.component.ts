@@ -32,7 +32,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-900 mb-1">Adres</h4>
-                  <p class="text-gray-500">Przęsocin<br>ul. Orzechowa 33B/7</p>
+                  <p class="text-gray-500">Przęsocin<br>ul. Orzechowa 33B/lok.7</p>
                 </div>
               </div>
 
@@ -56,7 +56,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-900 mb-1">Email</h4>
-                  <p class="text-gray-500"><a href="mailto:beharmonynataliamatusz@gmail.com" class="hover:text-terracotta transition-colors">beharmonynataliamatusz&#64;gmail.com</a></p>
+                  <p class="text-gray-500"><a href="mailto:nataliamatuszbeharmony@gmail.com" class="hover:text-terracotta transition-colors">nataliamatuszbeharmony&#64;gmail.com</a></p>
                 </div>
               </div>
             </div>
@@ -65,10 +65,10 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
           <!-- Right: Form -->
           <div appScrollReveal [revealDelay]="0.2">
             <form [formGroup]="contactForm" (ngSubmit)="onSubmit()"
-                  class="bg-mint-50/50 border border-mint-200 rounded-2xl p-6 md:p-8 shadow-sm">
+                  class="bg-mint-50/50 border border-mint-200 rounded-2xl p-6 md:p-8 shadow-sm overflow-hidden">
               
               <div class="grid sm:grid-cols-2 gap-4 mb-4">
-                <div>
+                <div class="min-w-0">
                   <label class="block text-sm font-medium text-gray-700 mb-1.5">Imię i nazwisko *</label>
                   <input formControlName="name" type="text" placeholder="Jan Kowalski"
                          class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm"
@@ -76,10 +76,28 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                   <p *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
                      class="mt-1 text-xs text-red-500">Proszę podać imię i nazwisko</p>
                 </div>
-                <div>
+                <div class="min-w-0">
                   <label class="block text-sm font-medium text-gray-700 mb-1.5">Telefon</label>
-                  <input formControlName="phone" type="tel" placeholder="+48 XXX XXX XXX"
-                         class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm">
+                  <div class="flex min-w-0 rounded-xl border border-mint-200 bg-white overflow-hidden focus-within:border-mint focus-within:ring-2 focus-within:ring-mint/20 transition-all">
+                    <select formControlName="phonePrefix"
+                            class="phone-prefix-select min-w-[4.5rem] px-4 py-3 bg-mint-50/80 border-r border-mint-200 text-gray-700 font-medium text-sm focus:outline-none focus:ring-0 cursor-pointer flex-shrink-0">
+                      <option value="+48">+48</option>
+                      <option value="+49">+49</option>
+                      <option value="+33">+33</option>
+                      <option value="+44">+44</option>
+                      <option value="+46">+46</option>
+                      <option value="+420">+420</option>
+                      <option value="+43">+43</option>
+                      <option value="+31">+31</option>
+                      <option value="+32">+32</option>
+                      <option value="+39">+39</option>
+                      <option value="+34">+34</option>
+                    </select>
+                    <input formControlName="phoneNumber" type="tel" placeholder="123 456 789"
+                           (input)="onPhoneInput()"
+                           class="flex-1 min-w-0 px-4 py-3 border-0 bg-transparent text-sm placeholder:text-gray-400 focus:outline-none focus:ring-0"
+                           inputmode="numeric">
+                  </div>
                 </div>
               </div>
 
@@ -115,7 +133,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 
               <button type="submit"
                       [disabled]="contactForm.invalid"
-                      class="w-full px-8 py-4 bg-terracotta text-white font-semibold rounded-xl hover:bg-terracotta-600 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 text-sm">
+                      class="w-full px-8 py-4 bg-olive text-white font-semibold rounded-xl hover:bg-olive-600 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 text-sm">
                 Wyślij wiadomość
               </button>
 
@@ -130,7 +148,16 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       </div>
     </section>
   `,
-  styles: []
+  styles: [`
+    .phone-prefix-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.5rem center;
+      background-repeat: no-repeat;
+      background-size: 1.25rem;
+      padding-right: 2rem;
+    }
+  `]
 })
 export class ContactFormComponent {
   contactForm: FormGroup;
@@ -140,17 +167,30 @@ export class ContactFormComponent {
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: [''],
+      phonePrefix: ['+48'],
+      phoneNumber: ['', Validators.pattern(/^\d*$/)],
       subject: [''],
       message: ['', Validators.required],
     });
   }
 
+  onPhoneInput() {
+    const ctrl = this.contactForm.get('phoneNumber');
+    if (ctrl) {
+      const v = ctrl.value ?? '';
+      const digits = v.replace(/\D/g, '');
+      if (digits !== v) ctrl.setValue(digits, { emitEvent: false });
+    }
+  }
+
   onSubmit() {
     if (this.contactForm.valid) {
-      console.log('Form submitted:', this.contactForm.value);
+      const phone = this.contactForm.value.phoneNumber
+        ? `${this.contactForm.value.phonePrefix} ${this.contactForm.value.phoneNumber}`
+        : '';
+      console.log('Form submitted:', { ...this.contactForm.value, phone });
       this.submitted = true;
-      this.contactForm.reset();
+      this.contactForm.reset({ name: '', email: '', phonePrefix: '+48', phoneNumber: '', subject: '', message: '' });
       setTimeout(() => this.submitted = false, 5000);
     } else {
       this.contactForm.markAllAsTouched();

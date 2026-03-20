@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 interface PricingCategory {
@@ -16,6 +16,7 @@ interface PricingItem {
   description?: string;
   price: string;
   note?: string;
+  badge?: string;
 }
 
 @Component({
@@ -23,7 +24,7 @@ interface PricingItem {
   standalone: true,
   imports: [CommonModule, RouterLink, ScrollRevealDirective],
   template: `
-    <div class="min-h-screen bg-mint-50 pt-24 pb-20">
+    <div class="min-h-screen bg-white pt-24 pb-20">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="text-center mb-16" appScrollReveal>
@@ -80,6 +81,23 @@ interface PricingItem {
                     </div>
                   </div>
                 </div>
+                <div class="mt-4 rounded-xl overflow-hidden relative group/video">
+                  <video #pricingEmsVideo src="assets/videos/ems.mov" controls playsinline
+                         class="w-full aspect-video object-cover rounded-xl"
+                         (play)="showPricingPlayOverlay = false"
+                         (pause)="showPricingPlayOverlay = true">
+                    Twoja przeglądarka nie obsługuje odtwarzania wideo.
+                  </video>
+                  <div *ngIf="showPricingPlayOverlay"
+                       (click)="pricingEmsVideo.play()"
+                       class="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer hover:bg-black/40 transition-colors rounded-xl">
+                    <div class="w-16 h-16 rounded-full bg-white/95 flex items-center justify-center shadow-xl group-hover/video:scale-110 transition-transform">
+                      <svg class="w-8 h-8 text-terracotta ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -102,7 +120,10 @@ interface PricingItem {
               <div *ngFor="let item of category.items"
                    class="px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-mint-50/30 transition-colors">
                 <div class="flex-1">
-                  <h3 *ngIf="item.name" class="font-medium text-gray-900">{{ item.name }}</h3>
+                  <div class="flex items-center gap-3 flex-wrap">
+                    <h3 *ngIf="item.name" class="font-medium text-gray-900">{{ item.name }}</h3>
+                    <span *ngIf="item.badge" class="px-2.5 py-0.5 bg-terracotta/20 text-terracotta-700 border border-terracotta/30 text-xs font-medium rounded-full">{{ item.badge }}</span>
+                  </div>
                   <p *ngIf="item.description" class="text-gray-500 text-sm mt-0.5">{{ item.description }}</p>
                 </div>
                 <div class="flex items-baseline gap-1 flex-shrink-0">
@@ -118,7 +139,7 @@ interface PricingItem {
         <!-- CTA -->
         <div class="text-center mt-16" appScrollReveal>
           <p class="text-gray-500 text-sm mb-6">Masz pytania dotyczące cennika? Skontaktuj się z nami.</p>
-          <a routerLink="/" fragment="kontakt"
+          <a href="javascript:void(0)" (click)="navigateToContact()"
              class="inline-flex items-center gap-2 px-8 py-4 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-600 hover:shadow-xl transition-all duration-300 text-lg">
             Umów wizytę
           </a>
@@ -129,6 +150,23 @@ interface PricingItem {
   styles: []
 })
 export class PricingPageComponent {
+  showPricingPlayOverlay = true;
+
+  constructor(private router: Router) {}
+
+  navigateToContact() {
+    this.router.navigate(['/']).then(() => {
+      setTimeout(() => {
+        const el = document.getElementById('kontakt');
+        if (el) {
+          const offset = 80;
+          const top = el.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }, 100);
+    });
+  }
+
   categories: PricingCategory[] = [
     {
       name: 'Terapia',
@@ -137,7 +175,6 @@ export class PricingPageComponent {
         { name: 'Terapia ciała', description: '50 min — kompleksowa praca z ciałem', price: '180' },
         { name: 'Terapia po zabiegach medycyny estetycznej i chirurgii plastycznej', description: '50 min — specjalistyczna terapia wspierająca regenerację', price: '200' },
         { name: 'Terapia wisceralna', description: '50 min — delikatna praca w obrębie jamy brzusznej i klatki piersiowej', price: '200' },
-        { name: 'Praca z blizną i obrzękami', description: '50 min — terapia blizn i obrzęków po zabiegach lub urazach', price: '180' },
       ]
     },
     {
@@ -151,7 +188,7 @@ export class PricingPageComponent {
       name: 'HTR — Holistyczna Terapia Relaksacyjna',
       icon: '🌿',
       items: [
-        { name: '', description: '90 min — głęboka relaksacja łącząca techniki manualne, oddechowe i energetyczne', price: '380' },
+        { name: '', description: '90 min — głęboka relaksacja łącząca techniki manualne, oddechowe i energetyczne', price: '380', badge: 'Autorska metoda' },
       ]
     },
     {
