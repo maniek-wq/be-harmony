@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 @Component({
@@ -32,7 +32,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
               </p>
               
               <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#kontakt"
+                <a href="javascript:void(0)" (click)="navigateToContact()"
                    class="inline-flex justify-center items-center px-8 py-3.5 bg-terracotta text-white font-semibold rounded-full hover:bg-terracotta-600 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                   Zapytaj o bon
                 </a>
@@ -53,4 +53,28 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
   `,
     styles: []
 })
-export class VoucherBannerComponent { }
+export class VoucherBannerComponent {
+  constructor(private router: Router) {}
+
+  navigateToContact() {
+    if (this.router.url === '/' || this.router.url.startsWith('/#')) {
+      const el = document.getElementById('kontakt');
+      if (el) {
+        const offset = 80;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    } else {
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => {
+          const el = document.getElementById('kontakt');
+          if (el) {
+            const offset = 80;
+            const top = el.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        }, 100);
+      });
+    }
+  }
+}
