@@ -192,6 +192,22 @@ const EMAILJS_CONFIG = {
         </div>
       </div>
     </section>
+
+    <!-- Toast sukcesu -->
+    <div *ngIf="showToast"
+         class="fixed bottom-6 right-6 left-6 sm:left-auto z-[60] max-w-sm mx-auto sm:mx-0 px-5 py-4 bg-olive text-white rounded-xl shadow-xl flex items-center gap-3 toast-slide-in">
+      <span class="flex-shrink-0 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+      </span>
+      <p class="font-medium">Wiadomość została wysłana! Skontaktujemy się wkrótce.</p>
+      <button type="button" (click)="dismissToast()" class="ml-auto flex-shrink-0 p-1 hover:bg-white/20 rounded-lg transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
   `,
   styles: [`
     .phone-prefix-select {
@@ -202,12 +218,27 @@ const EMAILJS_CONFIG = {
       background-size: 1.25rem;
       padding-right: 2rem;
     }
+    .toast-slide-in {
+      animation: toastSlideIn 0.35s ease-out;
+    }
+    @keyframes toastSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   `]
 })
 export class ContactFormComponent {
   @ViewChild('fileInput') fileInputRef?: ElementRef<HTMLInputElement>;
   contactForm: FormGroup;
   submitted = false;
+  showToast = false;
+  toastTimeout?: ReturnType<typeof setTimeout>;
   submitting = false;
   errorMessage = '';
   selectedFile: File | null = null;
@@ -244,6 +275,14 @@ export class ContactFormComponent {
     this.selectedFile = file;
   }
 
+  dismissToast() {
+    this.showToast = false;
+    if (this.toastTimeout) {
+      clearTimeout(this.toastTimeout);
+      this.toastTimeout = undefined;
+    }
+  }
+
   removeFile() {
     this.selectedFile = null;
     if (this.fileInputRef?.nativeElement) {
@@ -274,8 +313,11 @@ export class ContactFormComponent {
       .then(
         () => {
           this.submitted = true;
+          this.showToast = true;
           this.contactForm.reset({ name: '', email: '', phonePrefix: '+48', phoneNumber: '', subject: '', message: '' });
           this.removeFile();
+          if (this.toastTimeout) clearTimeout(this.toastTimeout);
+          this.toastTimeout = setTimeout(() => this.dismissToast(), 5000);
           setTimeout(() => (this.submitted = false), 5000);
         },
         (err) => {
