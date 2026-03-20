@@ -116,8 +116,8 @@ export class TestimonialsComponent {
             stars: 5,
         },
         {
-            quote: 'Pani Natalia jest osobą o niezwykle ogromnej wiedzy. Szybko i prawidłowo diagnozuje problem oraz wie jak mu zaradzić. Zawsze podchodzi holistycznie wraz z ogromną empatią. Jako miejsce, gabinet jest zawsze przytulny i pełen ciepła. Serdecznie polecam każdemu!',
-            name: 'Igor',
+            quote: 'Profesjonalizm, zaangażowanie i wiedza fachowa, a wszystko w towarzystwie humoru i uroku osobistego. Polecam bez najmniejszych wątpliwości !!',
+            name: 'Paweł Subocz',
             service: 'Terapia',
             stars: 5,
         },
