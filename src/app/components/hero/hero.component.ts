@@ -75,7 +75,7 @@ import { Router } from '@angular/router';
     .hero-bg-video {
       position: absolute;
       top: 1px;
-      left: 1px;
+      left: 0px;
       width: calc(100% + 10px);
       height: calc(100% + 10px);
       object-fit: cover;
