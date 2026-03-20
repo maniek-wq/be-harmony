@@ -13,9 +13,9 @@ const MAX_FILE_SIZE_MB = 5;
  * 3. W zakładce Attachments dodaj Form File Attachment, parametr: attachment
  */
 const EMAILJS_CONFIG = {
-  serviceId: 'YOUR_SERVICE_ID',
-  templateId: 'YOUR_TEMPLATE_ID',
-  publicKey: 'YOUR_PUBLIC_KEY',
+  serviceId: 'service_pxiy3k7',
+  templateId: 'template_ig67zhr',
+  publicKey: 'aEkBqIPwEtm23_ZfZ',
 };
 
 @Component({
@@ -128,13 +128,13 @@ const EMAILJS_CONFIG = {
 
               <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Temat</label>
-                <select formControlName="subject"
+                <select formControlName="subject" name="subject"
                         class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm">
                   <option value="">Wybierz temat...</option>
-                  <option value="wizyta">Umówienie wizyty</option>
-                  <option value="ems">Trening EMS</option>
-                  <option value="cennik">Pytanie o cennik</option>
-                  <option value="inne">Inne</option>
+                  <option value="Umówienie wizyty">Umówienie wizyty</option>
+                  <option value="Trening EMS">Trening EMS</option>
+                  <option value="Pytanie o cennik">Pytanie o cennik</option>
+                  <option value="Inne">Inne</option>
                 </select>
               </div>
 
