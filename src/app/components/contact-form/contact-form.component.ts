@@ -2,8 +2,21 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
+import emailjs from '@emailjs/browser';
 
 const MAX_FILE_SIZE_MB = 5;
+
+/**
+ * Konfiguracja EmailJS – pobierz z https://dashboard.emailjs.com
+ * 1. Załóż konto, dodaj usługę email (np. Gmail)
+ * 2. Utwórz szablon z zmiennymi: {{name}}, {{email}}, {{phonePrefix}}, {{phoneNumber}}, {{subject}}, {{message}}
+ * 3. W zakładce Attachments dodaj Form File Attachment, parametr: attachment
+ */
+const EMAILJS_CONFIG = {
+  serviceId: 'YOUR_SERVICE_ID',
+  templateId: 'YOUR_TEMPLATE_ID',
+  publicKey: 'YOUR_PUBLIC_KEY',
+};
 
 @Component({
   selector: 'app-contact-form',
@@ -66,13 +79,14 @@ const MAX_FILE_SIZE_MB = 5;
 
           <!-- Right: Form -->
           <div appScrollReveal [revealDelay]="0.2">
-            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()"
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit($event)"
+                  enctype="multipart/form-data"
                   class="bg-mint-50/50 border border-mint-200 rounded-2xl p-6 md:p-8 shadow-sm overflow-hidden">
               
               <div class="grid sm:grid-cols-2 gap-4 mb-4">
                 <div class="min-w-0">
                   <label class="block text-sm font-medium text-gray-700 mb-1.5">Imię i nazwisko *</label>
-                  <input formControlName="name" type="text" placeholder="Jan Kowalski"
+                  <input formControlName="name" name="name" type="text" placeholder="Jan Kowalski"
                          class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm"
                          [class.border-red-300]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
                   <p *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
@@ -81,7 +95,7 @@ const MAX_FILE_SIZE_MB = 5;
                 <div class="min-w-0">
                   <label class="block text-sm font-medium text-gray-700 mb-1.5">Telefon</label>
                   <div class="flex min-w-0 rounded-xl border border-mint-200 bg-white overflow-hidden focus-within:border-mint focus-within:ring-2 focus-within:ring-mint/20 transition-all">
-                    <select formControlName="phonePrefix"
+                    <select formControlName="phonePrefix" name="phonePrefix"
                             class="phone-prefix-select min-w-[4.5rem] px-4 py-3 bg-mint-50/80 border-r border-mint-200 text-gray-700 font-medium text-sm focus:outline-none focus:ring-0 cursor-pointer flex-shrink-0">
                       <option value="+48">+48</option>
                       <option value="+49">+49</option>
@@ -95,7 +109,7 @@ const MAX_FILE_SIZE_MB = 5;
                       <option value="+39">+39</option>
                       <option value="+34">+34</option>
                     </select>
-                    <input formControlName="phoneNumber" type="tel" placeholder="123 456 789"
+                    <input formControlName="phoneNumber" name="phoneNumber" type="tel" placeholder="123 456 789"
                            (input)="onPhoneInput()"
                            class="flex-1 min-w-0 px-4 py-3 border-0 bg-transparent text-sm placeholder:text-gray-400 focus:outline-none focus:ring-0"
                            inputmode="numeric">
@@ -105,7 +119,7 @@ const MAX_FILE_SIZE_MB = 5;
 
               <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Email *</label>
-                <input formControlName="email" type="email" placeholder="jan@example.com"
+                <input formControlName="email" name="email" type="email" placeholder="jan@example.com"
                        class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm"
                        [class.border-red-300]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
                 <p *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
@@ -126,7 +140,7 @@ const MAX_FILE_SIZE_MB = 5;
 
               <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Wiadomość *</label>
-                <textarea formControlName="message" rows="5" placeholder="Twoja wiadomość..."
+                <textarea formControlName="message" name="message" rows="5" placeholder="Twoja wiadomość..."
                           class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm resize-none"
                           [class.border-red-300]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"></textarea>
                 <p *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
@@ -141,7 +155,7 @@ const MAX_FILE_SIZE_MB = 5;
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
                     </svg>
                     Wybierz plik
-                    <input type="file" #fileInput (change)="onFileSelected($event)"
+                    <input type="file" #fileInput name="attachment" (change)="onFileSelected($event)"
                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                            class="sr-only">
                   </label>
@@ -158,15 +172,20 @@ const MAX_FILE_SIZE_MB = 5;
               </div>
 
               <button type="submit"
-                      [disabled]="contactForm.invalid"
+                      [disabled]="contactForm.invalid || submitting"
                       class="w-full px-8 py-4 bg-olive text-white font-semibold rounded-xl hover:bg-olive-600 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 text-sm">
-                Wyślij wiadomość
+                {{ submitting ? 'Wysyłanie...' : 'Wyślij wiadomość' }}
               </button>
 
               <!-- Success message -->
               <div *ngIf="submitted"
                    class="mt-4 p-4 bg-mint-100 text-mint-800 rounded-xl text-sm text-center animate-fade-in">
                 ✅ Wiadomość została wysłana! Skontaktujemy się wkrótce.
+              </div>
+              <!-- Error message -->
+              <div *ngIf="errorMessage"
+                   class="mt-4 p-4 bg-red-50 text-red-700 rounded-xl text-sm text-center animate-fade-in">
+                ⚠️ {{ errorMessage }}
               </div>
             </form>
           </div>
@@ -189,6 +208,8 @@ export class ContactFormComponent {
   @ViewChild('fileInput') fileInputRef?: ElementRef<HTMLInputElement>;
   contactForm: FormGroup;
   submitted = false;
+  submitting = false;
+  errorMessage = '';
   selectedFile: File | null = null;
 
   constructor(private fb: FormBuilder) {
@@ -230,18 +251,39 @@ export class ContactFormComponent {
     }
   }
 
-  onSubmit() {
-    if (this.contactForm.valid) {
-      const phone = this.contactForm.value.phoneNumber
-        ? `${this.contactForm.value.phonePrefix} ${this.contactForm.value.phoneNumber}`
-        : '';
-      console.log('Form submitted:', { ...this.contactForm.value, phone, attachment: this.selectedFile?.name });
-      this.submitted = true;
-      this.contactForm.reset({ name: '', email: '', phonePrefix: '+48', phoneNumber: '', subject: '', message: '' });
-      this.removeFile();
-      setTimeout(() => this.submitted = false, 5000);
-    } else {
+  onSubmit(event: SubmitEvent) {
+    const formEl = event.target as HTMLFormElement;
+    if (!this.contactForm.valid) {
       this.contactForm.markAllAsTouched();
+      return;
     }
+    if (EMAILJS_CONFIG.serviceId.startsWith('YOUR_') || EMAILJS_CONFIG.templateId.startsWith('YOUR_') || EMAILJS_CONFIG.publicKey.startsWith('YOUR_')) {
+      this.errorMessage = 'Skonfiguruj EmailJS w pliku contact-form.component.ts (EMAILJS_CONFIG).';
+      setTimeout(() => (this.errorMessage = ''), 6000);
+      return;
+    }
+    this.submitting = true;
+    this.errorMessage = '';
+    emailjs
+      .sendForm(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        formEl,
+        { publicKey: EMAILJS_CONFIG.publicKey }
+      )
+      .then(
+        () => {
+          this.submitted = true;
+          this.contactForm.reset({ name: '', email: '', phonePrefix: '+48', phoneNumber: '', subject: '', message: '' });
+          this.removeFile();
+          setTimeout(() => (this.submitted = false), 5000);
+        },
+        (err) => {
+          this.errorMessage = 'Nie udało się wysłać wiadomości. Spróbuj ponownie lub napisz bezpośrednio na email.';
+          console.error('EmailJS error:', err);
+          setTimeout(() => (this.errorMessage = ''), 6000);
+        }
+      )
+      .finally(() => (this.submitting = false));
   }
 }
