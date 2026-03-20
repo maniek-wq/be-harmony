@@ -34,14 +34,6 @@ Instrukcja konfiguracji w https://dashboard.emailjs.com
 <p>{{message}}</p>
 ```
 
-### Attachments (załącznik):
-
-- Kliknij **Attachments**
-- **Add attachment**
-- **Attachment type:** Form File Attachment
-- **Parameter name:** `attachment`
-- Save
-
 ---
 
 ## 2. Szablon auto-reply (potwierdzenie dla klienta)
@@ -91,6 +83,6 @@ EmailJS wyśle wtedy obie wiadomości przy jednym wywołaniu `sendForm`.
 
 ## 4. Mapowanie zmiennych
 
-**Szablon główny** (z formularza): `name`, `email`, `phonePrefix`, `phoneNumber`, `subject`, `message`, `attachment`
+**Szablon główny** (z formularza): `name`, `email`, `phonePrefix`, `phoneNumber`, `subject`, `message`
 
 **Auto-reply** (te same dane z formularza): `{{name}}`, `{{email}}` – EmailJS przekazuje je automatycznie po połączeniu szablonów.

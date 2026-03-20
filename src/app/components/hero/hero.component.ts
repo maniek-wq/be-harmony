@@ -74,12 +74,14 @@ import { Router } from '@angular/router';
   styles: [`
     .hero-bg-video {
       position: absolute;
-      top: -1%;
-      left: -1%;
-      width: 102%;
-      height: 102%;
+      top: 1px;
+      left: 1px;
+      width: calc(100% + 10px);
+      height: calc(100% + 10px);
       object-fit: cover;
       object-position: center;
+      outline: 0;
+      border: 0;
       filter: grayscale(0.7);
       transition: opacity 1.2s ease-out;
       backface-visibility: hidden;
@@ -91,10 +93,10 @@ import { Router } from '@angular/router';
     }
     .hero-bg-img {
       position: absolute;
-      top: -1%;
-      left: -1%;
-      width: 102%;
-      height: 102%;
+      top: 5px;
+      left: 5px;
+      width: calc(100% + 10px);
+      height: calc(100% + 10px);
       object-fit: cover;
       object-position: center;
       opacity: 0;

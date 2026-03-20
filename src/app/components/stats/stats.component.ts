@@ -22,13 +22,14 @@ interface Stat {
       </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-          <div *ngFor="let stat of stats"
-               class="text-center group">
+          <div *ngFor="let stat of stats; let i = index"
+               class="text-center group"
+               [ngClass]="{'col-span-2 lg:col-span-1': i === 2}">
             <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 mb-4 group-hover:bg-white/20 transition-colors duration-300">
               <span class="text-2xl" [innerHTML]="stat.icon"></span>
             </div>
             <div class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2">
-              {{ stat.current }}{{ stat.suffix }}
+              {{ formatNum(stat.current) }}{{ stat.suffix }}
             </div>
             <p class="text-white/80 text-sm sm:text-base font-medium">{{ stat.label }}</p>
           </div>
@@ -45,7 +46,7 @@ export class StatsComponent implements OnInit, OnDestroy {
     stats: Stat[] = [
         { label: 'Zadowolonych klientów', value: 500, suffix: '+', icon: '👥', current: 0 },
         { label: 'Lat doświadczenia', value: 5, suffix: '+', icon: '🏆', current: 0 },
-        { label: 'Przeprowadzonych sesji', value: 1000, suffix: '+', icon: '✅', current: 0 },
+        { label: 'Przeprowadzonych sesji', value: 10000, suffix: '+', icon: '✅', current: 0 },
     ];
 
     constructor(private el: ElementRef) { }
@@ -67,6 +68,10 @@ export class StatsComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.observer?.disconnect();
+    }
+
+    formatNum(n: number): string {
+        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
     }
 
     private animateCounters() {
