@@ -1,6 +1,8 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
+const MOBILE_BREAKPOINT = 768;
 
 @Component({
   selector: 'app-hero',
@@ -10,10 +12,20 @@ import { Router } from '@angular/router';
     <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-white" style="transform: translateZ(0);">
       <!-- Background: najpierw film (16s), potem zdjęcia -->
       <div class="absolute inset-0 z-0 overflow-hidden" style="transform: translateZ(0);">
-        <video #heroVideo
-               class="hero-bg-video"
+        <video #heroVideoDesktop
+               class="hero-bg-video hero-bg-video-desktop"
                [class.video-ended]="videoEnded"
                src="assets/videos/DJI_0254_compressed.mp4"
+               autoplay muted playsinline preload="auto"
+               (ended)="onVideoEnded()"
+               (loadeddata)="playVideo()"
+               (canplay)="playVideo()">
+        </video>
+        <!-- Mobile: Pexels – masaż/fizjoterapia. Zamień na assets/videos/hero-mobile.mp4 -->
+        <video #heroVideoMobile
+               class="hero-bg-video hero-bg-video-mobile"
+               [class.video-ended]="videoEnded"
+               src="https://videos.pexels.com/video-files/8313077/8313077-hd_1080_1920_30fps.mp4"
                autoplay muted playsinline preload="auto"
                (ended)="onVideoEnded()"
                (loadeddata)="playVideo()"
@@ -87,6 +99,20 @@ import { Router } from '@angular/router';
       backface-visibility: hidden;
       z-index: 1;
     }
+    .hero-bg-video-desktop {
+      display: none;
+    }
+    .hero-bg-video-mobile {
+      display: block;
+    }
+    @media (min-width: 768px) {
+      .hero-bg-video-desktop {
+        display: block;
+      }
+      .hero-bg-video-mobile {
+        display: none;
+      }
+    }
     .hero-bg-video.video-ended {
       opacity: 0;
       pointer-events: none;
@@ -137,17 +163,43 @@ import { Router } from '@angular/router';
   `]
 })
 export class HeroComponent implements AfterViewInit {
-  @ViewChild('heroVideo') heroVideoRef?: ElementRef<HTMLVideoElement>;
+  @ViewChild('heroVideoDesktop') heroVideoDesktopRef?: ElementRef<HTMLVideoElement>;
+  @ViewChild('heroVideoMobile') heroVideoMobileRef?: ElementRef<HTMLVideoElement>;
   videoEnded = false;
 
   constructor(private router: Router) {}
+
+  private get isMobileView(): boolean {
+    return typeof window !== 'undefined' && window.innerWidth < MOBILE_BREAKPOINT;
+  }
+
+  private get activeVideo(): HTMLVideoElement | null {
+    const desktop = this.heroVideoDesktopRef?.nativeElement;
+    const mobile = this.heroVideoMobileRef?.nativeElement;
+    if (this.isMobileView && mobile) return mobile;
+    if (!this.isMobileView && desktop) return desktop;
+    return desktop ?? mobile ?? null;
+  }
 
   ngAfterViewInit() {
     setTimeout(() => this.playVideo(), 100);
   }
 
+  @HostListener('window:resize')
+  onResize() {
+    const desktop = this.heroVideoDesktopRef?.nativeElement;
+    const mobile = this.heroVideoMobileRef?.nativeElement;
+    if (this.isMobileView) {
+      desktop?.pause();
+      if (mobile && !this.videoEnded && mobile.paused) this.playVideo();
+    } else {
+      mobile?.pause();
+      if (desktop && !this.videoEnded && desktop.paused) this.playVideo();
+    }
+  }
+
   playVideo() {
-    const vid = this.heroVideoRef?.nativeElement;
+    const vid = this.activeVideo;
     if (vid && !this.videoEnded && vid.paused) {
       vid.muted = true;
       vid.play().catch(() => {});
