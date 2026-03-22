@@ -71,9 +71,9 @@ interface Service {
                 </div>
 
                 <div class="flex-1 text-center lg:text-left">
-                  <h3 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                  <h3 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-3 flex flex-col sm:flex-row sm:flex-wrap sm:items-baseline">
                     Trening EMS
-                    <span class="text-olive text-lg font-normal ml-2">(Electrical Muscle Stimulation)</span>
+                    <span class="text-olive text-lg font-normal sm:ml-2">(Electrical Muscle Stimulation)</span>
                   </h3>
                   <p class="text-gray-600 text-lg leading-relaxed mb-4">
                     Nowoczesna technologia treningowa wykorzystująca impulsy elektryczne do stymulacji mięśni. 
