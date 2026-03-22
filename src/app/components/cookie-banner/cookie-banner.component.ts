@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
             <p class="text-gray-400 text-xs leading-relaxed">
               Używamy plików cookies, aby zapewnić Ci najlepszą jakość korzystania z naszej strony.
               Kontynuując przeglądanie, wyrażasz zgodę na ich używanie.
-              <a href="/polityka-prywatnosci" class="text-mint hover:text-mint-200 underline ml-1">Więcej informacji</a>
+              <a href="/polityka-prywatnosci" class="text-olive-100 hover:text-white underline ml-1">Więcej informacji</a>
             </p>
           </div>
           <div class="flex gap-3 flex-shrink-0">

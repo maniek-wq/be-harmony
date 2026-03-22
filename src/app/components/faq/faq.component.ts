@@ -16,7 +16,7 @@ interface FaqItem {
     <section class="py-20 md:py-28 bg-cream-100">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
-          <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">FAQ</span>
+          <span class="inline-block px-4 py-1.5 bg-olive/10 text-olive rounded-full text-sm font-medium mb-4">FAQ</span>
           <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Najczęściej zadawane <span class="text-terracotta">pytania</span>
           </h2>
@@ -28,20 +28,20 @@ interface FaqItem {
         <div class="space-y-4">
           <div *ngFor="let item of faqItems; let i = index"
                appScrollReveal [revealDelay]="i * 0.08"
-               class="border border-mint-100 rounded-2xl overflow-hidden transition-all duration-300"
+               class="border border-olive/25 rounded-2xl overflow-hidden transition-all duration-300"
                [class.shadow-md]="item.open"
-               [class.border-mint-300]="item.open">
+               [class.border-olive]="item.open">
             
             <button (click)="toggle(i)"
-                    class="w-full flex items-center justify-between p-5 md:p-6 text-left hover:bg-mint-50/50 transition-colors duration-200">
+                    class="w-full flex items-center justify-between p-5 md:p-6 text-left hover:bg-olive/5 transition-colors duration-200">
               <span class="font-semibold text-gray-900 text-sm md:text-base pr-4">{{ item.question }}</span>
               <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
                    [class.bg-terracotta]="item.open"
-                   [class.bg-mint-100]="!item.open"
+                   [class.bg-olive-100]="!item.open"
                    [class.rotate-45]="item.open">
                 <svg class="w-4 h-4 transition-colors" 
                      [class.text-white]="item.open"
-                     [class.text-mint-600]="!item.open"
+                     [class.text-olive]="!item.open"
                      fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                 </svg>

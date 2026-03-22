@@ -11,7 +11,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     <section class="py-16 md:py-24 bg-white relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative rounded-3xl overflow-hidden shadow-2xl group" appScrollReveal>
-          <div class="flex flex-col md:flex-row bg-mint-50">
+          <div class="flex flex-col md:flex-row bg-olive/5">
             <!-- Image Side -->
             <div class="md:w-1/2 relative min-h-[300px] md:min-h-[400px] overflow-hidden">
               <img src="assets/img/10453.jpg" alt="Bon podarunkowy Be Harmony" 
@@ -46,7 +46,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
           
           <!-- Decorative element -->
           <div class="absolute -top-12 -right-12 w-40 h-40 bg-terracotta/5 rounded-full blur-2xl pointer-events-none"></div>
-          <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-mint-300/20 rounded-full blur-xl pointer-events-none"></div>
+          <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-olive/20 rounded-full blur-xl pointer-events-none"></div>
         </div>
       </div>
     </section>

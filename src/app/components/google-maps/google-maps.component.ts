@@ -16,7 +16,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
           <p class="text-gray-500">Znajdź nas na mapie</p>
         </div>
 
-        <div appScrollReveal class="rounded-2xl overflow-hidden shadow-lg border border-mint-200">
+        <div appScrollReveal class="rounded-2xl overflow-hidden shadow-lg border border-olive/30">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2372.7359566327023!2d14.565849331414213!3d53.50891200079179!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47aa0bb6eb597373%3A0x709904c8fe450472!2sBe%20Harmony%20Natalia%20Matusz!5e0!3m2!1spl!2spl!4v1773014249668!5m2!1spl!2spl"
             width="100%"

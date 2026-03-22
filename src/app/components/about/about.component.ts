@@ -10,7 +10,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     <section id="o-nas" class="py-20 md:py-28 bg-cream-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" appScrollReveal>
-          <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">O nas</span>
+          <span class="inline-block px-4 py-1.5 bg-olive/10 text-olive rounded-full text-sm font-medium mb-4">O nas</span>
           <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Be Harmony <span class="text-terracotta">— Natalia Matusz</span>
           </h2>
@@ -48,7 +48,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
             </div>
             <!-- Decorative element -->
             <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-beige-300/40 rounded-2xl -z-10"></div>
-            <div class="absolute -top-4 -left-4 w-16 h-16 bg-mint-300/30 rounded-xl -z-10"></div>
+            <div class="absolute -top-4 -left-4 w-16 h-16 bg-olive/20 rounded-xl -z-10"></div>
           </div>
         </div>
       </div>

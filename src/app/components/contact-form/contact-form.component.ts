@@ -25,7 +25,7 @@ const EMAILJS_CONFIG = {
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
           <!-- Left: Info -->
           <div appScrollReveal>
-            <span class="inline-block px-4 py-1.5 bg-mint-50 text-mint-800 rounded-full text-sm font-medium mb-4">Kontakt</span>
+            <span class="inline-block px-4 py-1.5 bg-olive/10 text-olive rounded-full text-sm font-medium mb-4">Kontakt</span>
             <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               Napisz <span class="text-terracotta">do nas</span>
             </h2>
@@ -36,8 +36,8 @@ const EMAILJS_CONFIG = {
 
             <div class="space-y-6">
               <div class="flex items-start gap-4">
-                <div class="w-12 h-12 rounded-xl bg-mint-50 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-6 h-6 text-mint-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-olive/10 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                   </svg>
@@ -49,8 +49,8 @@ const EMAILJS_CONFIG = {
               </div>
 
               <div class="flex items-start gap-4">
-                <div class="w-12 h-12 rounded-xl bg-mint-50 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-6 h-6 text-mint-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-olive/10 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                   </svg>
                 </div>
@@ -61,8 +61,8 @@ const EMAILJS_CONFIG = {
               </div>
 
               <div class="flex items-start gap-4">
-                <div class="w-12 h-12 rounded-xl bg-mint-50 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-6 h-6 text-mint-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-olive/10 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                   </svg>
                 </div>
@@ -77,22 +77,22 @@ const EMAILJS_CONFIG = {
           <!-- Right: Form -->
           <div appScrollReveal [revealDelay]="0.2">
             <form [formGroup]="contactForm" (ngSubmit)="onSubmit($event)"
-                  class="bg-mint-50/50 border border-mint-200 rounded-2xl p-6 md:p-8 shadow-sm overflow-hidden">
+                  class="bg-olive/5 border border-olive/30 rounded-2xl p-6 md:p-8 shadow-sm overflow-hidden">
               
               <div class="grid sm:grid-cols-2 gap-4 mb-4">
                 <div class="min-w-0">
                   <label class="block text-sm font-medium text-gray-700 mb-1.5">Imię i nazwisko *</label>
                   <input formControlName="name" name="name" type="text" placeholder="Jan Kowalski"
-                         class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm"
+                         class="w-full px-4 py-3 rounded-xl border border-olive/30 bg-white focus:border-olive focus:ring-2 focus:ring-olive/20 outline-none transition-all text-sm"
                          [class.border-red-300]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
                   <p *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
                      class="mt-1 text-xs text-red-500">Proszę podać imię i nazwisko</p>
                 </div>
                 <div class="min-w-0">
                   <label class="block text-sm font-medium text-gray-700 mb-1.5">Telefon</label>
-                  <div class="flex min-w-0 rounded-xl border border-mint-200 bg-white overflow-hidden focus-within:border-mint focus-within:ring-2 focus-within:ring-mint/20 transition-all">
+                  <div class="flex min-w-0 rounded-xl border border-olive/30 bg-white overflow-hidden focus-within:border-olive focus-within:ring-2 focus-within:ring-olive/20 transition-all">
                     <select formControlName="phonePrefix" name="phonePrefix"
-                            class="phone-prefix-select min-w-[4.5rem] px-4 py-3 bg-mint-50/80 border-r border-mint-200 text-gray-700 font-medium text-sm focus:outline-none focus:ring-0 cursor-pointer flex-shrink-0">
+                            class="phone-prefix-select min-w-[4.5rem] px-4 py-3 bg-olive/10 border-r border-olive/30 text-gray-700 font-medium text-sm focus:outline-none focus:ring-0 cursor-pointer flex-shrink-0">
                       <option value="+48">+48</option>
                       <option value="+49">+49</option>
                       <option value="+33">+33</option>
@@ -116,7 +116,7 @@ const EMAILJS_CONFIG = {
               <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Email *</label>
                 <input formControlName="email" name="email" type="email" placeholder="jan@example.com"
-                       class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm"
+                       class="w-full px-4 py-3 rounded-xl border border-olive/30 bg-white focus:border-olive focus:ring-2 focus:ring-olive/20 outline-none transition-all text-sm"
                        [class.border-red-300]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
                 <p *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
                    class="mt-1 text-xs text-red-500">Proszę podać poprawny adres email</p>
@@ -125,7 +125,7 @@ const EMAILJS_CONFIG = {
               <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Temat</label>
                 <select formControlName="subject" name="subject"
-                        class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm">
+                        class="w-full px-4 py-3 rounded-xl border border-olive/30 bg-white focus:border-olive focus:ring-2 focus:ring-olive/20 outline-none transition-all text-sm">
                   <option value="">Wybierz temat...</option>
                   <option value="Umówienie wizyty">Umówienie wizyty</option>
                   <option value="Trening EMS">Trening EMS</option>
@@ -137,7 +137,7 @@ const EMAILJS_CONFIG = {
               <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Wiadomość *</label>
                 <textarea formControlName="message" name="message" rows="5" placeholder="Twoja wiadomość..."
-                          class="w-full px-4 py-3 rounded-xl border border-mint-200 bg-white focus:border-mint focus:ring-2 focus:ring-mint/20 outline-none transition-all text-sm resize-none"
+                          class="w-full px-4 py-3 rounded-xl border border-olive/30 bg-white focus:border-olive focus:ring-2 focus:ring-olive/20 outline-none transition-all text-sm resize-none"
                           [class.border-red-300]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"></textarea>
                 <p *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
                    class="mt-1 text-xs text-red-500">Proszę wpisać wiadomość</p>
@@ -151,7 +151,7 @@ const EMAILJS_CONFIG = {
 
               <!-- Success message -->
               <div *ngIf="submitted"
-                   class="mt-4 p-4 bg-mint-100 text-mint-800 rounded-xl text-sm text-center animate-fade-in">
+                   class="mt-4 p-4 bg-olive/10 text-olive rounded-xl text-sm text-center animate-fade-in">
                 ✅ Wiadomość została wysłana! Skontaktujemy się wkrótce.
               </div>
               <!-- Error message -->

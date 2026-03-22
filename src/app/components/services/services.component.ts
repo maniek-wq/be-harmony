@@ -41,7 +41,7 @@ interface Service {
         <div appScrollReveal class="mb-12">
           <div (click)="openModal(emsService)" class="group cursor-pointer relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
             <!-- Animated gradient border -->
-            <div class="absolute inset-0 bg-gradient-to-r from-mint via-terracotta to-mint bg-[length:200%_100%] animate-[gradientBorder_3s_ease_infinite] p-[3px] rounded-3xl">
+            <div class="absolute inset-0 bg-gradient-to-r from-olive via-terracotta to-olive bg-[length:200%_100%] animate-[gradientBorder_3s_ease_infinite] p-[3px] rounded-3xl">
               <div class="w-full h-full bg-white rounded-3xl"></div>
             </div>
             
@@ -73,7 +73,7 @@ interface Service {
                 <div class="flex-1 text-center lg:text-left">
                   <h3 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-3">
                     Trening EMS
-                    <span class="text-mint-600 text-lg font-normal ml-2">(Electrical Muscle Stimulation)</span>
+                    <span class="text-olive text-lg font-normal ml-2">(Electrical Muscle Stimulation)</span>
                   </h3>
                   <p class="text-gray-600 text-lg leading-relaxed mb-4">
                     Nowoczesna technologia treningowa wykorzystująca impulsy elektryczne do stymulacji mięśni. 
@@ -82,7 +82,7 @@ interface Service {
                   <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                     <span class="text-3xl font-bold text-terracotta">90 zł</span>
                     <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">trening próbny</span>
-                    <span class="text-sm text-mint-600 font-medium ml-auto hidden lg:inline-flex items-center gap-1">
+                    <span class="text-sm text-olive font-medium ml-auto hidden lg:inline-flex items-center gap-1">
                       Kliknij po szczegóły
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </span>
@@ -368,6 +368,46 @@ export class ServicesComponent {
       icon: '🧘',
     },
     {
+      name: 'Masaż indywidualnie dobrany',
+      description: 'Masaż indywidualnie dopasowany do Twoich potrzeb i oczekiwań.',
+      detailedDescription: 'Masaż łączy różne techniki — głęboki, powięziowy, relaksacyjny i elementy pracy manualnej — dopasowane do aktualnych potrzeb ciała i oczekiwań klienta. Każda sesja rozpoczyna się krótką rozmową, w której rozmawiamy o tym, co czujesz i czego potrzebujesz. Dzięki temu masaż jest w pełni indywidualny — nie bazuje na wyuczonym schemacie ani jednym rodzaju technik powtarzanych mechanicznie. To ręce terapeuty i ciało klienta prowadzą masaż — dobierając techniki, siłę nacisku i tempo, aby ciało i umysł skorzystały jak najbardziej. Sesja może być zarówno głęboka i intensywna, jak i delikatna i relaksacyjna, przynosząc rozluźnienie, regenerację i lekkość w ruchu.',
+      benefits: [
+        'Rozluźnienie głębokich napięć mięśniowych',
+        'Poprawa elastyczności i mobilności tkanek',
+        'Redukcja stresu i poprawa samopoczucia',
+        'Poprawa krążenia krwi i limfy',
+        'Łagodzenie bólu głowy i migreny',
+        'Wsparcie regeneracji po wysiłku fizycznym',
+      ],
+      duration: '50 min',
+      price: '180',
+      icon: '💆',
+    },
+    {
+      name: 'Trening Funkcjonalny',
+      description: 'Indywidualnie dobrany program ćwiczeń poprawiający siłę, koordynację i mobilność.',
+      detailedDescription: 'Trening funkcjonalny w Be Harmony to indywidualnie dobrany program ćwiczeń, który poprawia siłę, koordynację, mobilność i ogólną sprawność w codziennym funkcjonowaniu. Ta forma aktywności oparta jest na naturalnych wzorcach ruchowych, skutecznie wzmacnia ciało, przygotowuje je do codziennych wyzwań i zmniejsza ryzyko kontuzji. Ćwiczenia angażują całe ciało, poprawiają stabilizację i uczą prawidłowej pracy mięśni podczas ruchu, co przekłada się na wszechstronne efekty w życiu codziennym i sporcie.',
+      benefitsHeading: 'Korzyści treningu funkcjonalnego:',
+      benefits: [
+        'zwiększenie siły, wytrzymałości i sprawności ogólnej,',
+        'poprawa koordynacji i zakresu ruchu,',
+        'przygotowanie ciała do większej aktywności (np. narty, snowboard, maraton),',
+        'wsparcie w powrocie do formy po urazach,',
+        'profilaktyka przeciążeń i kontuzji.',
+      ],
+      forWhom: 'Dla osób wracających do formy po urazach, chcących poprawić swoją sprawność, wzmocnić ciało, zwiększyć mobilność lub przygotować się do wyzwań sportowych i rekreacyjnych.',
+      whyBeHarmony: {
+        heading: 'Dlaczego trening funkcjonalny w Be Harmony?',
+        paragraphs: [
+          'Sesje prowadzone są przez fizjoterapeutę i trenera przygotowania motorycznego z wieloletnim doświadczeniem w pracy ze sportowcami oraz osobami wracającymi do formy po urazach. Gwarantuje to indywidualne podejście, bezpieczeństwo oraz efektywny dobór ćwiczeń.',
+          'Współpraca z norweską reprezentacją mężczyzn w siatkówce U20 i U21, praca w Szkole Mistrzostwa Sportowego oraz Siatkarskich Ośrodkach Szkolnych, a także ponad 15 lat kariery sportowej sprawiają, że każdy trening funkcjonalny w Be Harmony opiera się na sprawdzonych metodach, doświadczeniu i pasji do ruchu.',
+        ],
+      },
+      duration: '45 min',
+      price: '180',
+      icon: '💪',
+    },
+    {
       name: 'Terapia po zabiegach medycyny estetycznej i chirurgii plastycznej',
       description: 'Specjalistyczna terapia wspierająca regenerację po zabiegach estetycznych.',
       detailedDescription: 'Specjalistyczna terapia zaprojektowana z myślą o pacjentach po zabiegach medycyny estetycznej (liposukcja, lipotransfer, powiększanie piersi, plastyka brzucha i inne) oraz operacjach chirurgii plastycznej. Sesja obejmuje drenaż limfatyczny, pracę z tkankami, redukcję obrzęków i przyspieszenie gojenia. Terapia pomaga zminimalizować blizny, zmniejszyć dyskomfort pooperacyjny i przyspieszyć powrót do pełnej sprawności. Każdy zabieg jest delikatny i dostosowany do etapu rekonwalescencji.',
@@ -382,22 +422,6 @@ export class ServicesComponent {
       duration: '50 min',
       price: '200',
       icon: '✨',
-    },
-    {
-      name: 'Masaże',
-      description: 'Masaż indywidualnie dopasowany do Twoich potrzeb i oczekiwań.',
-      detailedDescription: 'Masaż łączy różne techniki — głęboki, powięziowy, relaksacyjny i elementy pracy manualnej — dopasowane do aktualnych potrzeb ciała i oczekiwań klienta. Każda sesja rozpoczyna się krótką rozmową, w której rozmawiamy o tym, co czujesz i czego potrzebujesz. Dzięki temu masaż jest w pełni indywidualny — nie bazuje na wyuczonym schemacie ani jednym rodzaju technik powtarzanych mechanicznie. To ręce terapeuty i ciało klienta prowadzą masaż — dobierając techniki, siłę nacisku i tempo, aby ciało i umysł skorzystały jak najbardziej. Sesja może być zarówno głęboka i intensywna, jak i delikatna i relaksacyjna, przynosząc rozluźnienie, regenerację i lekkość w ruchu.',
-      benefits: [
-        'Rozluźnienie głębokich napięć mięśniowych',
-        'Poprawa elastyczności i mobilności tkanek',
-        'Redukcja stresu i poprawa samopoczucia',
-        'Poprawa krążenia krwi i limfy',
-        'Łagodzenie bólu głowy i migreny',
-        'Wsparcie regeneracji po wysiłku fizycznym',
-      ],
-      duration: '50 min',
-      price: '180',
-      icon: '💆',
     },
     {
       name: 'Terapia wisceralna',
@@ -442,30 +466,6 @@ export class ServicesComponent {
       duration: '90 min',
       price: '380',
       icon: '🌿',
-    },
-    {
-      name: 'Trening Funkcjonalny',
-      description: 'Indywidualnie dobrany program ćwiczeń poprawiający siłę, koordynację i mobilność.',
-      detailedDescription: 'Trening funkcjonalny w Be Harmony to indywidualnie dobrany program ćwiczeń, który poprawia siłę, koordynację, mobilność i ogólną sprawność w codziennym funkcjonowaniu. Ta forma aktywności oparta jest na naturalnych wzorcach ruchowych, skutecznie wzmacnia ciało, przygotowuje je do codziennych wyzwań i zmniejsza ryzyko kontuzji. Ćwiczenia angażują całe ciało, poprawiają stabilizację i uczą prawidłowej pracy mięśni podczas ruchu, co przekłada się na wszechstronne efekty w życiu codziennym i sporcie.',
-      benefitsHeading: 'Korzyści treningu funkcjonalnego:',
-      benefits: [
-        'zwiększenie siły, wytrzymałości i sprawności ogólnej,',
-        'poprawa koordynacji i zakresu ruchu,',
-        'przygotowanie ciała do większej aktywności (np. narty, snowboard, maraton),',
-        'wsparcie w powrocie do formy po urazach,',
-        'profilaktyka przeciążeń i kontuzji.',
-      ],
-      forWhom: 'Dla osób wracających do formy po urazach, chcących poprawić swoją sprawność, wzmocnić ciało, zwiększyć mobilność lub przygotować się do wyzwań sportowych i rekreacyjnych.',
-      whyBeHarmony: {
-        heading: 'Dlaczego trening funkcjonalny w Be Harmony?',
-        paragraphs: [
-          'Sesje prowadzone są przez fizjoterapeutę i trenera przygotowania motorycznego z wieloletnim doświadczeniem w pracy ze sportowcami oraz osobami wracającymi do formy po urazach. Gwarantuje to indywidualne podejście, bezpieczeństwo oraz efektywny dobór ćwiczeń.',
-          'Współpraca z norweską reprezentacją mężczyzn w siatkówce U20 i U21, praca w Szkole Mistrzostwa Sportowego oraz Siatkarskich Ośrodkach Szkolnych, a także ponad 15 lat kariery sportowej sprawiają, że każdy trening funkcjonalny w Be Harmony opiera się na sprawdzonych metodach, doświadczeniu i pasji do ruchu.',
-        ],
-      },
-      duration: '45 min',
-      price: '180',
-      icon: '💪',
     },
   ];
 

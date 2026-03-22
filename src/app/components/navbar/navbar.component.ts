@@ -14,7 +14,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
           <!-- Logo -->
           <a routerLink="/" class="flex items-center gap-3 group">
             <img src="assets/img/be-harmony_logo.png" alt="Be Harmony Logo" class="h-10 md:h-14 w-auto rounded-full">
-            <span class="font-display text-xl md:text-2xl font-semibold text-white group-hover:text-mint-100 transition-colors">
+            <span class="font-display text-xl md:text-2xl font-semibold text-white group-hover:text-olive-100 transition-colors">
               Be Harmony
             </span>
           </a>

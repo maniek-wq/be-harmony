@@ -42,7 +42,7 @@ interface GallerySection {
                  (click)="openLightbox(getFlatIndex(sIdx, i))"
                  class="group cursor-pointer overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 min-w-0"
                  [ngClass]="{'col-span-2 row-span-2': img.size === 'large'}">
-              <div class="relative aspect-square overflow-hidden bg-mint-100 w-full">
+              <div class="relative aspect-square overflow-hidden bg-olive/10 w-full">
                 <div *ngIf="!img.loaded" class="absolute inset-0 skeleton-shimmer"></div>
                 <img [src]="img.src" [alt]="img.label" decoding="async" loading="lazy"
                      (load)="img.loaded = true"
@@ -123,10 +123,10 @@ export class GalleryComponent {
 
   gallerySections: GallerySection[] = [
     {
-      title: 'Wejście i recepcja',
+      title: 'Wejście',
       images: [
         { label: 'Witryna gabinetu', src: 'assets/img/10445.jpg', size: 'large', loaded: false },
-        { label: 'Wejście do gabinetu', src: 'assets/img/20260216_145321.jpg', size: 'normal', loaded: false },
+        { label: 'Lokal wieczorem', src: 'assets/img/ZDJĘCIE_LOKALU_WIECZOREM.jpg', size: 'normal', loaded: false },
         { label: 'Zapraszamy', src: 'assets/img/10469.jpg', size: 'normal', loaded: false },
       ],
     },
@@ -134,6 +134,7 @@ export class GalleryComponent {
       title: 'Poczekalnia',
       images: [
         { label: 'Poczekalnia', src: 'assets/img/20260216_145207.jpg', size: 'large', loaded: false },
+        { label: 'Wejście do gabinetu', src: 'assets/img/20260216_145321.jpg', size: 'normal', loaded: false },
         { label: 'Wnętrze – kanapa', src: 'assets/img/10460.jpg', size: 'normal', loaded: false },
       ],
     },

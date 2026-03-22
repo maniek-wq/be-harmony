@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
     standalone: true,
     imports: [CommonModule, RouterLink],
     template: `
-    <div class="min-h-screen bg-mint-50 pt-24 pb-20">
+    <div class="min-h-screen bg-olive/5 pt-24 pb-20">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-12">
@@ -24,7 +24,7 @@ import { RouterLink } from '@angular/router';
         </div>
 
         <!-- Content -->
-        <div class="bg-white rounded-2xl shadow-sm p-8 md:p-10 border border-mint-100 space-y-8">
+        <div class="bg-white rounded-2xl shadow-sm p-8 md:p-10 border border-olive/25 space-y-8">
           <section *ngFor="let section of sections">
             <h2 class="font-display text-xl font-semibold text-gray-900 mb-4 text-terracotta">
               {{ section.title }}

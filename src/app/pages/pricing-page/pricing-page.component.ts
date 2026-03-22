@@ -44,7 +44,7 @@ interface PricingItem {
 
         <!-- EMS HIGHLIGHT -->
         <div appScrollReveal class="mb-10">
-          <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-mint-300">
+          <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-olive/40">
             <div class="absolute top-0 right-0 px-6 py-2 bg-terracotta text-white text-sm font-bold rounded-bl-2xl uppercase tracking-wider z-10">
               Nowość!
             </div>
@@ -59,17 +59,17 @@ interface PricingItem {
               <!-- EMS Info -->
               <div class="lg:w-3/5 p-8 md:p-10">
                 <div class="flex items-center gap-4 mb-6">
-                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-mint to-mint-400 flex items-center justify-center shadow-lg">
+                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-olive to-olive-400 flex items-center justify-center shadow-lg">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
                   </div>
                   <div>
                     <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900">Trening EMS</h2>
-                    <p class="text-mint-600 text-sm">Electrical Muscle Stimulation</p>
+                    <p class="text-olive text-sm">Electrical Muscle Stimulation</p>
                   </div>
                 </div>
-                <div class="bg-mint-50 rounded-xl p-6">
+                <div class="bg-olive/5 rounded-xl p-6">
                   <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                       <h3 class="font-semibold text-gray-900 text-lg">Trening próbny</h3>
@@ -90,9 +90,9 @@ interface PricingItem {
         <div class="space-y-8">
           <div *ngFor="let category of categories; let ci = index"
                appScrollReveal [revealDelay]="ci * 0.1"
-               class="bg-white rounded-2xl shadow-sm overflow-hidden border border-mint-100 hover:shadow-md transition-shadow">
+               class="bg-white rounded-2xl shadow-sm overflow-hidden border border-olive/25 hover:shadow-md transition-shadow">
             
-            <div *ngIf="!category.hideHeader" class="px-8 py-6 bg-gradient-to-r from-mint-50 to-white border-b border-mint-100">
+            <div *ngIf="!category.hideHeader" class="px-8 py-6 bg-gradient-to-r from-olive/5 to-white border-b border-olive/25">
               <div class="flex items-center gap-3">
                 <span class="text-2xl">{{ category.icon }}</span>
                 <h2 class="font-display text-xl md:text-2xl font-bold text-gray-900">{{ category.name }}</h2>
@@ -101,7 +101,7 @@ interface PricingItem {
 
             <div class="divide-y divide-gray-100">
               <div *ngFor="let item of category.items"
-                   class="px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-mint-50/30 transition-colors">
+                   class="px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-olive/5 transition-colors">
                 <div class="flex-1">
                   <div class="flex items-center gap-3 flex-wrap">
                     <h3 *ngIf="item.name" class="font-medium text-gray-900">{{ item.name }}</h3>
@@ -159,7 +159,7 @@ export class PricingPageComponent {
       ]
     },
     {
-      name: 'Masaże',
+      name: 'Masaż indywidualnie dobrany',
       icon: '💆',
       items: [
         { name: 'Masaż indywidualnie dopasowany', description: '50 min', price: '180' },

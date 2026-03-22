@@ -53,7 +53,7 @@ const PREVIEW_LENGTH = 120;
               Zobacz więcej
             </button>
 
-            <div class="border-t border-mint-100 pt-3">
+            <div class="border-t border-olive/20 pt-3">
               <p class="font-semibold text-gray-900 text-sm">{{ t.name }}</p>
             </div>
           </div>
