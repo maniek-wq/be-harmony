@@ -45,7 +45,7 @@ export class StatsComponent implements OnInit, OnDestroy {
 
     stats: Stat[] = [
         { label: 'Zadowolonych klientów', value: 500, suffix: '+', icon: '👥', current: 0 },
-        { label: 'Lat doświadczenia', value: 5, suffix: '+', icon: '🏆', current: 0 },
+        { label: 'Lat doświadczenia', value: 10, suffix: '+', icon: '🏆', current: 0 },
         { label: 'Przeprowadzonych sesji', value: 10000, suffix: '+', icon: '✅', current: 0 },
     ];
 
