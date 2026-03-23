@@ -39,7 +39,7 @@ interface Service {
 
         <!-- EMS HIGHLIGHT CARD -->
         <div appScrollReveal class="mb-12">
-          <div (click)="openModal(emsService)" class="group cursor-pointer relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+          <div (click)="openModal(emsService)" class="group cursor-pointer relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-terracotta-lg hover:ring-2 hover:ring-terracotta/20 hover:-translate-y-1.5 active:scale-[0.98] active:shadow-md transition-all duration-300">
             <!-- Animated gradient border -->
             <div class="absolute inset-0 bg-gradient-to-r from-olive via-terracotta to-olive bg-[length:200%_100%] animate-[gradientBorder_3s_ease_infinite] p-[3px] rounded-3xl">
               <div class="w-full h-full bg-cream-100 rounded-3xl"></div>
