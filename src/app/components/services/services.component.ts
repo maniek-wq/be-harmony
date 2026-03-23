@@ -42,10 +42,10 @@ interface Service {
           <div (click)="openModal(emsService)" class="group cursor-pointer relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
             <!-- Animated gradient border -->
             <div class="absolute inset-0 bg-gradient-to-r from-olive via-terracotta to-olive bg-[length:200%_100%] animate-[gradientBorder_3s_ease_infinite] p-[3px] rounded-3xl">
-              <div class="w-full h-full bg-white rounded-3xl"></div>
+              <div class="w-full h-full bg-cream-100 rounded-3xl"></div>
             </div>
             
-            <div class="relative bg-white rounded-3xl p-6 sm:p-8 md:p-10">
+            <div class="relative bg-cream-100 rounded-3xl p-6 sm:p-8 md:p-10">
               <div class="flex flex-col lg:flex-row items-center gap-8">
                 <div class="w-full lg:w-5/12 flex-shrink-0" (click)="$event.stopPropagation()">
                   <div class="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-lg group/video">
