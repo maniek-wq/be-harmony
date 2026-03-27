@@ -7,6 +7,7 @@ interface TeamMember {
     role: string;
     bio: string;
     photo?: string;
+    storySections?: string[];
 }
 
 @Component({
@@ -45,6 +46,12 @@ interface TeamMember {
             </h3>
             <p class="text-olive font-medium text-sm mb-3">{{ member.role }}</p>
             <p class="text-gray-500 text-sm leading-relaxed max-w-xs mx-auto">{{ member.bio }}</p>
+            <ul *ngIf="member.storySections?.length" class="mt-8 text-left max-w-3xl mx-auto list-none space-y-5 pl-0">
+              <li *ngFor="let section of member.storySections" class="flex gap-3.5 text-gray-600 leading-relaxed text-base">
+                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-olive" aria-hidden="true"></span>
+                <span class="min-w-0">{{ section }}</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -59,6 +66,12 @@ export class TeamComponent {
             role: 'Fizjoterapeutka / Założycielka',
             bio: 'Fizjoterapeutka z pasją do ruchu i holistycznego podejścia do ciała.',
             photo: 'assets/img/zdjecie_na_profil.jpg',
+            storySections: [
+                'Aktywność i praca z ciałem towarzyszą mi od zawsze – przez 15 lat grałam w siatkówkę na poziomie wyczynowym, wtedy nauczyłam się, że słuchanie ciała i dbanie o jego harmonię to proces, który nigdy się nie kończy. Każdy dzień przynosi nowe doświadczenia, a ciało wciąż potrafi mnie czymś zaskoczyć.',
+                'Od ponad 10 lat łączę terapię z treningiem. Pomagam w pracy nad bólem, napięciem i codziennym funkcjonowaniem.',
+                'Ukończyłam liczne szkolenia z fizjoterapii, diagnostyki, terapii manualnej i alternatywnych metod pracy z ciałem. Ciągle rozwijam swoje umiejętności, aby sesje były skuteczne i dopasowane do indywidualnych potrzeb.',
+                'W mojej pracy stawiam na całościowe podejście – nie skupiam się tylko na objawach, ale szukam przyczyny problemu i wspieram organizm w odzyskaniu równowagi.',
+            ],
         },
     ];
 }

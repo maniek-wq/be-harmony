@@ -28,6 +28,13 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
               we własnej skórze. Skuteczność oparta jest na indywidualnym podejściu, wyjątkowej atmosferze 
               i holistycznym spojrzeniu na człowieka.
             </p>
+            <h3 class="font-display text-2xl text-gray-900 mb-4">Be Harmony</h3>
+            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+              Be Harmony powstało z potrzeby zatrzymania się w codziennym pędzie. To przestrzeń, w której możesz na chwilę zwolnić, posłuchać swojego ciała i zadbać o zdrowie - świadomie i spokojnie.
+            </p>
+            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+              Wierzę, że zawsze może być lepiej. Czasem wystarczy zrobić pierwszy krok.
+            </p>
             <div class="flex flex-wrap gap-3 mt-8">
               <span *ngFor="let tag of tags"
                     class="px-4 py-2 rounded-full text-sm font-medium border"
