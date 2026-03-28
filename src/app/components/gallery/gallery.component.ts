@@ -139,7 +139,7 @@ export class GalleryComponent {
       ],
     },
     {
-      title: 'Sale zabiegowe',
+      title: 'Sala zabiegowa',
       images: [
         { label: 'Sala zabiegowa', src: 'assets/img/20260216_143921.jpg', size: 'large', loaded: false },
         { label: 'Gabinet zabiegowy', src: 'assets/img/20260216_143912.jpg', size: 'normal', loaded: false },

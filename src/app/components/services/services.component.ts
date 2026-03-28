@@ -49,7 +49,8 @@ interface Service {
               <div class="flex flex-col lg:flex-row items-center gap-8">
                 <div class="w-full lg:w-5/12 flex-shrink-0" (click)="$event.stopPropagation()">
                   <div class="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-lg group/video">
-                    <video #emsVideo src="assets/videos/ems.mov" controls playsinline
+                    <video #emsVideo src="assets/videos/ems.mov" poster="assets/img/ems-poster.jpg"
+                           controls playsinline preload="metadata"
                            class="w-full h-full object-cover rounded-2xl"
                            (play)="showEmsPlayOverlay = false"
                            (pause)="showEmsPlayOverlay = true">
