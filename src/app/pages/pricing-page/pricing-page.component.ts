@@ -57,33 +57,23 @@ interface PricingItem {
                   </div>
                 </div>
 
-                <!-- Pojedynczy zabieg -->
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Pojedynczy zabieg</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-1 mb-6">
-                  <div *ngFor="let item of endoSingle"
-                       class="flex justify-between items-center py-1.5 border-b border-gray-100">
-                    <span class="text-sm text-gray-600">{{ item.name }}</span>
-                    <span class="text-sm font-bold text-terracotta whitespace-nowrap ml-2">{{ item.price }} zł</span>
-                  </div>
-                </div>
-
-                <!-- Karnety -->
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Karnety</h3>
                 <div class="overflow-x-auto rounded-xl border border-gray-100">
-                  <table class="w-full text-sm min-w-[280px]">
+                  <table class="w-full text-sm min-w-[340px]">
                     <thead>
                       <tr class="bg-terracotta/5">
-                        <th class="text-left px-3 sm:px-4 py-2.5 text-gray-500 font-medium">Strefa</th>
-                        <th class="text-center px-3 sm:px-4 py-2.5 text-gray-500 font-medium">6×</th>
-                        <th class="text-center px-3 sm:px-4 py-2.5 text-gray-500 font-medium">10×</th>
+                        <th class="text-left px-3 sm:px-4 py-3 text-gray-500 font-medium">Strefa</th>
+                        <th class="text-center px-3 sm:px-4 py-3 text-gray-500 font-medium">Pojedynczy</th>
+                        <th class="text-center px-3 sm:px-4 py-3 text-gray-500 font-medium">Karnet 6×</th>
+                        <th class="text-center px-3 sm:px-4 py-3 text-gray-500 font-medium">Karnet 10×</th>
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-50">
-                      <tr *ngFor="let item of endoKarnety; let odd = odd"
-                          [class]="odd ? 'bg-gray-50/50' : ''">
-                        <td class="px-3 sm:px-4 py-2 text-gray-700 text-xs sm:text-sm">{{ item.name }}</td>
-                        <td class="px-3 sm:px-4 py-2 text-center font-semibold text-terracotta text-xs sm:text-sm">{{ item.x6 }} zł</td>
-                        <td class="px-3 sm:px-4 py-2 text-center font-semibold text-terracotta text-xs sm:text-sm">{{ item.x10 }} zł</td>
+                      <tr *ngFor="let item of endoPricing; let odd = odd"
+                          [class]="odd ? 'bg-gray-50/40' : ''">
+                        <td class="px-3 sm:px-4 py-2.5 text-gray-700 text-xs sm:text-sm font-medium">{{ item.name }}</td>
+                        <td class="px-3 sm:px-4 py-2.5 text-center text-xs sm:text-sm text-gray-600">{{ item.single }} zł</td>
+                        <td class="px-3 sm:px-4 py-2.5 text-center text-xs sm:text-sm font-semibold text-terracotta">{{ item.x6 }} zł</td>
+                        <td class="px-3 sm:px-4 py-2.5 text-center text-xs sm:text-sm font-semibold text-terracotta">{{ item.x10 }} zł</td>
                       </tr>
                     </tbody>
                   </table>
@@ -263,26 +253,15 @@ export class PricingPageComponent {
     });
   }
 
-  endoSingle = [
-    { name: 'Twarz', price: '120' },
-    { name: 'Brzuch + Boczki', price: '160' },
-    { name: 'Uda', price: '170' },
-    { name: 'Pośladki', price: '160' },
-    { name: 'Całe Nogi', price: '210' },
-    { name: 'Uda + Pośladki', price: '210' },
-    { name: 'Uda + Brzuch', price: '245' },
-    { name: 'Pośladki + Brzuch + Boczki', price: '245' },
-  ];
-
-  endoKarnety = [
-    { name: 'Twarz', x6: '640', x10: '1020' },
-    { name: 'Brzuch + Boczki', x6: '860', x10: '1360' },
-    { name: 'Uda', x6: '920', x10: '1445' },
-    { name: 'Pośladki', x6: '860', x10: '1360' },
-    { name: 'Całe Nogi', x6: '1130', x10: '1785' },
-    { name: 'Uda + Pośladki', x6: '1130', x10: '1785' },
-    { name: 'Uda + Brzuch', x6: '1320', x10: '2080' },
-    { name: 'Pośladki + Brzuch + Boczki', x6: '1320', x10: '2080' },
+  endoPricing = [
+    { name: 'Twarz',                      single: '120', x6: '640',  x10: '1020' },
+    { name: 'Brzuch + Boczki',            single: '160', x6: '860',  x10: '1360' },
+    { name: 'Uda',                        single: '170', x6: '920',  x10: '1445' },
+    { name: 'Pośladki',                   single: '160', x6: '860',  x10: '1360' },
+    { name: 'Całe Nogi',                  single: '210', x6: '1130', x10: '1785' },
+    { name: 'Uda + Pośladki',             single: '210', x6: '1130', x10: '1785' },
+    { name: 'Uda + Brzuch',               single: '245', x6: '1320', x10: '2080' },
+    { name: 'Pośladki + Brzuch + Boczki', single: '245', x6: '1320', x10: '2080' },
   ];
 
   packages = [
