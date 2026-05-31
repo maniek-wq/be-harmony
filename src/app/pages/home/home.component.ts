@@ -7,6 +7,7 @@ import { ServicesComponent } from '../../components/services/services.component'
 import { TeamComponent } from '../../components/team/team.component';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 import { FaqComponent } from '../../components/faq/faq.component';
+import { PackagesComponent } from '../../components/packages/packages.component';
 import { VoucherBannerComponent } from '../../components/voucher-banner/voucher-banner.component';
 import { ContactFormComponent } from '../../components/contact-form/contact-form.component';
 import { GoogleMapsComponent } from '../../components/google-maps/google-maps.component';
@@ -20,6 +21,7 @@ import { GoogleMapsComponent } from '../../components/google-maps/google-maps.co
     StatsComponent,
     TestimonialsComponent,
     ServicesComponent,
+    PackagesComponent,
     TeamComponent,
     GalleryComponent,
     FaqComponent,
@@ -32,6 +34,7 @@ import { GoogleMapsComponent } from '../../components/google-maps/google-maps.co
     <app-about></app-about>
     <app-stats></app-stats>
     <app-services></app-services>
+    <app-packages></app-packages>
     <app-team></app-team>
     <app-gallery></app-gallery>
     <app-faq></app-faq>

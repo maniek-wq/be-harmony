@@ -12,6 +12,7 @@ interface Service {
   price: string;
   icon: string;
   isEms?: boolean;
+  isEndo?: boolean;
   subItems?: { name: string; price: string; description?: string }[];
   regularTherapy?: string[];
   forWhom?: string;
@@ -37,6 +38,55 @@ interface Service {
           </p>
         </div>
 
+        <!-- ENDOTERAPIA HIGHLIGHT CARD -->
+        <div appScrollReveal class="mb-8">
+          <div (click)="openModal(endoService)" class="group cursor-pointer relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-terracotta-lg hover:ring-2 hover:ring-terracotta/20 hover:-translate-y-1.5 active:scale-[0.98] active:shadow-md transition-all duration-300">
+            <div class="absolute inset-0 bg-gradient-to-r from-terracotta via-olive to-terracotta bg-[length:200%_100%] animate-[gradientBorder_3s_ease_infinite] p-[3px] rounded-3xl">
+              <div class="w-full h-full bg-cream-100 rounded-3xl"></div>
+            </div>
+
+            <div class="relative bg-cream-100 rounded-3xl p-5 sm:p-7 md:p-10">
+              <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                <div class="w-full md:w-5/12 flex-shrink-0" (click)="$event.stopPropagation()">
+                  <div class="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-lg group/video">
+                    <video #endoVideo src="assets/videos/endoterapia.mov"
+                           controls playsinline preload="metadata"
+                           class="w-full h-full object-cover rounded-2xl"
+                           (play)="showEndoPlayOverlay = false"
+                           (pause)="showEndoPlayOverlay = true">
+                      Twoja przeglądarka nie obsługuje odtwarzania wideo.
+                    </video>
+                    <div *ngIf="showEndoPlayOverlay"
+                         (click)="endoVideo.play()"
+                         class="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer hover:bg-black/40 transition-colors rounded-2xl">
+                      <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/95 flex items-center justify-center shadow-xl group-hover/video:scale-110 transition-transform">
+                        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-terracotta ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex-1 text-center md:text-left">
+                  <h3 class="font-display text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                    Endoterapia
+                  </h3>
+                  <p class="text-gray-600 text-base sm:text-lg leading-relaxed mb-4">
+                    Nowoczesna, nieinwazyjna terapia kompresyjnych mikrowibracji działająca jednocześnie na skórę, tkanki i układ limfatyczny.
+                  </p>
+                  <div class="flex justify-end">
+                    <span class="text-sm text-olive font-medium inline-flex items-center gap-1">
+                      Kliknij po szczegóły
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- EMS HIGHLIGHT CARD -->
         <div appScrollReveal class="mb-12">
           <div (click)="openModal(emsService)" class="group cursor-pointer relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-terracotta-lg hover:ring-2 hover:ring-terracotta/20 hover:-translate-y-1.5 active:scale-[0.98] active:shadow-md transition-all duration-300">
@@ -45,9 +95,9 @@ interface Service {
               <div class="w-full h-full bg-cream-100 rounded-3xl"></div>
             </div>
             
-            <div class="relative bg-cream-100 rounded-3xl p-6 sm:p-8 md:p-10">
-              <div class="flex flex-col lg:flex-row items-center gap-8">
-                <div class="w-full lg:w-5/12 flex-shrink-0" (click)="$event.stopPropagation()">
+            <div class="relative bg-cream-100 rounded-3xl p-5 sm:p-7 md:p-10">
+              <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                <div class="w-full md:w-5/12 flex-shrink-0" (click)="$event.stopPropagation()">
                   <div class="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-lg group/video">
                     <video #emsVideo src="assets/videos/ems.mov" poster="assets/img/ems-poster.jpg"
                            controls playsinline preload="metadata"
@@ -59,31 +109,31 @@ interface Service {
                     <div *ngIf="showEmsPlayOverlay"
                          (click)="emsVideo.play()"
                          class="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer hover:bg-black/40 transition-colors rounded-2xl">
-                      <div class="w-20 h-20 rounded-full bg-white/95 flex items-center justify-center shadow-xl group-hover/video:scale-110 transition-transform">
-                        <svg class="w-10 h-10 text-terracotta ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/95 flex items-center justify-center shadow-xl group-hover/video:scale-110 transition-transform">
+                        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-terracotta ml-1" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M8 5v14l11-7z"/>
                         </svg>
                       </div>
                     </div>
-                    <span class="absolute top-4 left-4 px-3 py-1.5 bg-terracotta text-white text-xs font-bold rounded-full shadow-xl uppercase tracking-wider animate-bounce z-10">
+                    <span class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2.5 py-1 sm:px-3 sm:py-1.5 bg-terracotta text-white text-xs font-bold rounded-full shadow-xl uppercase tracking-wider animate-bounce z-10">
                       Nowość!
                     </span>
                   </div>
                 </div>
 
-                <div class="flex-1 text-center lg:text-left">
-                  <h3 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-3 flex flex-col sm:flex-row sm:flex-wrap sm:items-baseline">
+                <div class="flex-1 text-center md:text-left">
+                  <h3 class="font-display text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3">
                     Trening EMS
-                    <span class="text-olive text-lg font-normal sm:ml-2">(Electrical Muscle Stimulation)</span>
+                    <span class="block sm:inline text-olive text-base sm:text-lg font-normal sm:ml-2">(Electrical Muscle Stimulation)</span>
                   </h3>
-                  <p class="text-gray-600 text-lg leading-relaxed mb-4">
-                    Nowoczesna technologia treningowa wykorzystująca impulsy elektryczne do stymulacji mięśni. 
+                  <p class="text-gray-600 text-base sm:text-lg leading-relaxed mb-4">
+                    Nowoczesna technologia treningowa wykorzystująca impulsy elektryczne do stymulacji mięśni.
                     W krótkim czasie wzmacnia całe ciało i poprawia sylwetkę.
                   </p>
-                  <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-                    <span class="text-3xl font-bold text-terracotta">90 zł</span>
+                  <div class="flex flex-wrap items-center gap-3 justify-center md:justify-start">
+                    <span class="text-2xl sm:text-3xl font-bold text-terracotta">90 zł</span>
                     <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">trening próbny</span>
-                    <span class="text-sm text-olive font-medium ml-auto hidden lg:inline-flex items-center gap-1">
+                    <span class="text-sm text-olive font-medium inline-flex items-center gap-1 md:ml-auto">
                       Kliknij po szczegóły
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </span>
@@ -307,6 +357,7 @@ interface Service {
 export class ServicesComponent {
   selectedService: Service | null = null;
   showEmsPlayOverlay = true;
+  showEndoPlayOverlay = true;
 
   constructor(private router: Router) {}
 
@@ -329,6 +380,37 @@ export class ServicesComponent {
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
+
+  endoService: Service = {
+    name: 'Endoterapia',
+    description: 'Nowoczesna, nieinwazyjna terapia kompresyjnych mikrowibracji działająca jednocześnie na skórę, tkanki i układ limfatyczny.',
+    detailedDescription: 'Endoterapia to nowoczesna, nieinwazyjna terapia wykorzystująca kompresyjne mikrowibracje, która działa jednocześnie na skórę, tkanki i układ limfatyczny. Zabieg łączy efekt masażu, drenażu i pracy na głębszych strukturach, dzięki czemu poprawia wygląd ciała i jego funkcjonowanie.',
+    combinesSection: {
+      heading: 'Jak działa?',
+      items: [
+        'głowica z 55 silikonowymi kulkami wykonuje intensywny masaż',
+        'generuje mikrowibracje o niskiej częstotliwości',
+        'pobudza krążenie krwi i limfy',
+        'odblokowuje zastój w tkankach',
+        'zwiększa mikrokrążenie i dotlenienie tkanek',
+      ],
+    },
+    benefitsHeading: 'Co robi w ciele?',
+    benefits: [
+      'usprawnia przepływ limfy (drenaż)',
+      'wspiera detoksykację organizmu',
+      'rozbija tkankę tłuszczową i cellulit',
+      'ujędrnia i poprawia napięcie skóry',
+      'zmniejsza obrzęki',
+      'działa przeciwbólowo',
+      'rozluźnia napięcia mięśniowe',
+      'przyspiesza regenerację po treningu',
+    ],
+    duration: '',
+    price: 'Do ustalenia',
+    icon: '🌊',
+    isEndo: true,
+  };
 
   emsService: Service = {
     name: 'Trening EMS',

@@ -42,6 +42,56 @@ interface PricingItem {
           </p>
         </div>
 
+        <!-- ENDOTERAPIA HIGHLIGHT -->
+        <div appScrollReveal class="mb-10">
+          <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-terracotta/30">
+              <!-- Endo Info -->
+              <div class="p-5 sm:p-7 md:p-10">
+                <div class="flex items-center gap-4 mb-6">
+                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-terracotta to-terracotta-600 flex items-center justify-center shadow-lg">
+                    <span class="text-2xl">🌊</span>
+                  </div>
+                  <div>
+                    <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900">Endoterapia</h2>
+                    <p class="text-terracotta text-sm">Kompresyjne mikrowibracje</p>
+                  </div>
+                </div>
+
+                <!-- Pojedynczy zabieg -->
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Pojedynczy zabieg</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-1 mb-6">
+                  <div *ngFor="let item of endoSingle"
+                       class="flex justify-between items-center py-1.5 border-b border-gray-100">
+                    <span class="text-sm text-gray-600">{{ item.name }}</span>
+                    <span class="text-sm font-bold text-terracotta whitespace-nowrap ml-2">{{ item.price }} zł</span>
+                  </div>
+                </div>
+
+                <!-- Karnety -->
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Karnety</h3>
+                <div class="overflow-x-auto rounded-xl border border-gray-100">
+                  <table class="w-full text-sm min-w-[280px]">
+                    <thead>
+                      <tr class="bg-terracotta/5">
+                        <th class="text-left px-3 sm:px-4 py-2.5 text-gray-500 font-medium">Strefa</th>
+                        <th class="text-center px-3 sm:px-4 py-2.5 text-gray-500 font-medium">6×</th>
+                        <th class="text-center px-3 sm:px-4 py-2.5 text-gray-500 font-medium">10×</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50">
+                      <tr *ngFor="let item of endoKarnety; let odd = odd"
+                          [class]="odd ? 'bg-gray-50/50' : ''">
+                        <td class="px-3 sm:px-4 py-2 text-gray-700 text-xs sm:text-sm">{{ item.name }}</td>
+                        <td class="px-3 sm:px-4 py-2 text-center font-semibold text-terracotta text-xs sm:text-sm">{{ item.x6 }} zł</td>
+                        <td class="px-3 sm:px-4 py-2 text-center font-semibold text-terracotta text-xs sm:text-sm">{{ item.x10 }} zł</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          </div>
+        </div>
+
         <!-- EMS HIGHLIGHT -->
         <div appScrollReveal class="mb-10">
           <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-olive/40">
@@ -49,17 +99,15 @@ interface PricingItem {
               Nowość!
             </div>
             <div class="flex flex-col lg:flex-row">
-              <!-- EMS Image -->
               <div class="lg:w-2/5 relative">
-                <img src="assets/img/cennik_ems.jpg" 
-                     alt="Cennik EMS - Trening Electrical Muscle Stimulation" 
+                <img src="assets/img/cennik_ems.jpg"
+                     alt="Cennik EMS - Trening Electrical Muscle Stimulation"
                      class="w-full h-full object-cover min-h-[250px] lg:min-h-full">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent lg:bg-gradient-to-r"></div>
               </div>
-              <!-- EMS Info -->
-              <div class="lg:w-3/5 p-8 md:p-10">
+              <div class="lg:w-3/5 p-5 sm:p-7 md:p-10">
                 <div class="flex items-center gap-4 mb-6">
-                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-olive to-olive-400 flex items-center justify-center shadow-lg">
+                  <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-olive to-olive-400 flex items-center justify-center shadow-lg">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
@@ -101,7 +149,7 @@ interface PricingItem {
 
             <div class="divide-y divide-gray-100">
               <div *ngFor="let item of category.items"
-                   class="px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-olive/5 transition-colors">
+                   class="px-4 sm:px-8 py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-olive/5 transition-colors">
                 <div class="flex-1">
                   <div class="flex items-center gap-3 flex-wrap">
                     <h3 *ngIf="item.name" class="font-medium text-gray-900">{{ item.name }}</h3>
@@ -117,6 +165,73 @@ interface PricingItem {
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- PAKIETY -->
+        <div appScrollReveal class="mt-12 mb-4">
+          <div class="text-center mb-8">
+            <span class="inline-block px-4 py-1.5 bg-terracotta text-white rounded-full text-sm font-medium mb-4">Pakiety</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              Be Harmony <span class="text-terracotta">Pakiety</span>
+            </h2>
+            <p class="text-gray-500 max-w-xl mx-auto">EMS + Endoterapia — skuteczne duo dla sylwetki, którą widać i czuć.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch pt-6">
+            <div *ngFor="let pkg of packages"
+                 class="relative flex flex-col rounded-3xl transition-all duration-300"
+                 [ngClass]="pkg.highlight
+                   ? 'bg-gradient-to-b from-terracotta to-terracotta-700 shadow-2xl shadow-terracotta/25 md:scale-[1.03] ring-2 ring-terracotta/50'
+                   : 'bg-white border-2 border-gray-100 hover:border-terracotta/30 shadow-sm hover:shadow-md'">
+
+              <div *ngIf="pkg.badge" class="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                <span class="px-5 py-1.5 bg-[#1a1f16] text-white text-xs font-bold rounded-full uppercase tracking-wider shadow-lg whitespace-nowrap">
+                  {{ pkg.badge }}
+                </span>
+              </div>
+
+              <div class="p-7 flex flex-col flex-1">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4"
+                     [ngClass]="pkg.highlight ? 'bg-white/20' : 'bg-terracotta/10'">
+                  <span class="text-xl font-bold" [ngClass]="pkg.highlight ? 'text-white' : 'text-terracotta'">{{ pkg.size }}</span>
+                </div>
+
+                <h3 class="font-display text-lg font-bold mb-1" [ngClass]="pkg.highlight ? 'text-white' : 'text-gray-900'">
+                  {{ pkg.name }}
+                </h3>
+
+                <div class="flex items-baseline gap-1 mb-6 mt-2">
+                  <span class="text-3xl font-bold" [ngClass]="pkg.highlight ? 'text-white' : 'text-terracotta'">{{ pkg.price }}</span>
+                  <span class="font-medium" [ngClass]="pkg.highlight ? 'text-white/70' : 'text-gray-400'">zł</span>
+                </div>
+
+                <ul class="space-y-2.5 flex-1 mb-6">
+                  <li *ngFor="let item of pkg.items" class="flex items-start gap-2.5 text-sm">
+                    <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"
+                         [ngClass]="pkg.highlight ? 'text-white/80' : 'text-terracotta'">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    <span [ngClass]="pkg.highlight ? 'text-white/90' : 'text-gray-600'">
+                      <strong [ngClass]="pkg.highlight ? 'text-white' : 'text-gray-900'">{{ item.count }}</strong>
+                      {{ item.label }}
+                    </span>
+                  </li>
+                </ul>
+
+                <button (click)="navigateToContact()"
+                        class="w-full py-3 rounded-xl font-semibold text-sm transition-all duration-300"
+                        [ngClass]="pkg.highlight
+                          ? 'bg-white text-terracotta hover:bg-gray-50'
+                          : 'bg-terracotta/10 text-terracotta border border-terracotta/30 hover:bg-terracotta hover:text-white'">
+                  Zapytaj o pakiet
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-center text-gray-400 text-sm mt-8">
+            Już wkrótce więcej pakietów — z terapią ciała i nie tylko.
+          </p>
         </div>
 
         <!-- CTA -->
@@ -147,6 +262,56 @@ export class PricingPageComponent {
       }, 100);
     });
   }
+
+  endoSingle = [
+    { name: 'Twarz', price: '120' },
+    { name: 'Brzuch + Boczki', price: '160' },
+    { name: 'Uda', price: '170' },
+    { name: 'Pośladki', price: '160' },
+    { name: 'Całe Nogi', price: '210' },
+    { name: 'Uda + Pośladki', price: '210' },
+    { name: 'Uda + Brzuch', price: '245' },
+    { name: 'Pośladki + Brzuch + Boczki', price: '245' },
+  ];
+
+  endoKarnety = [
+    { name: 'Twarz', x6: '640', x10: '1020' },
+    { name: 'Brzuch + Boczki', x6: '860', x10: '1360' },
+    { name: 'Uda', x6: '920', x10: '1445' },
+    { name: 'Pośladki', x6: '860', x10: '1360' },
+    { name: 'Całe Nogi', x6: '1130', x10: '1785' },
+    { name: 'Uda + Pośladki', x6: '1130', x10: '1785' },
+    { name: 'Uda + Brzuch', x6: '1320', x10: '2080' },
+    { name: 'Pośladki + Brzuch + Boczki', x6: '1320', x10: '2080' },
+  ];
+
+  packages = [
+    {
+      size: 'S', name: 'Pakiet „S"', price: 1450, highlight: false, badge: '',
+      items: [
+        { count: '4×', label: 'Trening EMS' },
+        { count: '4×', label: 'Endoterapia Uda + Pośladki' },
+        { count: '1×', label: 'Masaż relaksacyjny twarzy i głowy' },
+      ],
+    },
+    {
+      size: 'M', name: 'Pakiet „M"', price: 2250, highlight: true, badge: 'Najpopularniejszy',
+      items: [
+        { count: '8×', label: 'Trening EMS' },
+        { count: '6×', label: 'Endoterapia Uda + Pośladki' },
+        { count: '1×', label: 'Masaż relaksacyjny całego ciała' },
+      ],
+    },
+    {
+      size: 'L', name: 'Pakiet „L"', price: 3260, highlight: false, badge: '',
+      items: [
+        { count: '12×', label: 'Trening EMS' },
+        { count: '8×', label: 'Endoterapia Uda + Pośladki' },
+        { count: '1×', label: 'Masaż tkanek głębokich' },
+        { count: '1×', label: 'Masaż relaksacyjny całego ciała' },
+      ],
+    },
+  ];
 
   categories: PricingCategory[] = [
     {
