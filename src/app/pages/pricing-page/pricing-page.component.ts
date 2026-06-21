@@ -45,25 +45,38 @@ interface PricingItem {
         <!-- ENDOTERAPIA HIGHLIGHT -->
         <div appScrollReveal class="mb-10">
           <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-terracotta/30">
-              <!-- Endo Info -->
-              <div class="p-5 sm:p-7 md:p-10">
-                <div class="flex items-center gap-4 mb-6">
-                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-terracotta to-terracotta-600 flex items-center justify-center shadow-lg">
-                    <span class="text-2xl">🌊</span>
-                  </div>
-                  <div>
-                    <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900">Endoterapia</h2>
-                    <p class="text-terracotta text-sm">Kompresyjne mikrowibracje</p>
-                  </div>
+            <div class="absolute top-0 right-0 px-6 py-2 bg-terracotta text-white text-sm font-bold rounded-bl-2xl uppercase tracking-wider z-10">
+              Nowość!
+            </div>
+            <!-- Header -->
+            <div class="px-5 pt-5 sm:px-7 sm:pt-7 md:px-10 md:pt-10">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-terracotta to-terracotta-600 flex items-center justify-center shadow-lg">
+                  <span class="text-2xl">🌊</span>
                 </div>
-
-                <!-- Mobile: zdjęcie cennika -->
-                <div class="block sm:hidden rounded-xl overflow-hidden">
-                  <img src="assets/img/endo_cennik.jpg" alt="Cennik endoterapii" class="w-full h-auto">
+                <div>
+                  <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900">Endoterapia</h2>
+                  <p class="text-terracotta text-sm">Kompresyjne mikrowibracje</p>
                 </div>
+              </div>
+            </div>
 
-                <!-- Desktop: tabela -->
-                <div class="hidden sm:block overflow-x-auto rounded-xl border border-gray-100">
+            <!-- Mobile: endo_cennik.jpg, bez tabeli -->
+            <div class="block sm:hidden px-5 pb-5">
+              <img src="assets/img/endo_cennik.jpg"
+                   alt="Cennik Endoterapii"
+                   class="w-full h-auto rounded-xl shadow-sm">
+            </div>
+
+            <!-- Desktop: endo_new.png + tabela -->
+            <div class="hidden sm:block">
+              <div class="px-7 md:px-10">
+                <img src="assets/img/endo_new.png"
+                     alt="Cennik Endoterapii"
+                     class="w-full h-auto rounded-xl shadow-sm">
+              </div>
+              <div class="px-7 pb-7 pt-5 md:px-10 md:pb-10 md:pt-6 overflow-x-auto">
+                <div class="rounded-xl border border-gray-100">
                   <table class="w-full text-sm min-w-[340px]">
                     <thead>
                       <tr class="bg-terracotta/5">
@@ -85,6 +98,7 @@ interface PricingItem {
                   </table>
                 </div>
               </div>
+            </div>
           </div>
         </div>
 
