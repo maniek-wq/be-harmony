@@ -65,6 +65,9 @@ interface Service {
                         </svg>
                       </div>
                     </div>
+                    <span class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2.5 py-1 sm:px-3 sm:py-1.5 bg-terracotta text-white text-xs font-bold rounded-full shadow-xl uppercase tracking-wider animate-bounce z-10">
+                      Nowość!
+                    </span>
                   </div>
                 </div>
 
@@ -328,13 +331,23 @@ interface Service {
               <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Czas trwania</p>
               <p class="font-semibold text-gray-900">{{ selectedService.duration }}</p>
             </div>
-            <div *ngIf="!selectedService.subItems" class="flex-1 p-4 bg-terracotta/10 rounded-xl text-center">
-              <p class="text-xs text-terracotta-700 uppercase tracking-wider mb-1">Cena</p>
-              <p class="text-2xl font-bold text-terracotta">
-                {{ selectedService.price }}
-                <span *ngIf="selectedService.price !== 'Do ustalenia'" class="text-sm text-gray-400 font-normal">zł</span>
-              </p>
-            </div>
+            <ng-container *ngIf="!selectedService.subItems">
+              <!-- Cena: Do ustalenia → klikalny kafelek -->
+              <a *ngIf="selectedService.price === 'Do ustalenia'"
+                 href="javascript:void(0)" (click)="navigateToPricing()"
+                 class="flex-1 p-4 bg-terracotta/10 rounded-xl text-center block hover:bg-terracotta/20 transition-colors cursor-pointer">
+                <p class="text-xs text-terracotta-700 uppercase tracking-wider mb-1">Cena</p>
+                <p class="text-xl font-bold text-terracotta">Sprawdź cennik →</p>
+              </a>
+              <!-- Cena: normalna -->
+              <div *ngIf="selectedService.price !== 'Do ustalenia'" class="flex-1 p-4 bg-terracotta/10 rounded-xl text-center">
+                <p class="text-xs text-terracotta-700 uppercase tracking-wider mb-1">Cena</p>
+                <p class="text-2xl font-bold text-terracotta">
+                  {{ selectedService.price }}
+                  <span class="text-sm text-gray-400 font-normal">zł</span>
+                </p>
+              </div>
+            </ng-container>
           </div>
 
           <!-- CTA -->
@@ -370,6 +383,11 @@ export class ServicesComponent {
         setTimeout(() => this.scrollToSection('kontakt'), 100);
       });
     }
+  }
+
+  navigateToPricing() {
+    this.closeModal();
+    this.router.navigate(['/cennik']);
   }
 
   private scrollToSection(id: string) {

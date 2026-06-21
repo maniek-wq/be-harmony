@@ -57,7 +57,13 @@ interface PricingItem {
                   </div>
                 </div>
 
-                <div class="overflow-x-auto rounded-xl border border-gray-100">
+                <!-- Mobile: zdjęcie cennika -->
+                <div class="block sm:hidden rounded-xl overflow-hidden">
+                  <img src="assets/img/endo_cennik.jpg" alt="Cennik endoterapii" class="w-full h-auto">
+                </div>
+
+                <!-- Desktop: tabela -->
+                <div class="hidden sm:block overflow-x-auto rounded-xl border border-gray-100">
                   <table class="w-full text-sm min-w-[340px]">
                     <thead>
                       <tr class="bg-terracotta/5">
@@ -190,9 +196,17 @@ interface PricingItem {
                   {{ pkg.name }}
                 </h3>
 
-                <div class="flex items-baseline gap-1 mb-6 mt-2">
-                  <span class="text-3xl font-bold" [ngClass]="pkg.highlight ? 'text-white' : 'text-terracotta'">{{ pkg.price }}</span>
-                  <span class="font-medium" [ngClass]="pkg.highlight ? 'text-white/70' : 'text-gray-400'">zł</span>
+                <div class="flex items-center gap-3 flex-wrap mb-6 mt-2">
+                  <div class="flex items-baseline gap-1">
+                    <span class="text-3xl font-bold" [ngClass]="pkg.highlight ? 'text-white' : 'text-terracotta'">{{ pkg.price }}</span>
+                    <span class="font-medium" [ngClass]="pkg.highlight ? 'text-white/70' : 'text-gray-400'">zł</span>
+                  </div>
+                  <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border"
+                        [ngClass]="pkg.highlight
+                          ? 'bg-white/15 text-white border-white/30'
+                          : 'bg-green-500/10 text-green-600 border-green-500/25'">
+                    Oszczędzasz {{ pkg.savings }} zł
+                  </span>
                 </div>
 
                 <ul class="space-y-2.5 flex-1 mb-6">
@@ -215,6 +229,10 @@ interface PricingItem {
                           : 'bg-terracotta/10 text-terracotta border border-terracotta/30 hover:bg-terracotta hover:text-white'">
                   Zapytaj o pakiet
                 </button>
+                <p class="text-center text-xs mt-3"
+                   [ngClass]="pkg.highlight ? 'text-white/50' : 'text-gray-400'">
+                  * Możliwość indywidualnego dopasowania
+                </p>
               </div>
             </div>
           </div>
@@ -266,7 +284,7 @@ export class PricingPageComponent {
 
   packages = [
     {
-      size: 'S', name: 'Pakiet „S"', price: 1450, highlight: false, badge: '',
+      size: 'S', name: 'Pakiet „S"', price: 1450, savings: 330, highlight: false, badge: '',
       items: [
         { count: '4×', label: 'Trening EMS' },
         { count: '4×', label: 'Endoterapia Uda + Pośladki' },
@@ -274,7 +292,7 @@ export class PricingPageComponent {
       ],
     },
     {
-      size: 'M', name: 'Pakiet „M"', price: 2250, highlight: true, badge: 'Najpopularniejszy',
+      size: 'M', name: 'Pakiet „M"', price: 2250, savings: 710, highlight: true, badge: 'Najpopularniejszy',
       items: [
         { count: '8×', label: 'Trening EMS' },
         { count: '6×', label: 'Endoterapia Uda + Pośladki' },
@@ -282,7 +300,7 @@ export class PricingPageComponent {
       ],
     },
     {
-      size: 'L', name: 'Pakiet „L"', price: 3260, highlight: false, badge: '',
+      size: 'L', name: 'Pakiet „L"', price: 3260, savings: 1060, highlight: false, badge: '',
       items: [
         { count: '12×', label: 'Trening EMS' },
         { count: '8×', label: 'Endoterapia Uda + Pośladki' },

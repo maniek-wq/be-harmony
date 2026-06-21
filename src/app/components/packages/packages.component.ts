@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
@@ -12,6 +12,7 @@ interface Package {
   size: string;
   name: string;
   price: number;
+  savings: number;
   items: PackageItem[];
   highlight?: boolean;
   badge?: string;
@@ -20,7 +21,7 @@ interface Package {
 @Component({
   selector: 'app-packages',
   standalone: true,
-  imports: [CommonModule, DecimalPipe, RouterLink, ScrollRevealDirective],
+  imports: [CommonModule, RouterLink, ScrollRevealDirective],
   template: `
     <section id="pakiety" class="py-20 md:py-28 bg-[#1a1f16] relative overflow-hidden">
 
@@ -99,14 +100,22 @@ interface Package {
 
               <!-- Price -->
               <div class="mb-7">
-                <div class="flex items-baseline gap-1">
-                  <span class="text-4xl font-bold"
-                        [ngClass]="pkg.highlight ? 'text-white' : 'text-terracotta'">
-                    {{ pkg.price | number:'1.0-0' }}
-                  </span>
-                  <span class="text-lg font-medium"
-                        [ngClass]="pkg.highlight ? 'text-white/80' : 'text-gray-400'">
-                    zł
+                <div class="flex items-center gap-3 flex-wrap">
+                  <div class="flex items-baseline gap-1">
+                    <span class="text-4xl font-bold"
+                          [ngClass]="pkg.highlight ? 'text-white' : 'text-terracotta'">
+                      {{ pkg.price }}
+                    </span>
+                    <span class="text-lg font-medium"
+                          [ngClass]="pkg.highlight ? 'text-white/80' : 'text-gray-400'">
+                      zł
+                    </span>
+                  </div>
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold border"
+                        [ngClass]="pkg.highlight
+                          ? 'bg-white/15 text-white border-white/30'
+                          : 'bg-green-500/10 text-green-400 border-green-500/25'">
+                    Oszczędzasz {{ pkg.savings }} zł
                   </span>
                 </div>
                 <p class="text-sm mt-1"
@@ -145,6 +154,10 @@ interface Package {
                         : 'bg-terracotta/20 text-white border border-terracotta/40 hover:bg-terracotta hover:border-terracotta'">
                 Zapytaj o pakiet
               </button>
+              <p class="text-center text-xs mt-3"
+                 [ngClass]="pkg.highlight ? 'text-white/50' : 'text-gray-600'">
+                * Możliwość indywidualnego dopasowania
+              </p>
             </div>
           </div>
         </div>
@@ -168,6 +181,7 @@ export class PackagesComponent {
       size: 'S',
       name: 'Be Harmony Pakiet „S"',
       price: 1450,
+      savings: 330,
       items: [
         { count: '4×', label: 'Trening EMS' },
         { count: '4×', label: 'Endoterapia Uda + Pośladki' },
@@ -178,6 +192,7 @@ export class PackagesComponent {
       size: 'M',
       name: 'Be Harmony Pakiet „M"',
       price: 2250,
+      savings: 710,
       highlight: true,
       badge: 'Najpopularniejszy',
       items: [
@@ -190,6 +205,7 @@ export class PackagesComponent {
       size: 'L',
       name: 'Be Harmony Pakiet „L"',
       price: 3260,
+      savings: 1060,
       items: [
         { count: '12×', label: 'Trening EMS' },
         { count: '8×', label: 'Endoterapia Uda + Pośladki' },
