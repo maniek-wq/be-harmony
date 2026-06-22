@@ -48,55 +48,27 @@ interface PricingItem {
             <div class="absolute top-0 right-0 px-6 py-2 bg-terracotta text-white text-sm font-bold rounded-bl-2xl uppercase tracking-wider z-10">
               Nowość!
             </div>
-            <!-- Header -->
-            <div class="px-5 pt-5 sm:px-7 sm:pt-7 md:px-10 md:pt-10">
-              <div class="flex items-center gap-4 mb-6">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-terracotta to-terracotta-600 flex items-center justify-center shadow-lg">
-                  <span class="text-2xl">🌊</span>
-                </div>
-                <div>
-                  <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900">Endoterapia</h2>
-                  <p class="text-terracotta text-sm">Kompresyjne mikrowibracje</p>
-                </div>
+            <!-- Mobile: image.png -->
+            <div class="relative group cursor-zoom-in block sm:hidden" (click)="endoLightbox = true">
+              <img src="assets/img/image.png"
+                   alt="Endoterapia - Kompresyjne mikrowibracje"
+                   class="w-full h-auto block">
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 text-gray-800 text-sm font-medium px-4 py-2 rounded-full shadow">
+                  Powiększ
+                </span>
               </div>
             </div>
 
-            <!-- Mobile: endo_cennik.jpg, bez tabeli -->
-            <div class="block sm:hidden px-5 pb-5">
-              <img src="assets/img/endo_cennik.jpg"
-                   alt="Cennik Endoterapii"
-                   class="w-full h-auto rounded-xl shadow-sm">
-            </div>
-
-            <!-- Desktop: endo_new.png + tabela -->
-            <div class="hidden sm:block">
-              <div class="px-7 md:px-10">
-                <img src="assets/img/endo_new.png"
-                     alt="Cennik Endoterapii"
-                     class="w-full h-auto rounded-xl shadow-sm">
-              </div>
-              <div class="px-7 pb-7 pt-5 md:px-10 md:pb-10 md:pt-6 overflow-x-auto">
-                <div class="rounded-xl border border-gray-100">
-                  <table class="w-full text-sm min-w-[340px]">
-                    <thead>
-                      <tr class="bg-terracotta/5">
-                        <th class="text-left px-3 sm:px-4 py-3 text-gray-500 font-medium">Strefa</th>
-                        <th class="text-center px-3 sm:px-4 py-3 text-gray-500 font-medium">Pojedynczy</th>
-                        <th class="text-center px-3 sm:px-4 py-3 text-gray-500 font-medium">Karnet 6×</th>
-                        <th class="text-center px-3 sm:px-4 py-3 text-gray-500 font-medium">Karnet 10×</th>
-                      </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-50">
-                      <tr *ngFor="let item of endoPricing; let odd = odd"
-                          [class]="odd ? 'bg-gray-50/40' : ''">
-                        <td class="px-3 sm:px-4 py-2.5 text-gray-700 text-xs sm:text-sm font-medium">{{ item.name }}</td>
-                        <td class="px-3 sm:px-4 py-2.5 text-center text-xs sm:text-sm text-gray-600">{{ item.single }} zł</td>
-                        <td class="px-3 sm:px-4 py-2.5 text-center text-xs sm:text-sm font-semibold text-terracotta">{{ item.x6 }} zł</td>
-                        <td class="px-3 sm:px-4 py-2.5 text-center text-xs sm:text-sm font-semibold text-terracotta">{{ item.x10 }} zł</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+            <!-- Desktop: zdjęcie z lightboxem -->
+            <div class="relative group cursor-zoom-in hidden sm:block" (click)="endoLightbox = true">
+              <img src="assets/img/endo_pion.png"
+                   alt="Endoterapia - Kompresyjne mikrowibracje"
+                   class="w-full h-auto block">
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                <span class="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 text-gray-800 text-sm font-medium px-4 py-2 rounded-full shadow">
+                  Powiększ
+                </span>
               </div>
             </div>
           </div>
@@ -108,11 +80,11 @@ interface PricingItem {
             <div class="absolute top-0 right-0 px-6 py-2 bg-terracotta text-white text-sm font-bold rounded-bl-2xl uppercase tracking-wider z-10">
               Nowość!
             </div>
-            <div class="flex flex-col lg:flex-row">
+            <div class="flex flex-col lg:flex-row min-h-[216px] sm:min-h-[260px] lg:min-h-[300px]">
               <div class="lg:w-2/5 relative">
                 <img src="assets/img/cennik_ems.jpg"
                      alt="Cennik EMS - Trening Electrical Muscle Stimulation"
-                     class="w-full h-full object-cover min-h-[250px] lg:min-h-full">
+                     class="w-full h-full object-cover min-h-[216px] sm:min-h-[260px] lg:min-h-full">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent lg:bg-gradient-to-r"></div>
               </div>
               <div class="lg:w-3/5 p-5 sm:p-7 md:p-10">
@@ -266,10 +238,32 @@ interface PricingItem {
         </div>
       </div>
     </div>
+
+    <!-- Lightbox -->
+    <div *ngIf="endoLightbox"
+         class="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4"
+         (click)="endoLightbox = false">
+      <img src="assets/img/image.png"
+           alt="Endoterapia - Kompresyjne mikrowibracje"
+           class="max-w-full max-h-full object-contain rounded-xl shadow-2xl block sm:hidden"
+           (click)="$event.stopPropagation()">
+      <img src="assets/img/endo_pion.png"
+           alt="Endoterapia - Kompresyjne mikrowibracje"
+           class="max-w-full max-h-full object-contain rounded-xl shadow-2xl hidden sm:block"
+           (click)="$event.stopPropagation()">
+      <button class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+              (click)="endoLightbox = false">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
   `,
   styles: []
 })
 export class PricingPageComponent {
+  endoLightbox = false;
+
   constructor(private router: Router) {}
 
   navigateToContact() {
