@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
+import { announcementBarHeight } from '../announcement-bar/announcement-bar.component';
 
 @Component({
     selector: 'app-voucher-banner',
@@ -60,7 +61,7 @@ export class VoucherBannerComponent {
     if (this.router.url === '/' || this.router.url.startsWith('/#')) {
       const el = document.getElementById('kontakt');
       if (el) {
-        const offset = 80;
+        const offset = 80 + announcementBarHeight();
         const top = el.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: 'smooth' });
       }
@@ -69,7 +70,7 @@ export class VoucherBannerComponent {
         setTimeout(() => {
           const el = document.getElementById('kontakt');
           if (el) {
-            const offset = 80;
+            const offset = 80 + announcementBarHeight();
             const top = el.getBoundingClientRect().top + window.scrollY - offset;
             window.scrollTo({ top, behavior: 'smooth' });
           }

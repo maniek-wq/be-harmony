@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { announcementBarHeight } from '../announcement-bar/announcement-bar.component';
 
 @Component({
   selector: 'app-navbar',
@@ -153,7 +154,7 @@ export class NavbarComponent {
   private scrollToElement(id: string) {
     const el = document.getElementById(id);
     if (el) {
-      const offset = 80;
+      const offset = 80 + announcementBarHeight();
       const top = el.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }

@@ -7,15 +7,17 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CookieBannerComponent } from './components/cookie-banner/cookie-banner.component';
 import { BackToTopComponent } from './components/back-to-top/back-to-top.component';
 import { FloatingCtaComponent } from './components/floating-cta/floating-cta.component';
+import { AnnouncementBarComponent } from './components/announcement-bar/announcement-bar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LoadingScreenComponent, NavbarComponent, FooterComponent, CookieBannerComponent, BackToTopComponent, FloatingCtaComponent],
+  imports: [CommonModule, RouterOutlet, LoadingScreenComponent, NavbarComponent, FooterComponent, CookieBannerComponent, BackToTopComponent, FloatingCtaComponent, AnnouncementBarComponent],
   template: `
     <app-loading-screen *ngIf="showLoading"></app-loading-screen>
     <div [class.opacity-0]="showLoading" class="transition-opacity duration-500">
       <app-navbar></app-navbar>
+      <app-announcement-bar></app-announcement-bar>
       <main>
         <router-outlet></router-outlet>
       </main>
