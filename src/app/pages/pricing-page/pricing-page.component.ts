@@ -44,33 +44,125 @@ interface PricingItem {
 
         <!-- ENDOTERAPIA HIGHLIGHT -->
         <div appScrollReveal class="mb-10">
-          <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-terracotta/30">
-            <div class="absolute top-0 right-0 px-6 py-2 bg-terracotta text-white text-sm font-bold rounded-bl-2xl uppercase tracking-wider z-10">
-              Nowość!
+          <div class="bg-endo-sheet rounded-3xl shadow-xl overflow-hidden -mx-2 sm:mx-0 md:max-w-4xl md:mx-auto px-3 sm:px-8 pt-7 pb-5 sm:pt-7 sm:pb-5">
+            <!-- Logo -->
+            <div class="text-center">
+              <svg class="mx-auto w-24 h-5 text-endo-accent" viewBox="0 0 120 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+                <path d="M0 10h44l4-6 5 12 5-14 5 12 3-4h54"/>
+              </svg>
+              <p class="font-display text-[1.75rem] sm:text-3xl text-endo-dark mt-1 leading-none">Be Harmony</p>
+              <p class="mt-2 text-[9px] sm:text-[10px] tracking-[0.3em] font-semibold text-endo-muted uppercase">Gabinet terapii ciała</p>
             </div>
-            <!-- Mobile: image.png -->
-            <div class="relative group cursor-zoom-in block sm:hidden" (click)="endoLightbox = true">
-              <img src="assets/img/image.png"
-                   alt="Endoterapia - Kompresyjne mikrowibracje"
-                   class="w-full h-auto block">
-              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                <span class="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 text-gray-800 text-sm font-medium px-4 py-2 rounded-full shadow">
-                  Powiększ
+
+            <!-- Title -->
+            <h2 class="font-display text-center uppercase leading-[0.95] mt-5 sm:mt-4 text-[clamp(2rem,10.5vw,3.25rem)] tracking-tight">
+              <span class="block sm:inline text-endo-dark">Cennik</span>
+              <span class="block sm:inline text-endo-accent sm:ml-3">Endoterapia</span>
+            </h2>
+            <p class="text-center mt-4 sm:mt-3 text-[10px] sm:text-xs tracking-[0.18em] sm:tracking-[0.35em] leading-relaxed uppercase text-endo-muted">
+              Modelowanie · Ujędrnianie<span class="hidden sm:inline"> · </span><br class="sm:hidden">Redukcja cellulitu
+            </p>
+
+            <!-- Benefits -->
+            <div class="grid grid-cols-3 gap-2 sm:gap-6 mt-6 sm:mt-5 max-w-2xl mx-auto">
+              <div *ngFor="let b of endoBenefits" class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 sm:justify-center text-center sm:text-left">
+                <span class="flex-shrink-0 w-10 h-10 rounded-full border border-endo-accent/40 bg-endo-accent/5 flex items-center justify-center text-endo-accent">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path [attr.d]="b.icon"/>
+                  </svg>
+                </span>
+                <span class="text-[9px] sm:text-[10px] font-semibold uppercase leading-tight text-endo-dark">
+                  {{ b.line1 }}<br>{{ b.line2 }}
                 </span>
               </div>
             </div>
 
-            <!-- Desktop: zdjęcie z lightboxem -->
-            <div class="relative group cursor-zoom-in hidden sm:block" (click)="endoLightbox = true">
-              <img src="assets/img/endo_pion.png"
-                   alt="Endoterapia - Kompresyjne mikrowibracje"
-                   class="w-full h-auto block">
-              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                <span class="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 text-gray-800 text-sm font-medium px-4 py-2 rounded-full shadow">
-                  Powiększ
+            <!-- CENNIK -->
+            <div class="mt-7 sm:mt-6 rounded-2xl sm:rounded-3xl bg-endo-dark overflow-hidden">
+              <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-4 sm:px-6 pt-3.5 pb-3 sm:pt-3 sm:pb-2.5">
+                <h3 class="font-display uppercase text-endo-cream text-[1.35rem] sm:text-2xl leading-tight whitespace-nowrap">Cennik Endoterapia</h3>
+                <span class="flex-1 h-px bg-endo-cream/50 hidden sm:block"></span>
+                <span class="text-[9px] tracking-[0.15em] uppercase text-endo-cream/80 sm:text-endo-cream/90 sm:text-right leading-snug">
+                  Zakres dobieramy<br class="hidden sm:inline"> do Twoich potrzeb
                 </span>
               </div>
+              <div class="bg-endo-paper rounded-2xl sm:rounded-3xl grid grid-cols-1 md:grid-cols-3 md:divide-x divide-y md:divide-y-0 divide-endo-line">
+                <div *ngFor="let t of endoTiers" class="px-4 py-5 md:px-5 md:pt-5 md:pb-6">
+                  <div class="flex items-center justify-between gap-3 md:flex-col md:justify-start md:text-center">
+                    <span class="inline-block px-4 md:px-7 py-1.5 md:py-1 rounded-full bg-endo-pill text-endo-dark text-xs md:text-sm font-bold uppercase whitespace-nowrap">
+                      Zakres {{ t.name }}
+                    </span>
+                    <div class="text-right md:text-center md:mt-1">
+                      <p class="font-display text-endo-accent leading-none whitespace-nowrap">
+                        <span class="text-3xl">{{ t.price }}</span>
+                        <sup class="text-[10px] font-sans font-semibold ml-1 align-super">PLN</sup>
+                      </p>
+                      <p class="text-[11px] md:text-xs font-medium text-endo-muted md:text-endo-dark mt-1">(ok. {{ t.duration }} min)</p>
+                    </div>
+                  </div>
+                  <ul class="mt-3 md:mt-4 flex flex-wrap gap-1.5 md:block md:space-y-1">
+                    <li *ngFor="let a of t.areas"
+                        class="px-2.5 py-1 rounded-full border border-endo-line bg-white/60 text-xs text-endo-dark
+                               md:flex md:gap-2 md:p-0 md:rounded-none md:border-0 md:bg-transparent md:text-xs">
+                      <span class="hidden md:inline text-endo-dark/80">•</span>{{ a }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
+
+            <!-- KARNETY -->
+            <div class="mt-4 rounded-2xl sm:rounded-3xl bg-endo-dark overflow-hidden">
+              <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-4 sm:px-6 pt-3.5 pb-3 sm:pt-3 sm:pb-2.5">
+                <h3 class="font-display uppercase text-endo-cream text-[1.35rem] sm:text-2xl leading-tight whitespace-nowrap">Karnety Endoterapia</h3>
+                <span class="flex-1 h-px bg-endo-cream/50 hidden sm:block"></span>
+                <span class="text-[9px] tracking-[0.15em] uppercase text-endo-cream/80 sm:text-endo-cream/90 sm:text-right leading-snug">
+                  Ważne 3 miesiące<br class="hidden sm:inline"> od daty zakupu
+                </span>
+              </div>
+              <div class="bg-endo-paper rounded-2xl sm:rounded-3xl p-3">
+                <!-- Desktop: tabela -->
+                <table class="hidden md:table w-full border-collapse text-endo-dark">
+                  <thead>
+                    <tr class="bg-endo-pill">
+                      <th class="py-2 px-3 text-xs font-bold border border-endo-line rounded-tl-lg">Zakres</th>
+                      <th *ngFor="let c of endoPassCounts" class="py-2 px-3 text-xs font-bold border border-endo-line">{{ c }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let p of endoPasses; let odd = odd" [class.bg-endo-row]="odd">
+                      <td class="py-2.5 px-3 border border-endo-line">
+                        <p class="text-sm font-bold">Zakres {{ p.name }}</p>
+                        <p class="text-[10px] text-endo-muted">(ok. {{ p.duration }} min)</p>
+                      </td>
+                      <td *ngFor="let price of p.prices" class="py-2.5 px-3 border border-endo-line text-center whitespace-nowrap">
+                        <span class="font-display text-xl font-bold text-endo-accent">{{ price }}</span>
+                        <span class="text-[10px] font-semibold text-endo-accent ml-1">PLN</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- Mobile: karty -->
+                <div class="md:hidden space-y-3">
+                  <div *ngFor="let p of endoPasses" class="rounded-xl border border-endo-line bg-white/60 overflow-hidden">
+                    <div class="bg-endo-pill px-4 py-2 flex items-baseline justify-between">
+                      <span class="text-sm font-bold text-endo-dark">Zakres {{ p.name }}</span>
+                      <span class="text-[10px] text-endo-muted">(ok. {{ p.duration }} min)</span>
+                    </div>
+                    <div class="grid grid-cols-3 divide-x divide-endo-line">
+                      <div *ngFor="let price of p.prices; let i = index" class="py-3 text-center">
+                        <p class="text-[10px] text-endo-muted">{{ endoPassCounts[i] }}</p>
+                        <p class="font-display text-lg sm:text-xl font-bold text-endo-accent leading-tight whitespace-nowrap">{{ price }}</p>
+                        <p class="text-[9px] font-semibold text-endo-accent">PLN</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-center text-[11px] text-endo-muted mt-4">Zakres zabiegu dobieramy indywidualnie do Twoich potrzeb.</p>
           </div>
         </div>
 
@@ -238,32 +330,10 @@ interface PricingItem {
         </div>
       </div>
     </div>
-
-    <!-- Lightbox -->
-    <div *ngIf="endoLightbox"
-         class="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4"
-         (click)="endoLightbox = false">
-      <img src="assets/img/image.png"
-           alt="Endoterapia - Kompresyjne mikrowibracje"
-           class="max-w-full max-h-full object-contain rounded-xl shadow-2xl block sm:hidden"
-           (click)="$event.stopPropagation()">
-      <img src="assets/img/endo_pion.png"
-           alt="Endoterapia - Kompresyjne mikrowibracje"
-           class="max-w-full max-h-full object-contain rounded-xl shadow-2xl hidden sm:block"
-           (click)="$event.stopPropagation()">
-      <button class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-              (click)="endoLightbox = false">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
   `,
   styles: []
 })
 export class PricingPageComponent {
-  endoLightbox = false;
-
   constructor(private router: Router) {}
 
   navigateToContact() {
@@ -279,15 +349,24 @@ export class PricingPageComponent {
     });
   }
 
-  endoPricing = [
-    { name: 'Twarz',                      single: '120', x6: '640',  x10: '1020' },
-    { name: 'Brzuch + Boczki',            single: '160', x6: '860',  x10: '1360' },
-    { name: 'Uda',                        single: '170', x6: '920',  x10: '1445' },
-    { name: 'Pośladki',                   single: '160', x6: '860',  x10: '1360' },
-    { name: 'Całe Nogi',                  single: '210', x6: '1130', x10: '1785' },
-    { name: 'Uda + Pośladki',             single: '210', x6: '1130', x10: '1785' },
-    { name: 'Uda + Brzuch',               single: '245', x6: '1320', x10: '2080' },
-    { name: 'Pośladki + Brzuch + Boczki', single: '245', x6: '1320', x10: '2080' },
+  endoBenefits = [
+    { line1: 'Ujędrnia', line2: 'i modeluje sylwetkę', icon: 'M8 3c0 4-2 5-2 9s2 5 2 9M16 3c0 4 2 5 2 9s-2 5-2 9M10 12h4' },
+    { line1: 'Redukuje', line2: 'cellulit', icon: 'M7 4c1 4 0 6 0 9s2 7 5 7 5-4 5-7-1-5 0-9M10 10l2 2 2-2' },
+    { line1: 'Poprawia krążenie', line2: 'i regenerację', icon: 'M12 21V11M12 14c-4 0-6-3-6-7 4 0 6 3 6 7zM12 11c0-4 2-7 6-7 0 4-2 7-6 7z' },
+  ];
+
+  endoTiers = [
+    { name: 'SOLO',  price: '170', duration: 20, areas: ['twarz / szyja / dekolt', 'brzuch', 'pośladki', 'uda'] },
+    { name: 'DUO',   price: '270', duration: 40, areas: ['uda + pośladki', 'uda + brzuch', 'brzuch + pośladki', 'całe nogi + pośladki'] },
+    { name: 'MULTI', price: '380', duration: 50, areas: ['uda + pośladki + brzuch', 'całe nogi + pośladki', 'własna personalizacja'] },
+  ];
+
+  endoPassCounts = ['4 zabiegi', '8 zabiegów', '12 zabiegów'];
+
+  endoPasses = [
+    { name: 'SOLO',  duration: 20, prices: ['650', '1 220', '1 730'] },
+    { name: 'DUO',   duration: 40, prices: ['1 030', '1 940', '2 750'] },
+    { name: 'MULTI', duration: 60, prices: ['1 480', '2 810', '3 980'] },
   ];
 
   packages = [

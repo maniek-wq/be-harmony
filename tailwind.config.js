@@ -45,6 +45,18 @@ module.exports = {
           800: '#592E19',
           900: '#402112',
         },
+        // Cennik endoterapii
+        endo: {
+          dark: '#2B3427',
+          accent: '#C8552D',
+          cream: '#F7F1E6',
+          sheet: '#F5EFE6',
+          paper: '#FDF9F4',
+          row: '#FAF2E8',
+          pill: '#E8E5D5',
+          line: '#E6DCCC',
+          muted: '#6B655C',
+        },
         mint: {
           DEFAULT: '#9fd8cb',
           50: '#e6f4ea',
