@@ -44,15 +44,8 @@ interface PricingItem {
 
         <!-- ENDOTERAPIA HIGHLIGHT -->
         <div appScrollReveal class="mb-10">
-          <div class="bg-endo-sheet rounded-3xl shadow-xl overflow-hidden -mx-2 sm:mx-0 md:max-w-4xl md:mx-auto px-3 sm:px-8 pt-7 pb-5 sm:pt-7 sm:pb-5">
-            <!-- Logo -->
-            <div class="text-center">
-              <svg class="mx-auto w-24 h-5 text-endo-accent" viewBox="0 0 120 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
-                <path d="M0 10h44l4-6 5 12 5-14 5 12 3-4h54"/>
-              </svg>
-              <p class="font-display text-[1.75rem] sm:text-3xl text-endo-dark mt-1 leading-none">Be Harmony</p>
-              <p class="mt-2 text-[9px] sm:text-[10px] tracking-[0.3em] font-semibold text-endo-muted uppercase">Gabinet terapii ciała</p>
-            </div>
+          <div class="bg-endo-sheet rounded-3xl shadow-xl overflow-hidden px-3 sm:px-8 pt-7 pb-5 sm:pt-7 sm:pb-5">
+            <ng-container *ngTemplateOutlet="brandLogo"></ng-container>
 
             <!-- Title -->
             <h2 class="font-display text-center uppercase leading-[0.95] mt-5 sm:mt-4 text-[clamp(2rem,10.5vw,3.25rem)] tracking-tight">
@@ -166,43 +159,59 @@ interface PricingItem {
           </div>
         </div>
 
-        <!-- EMS HIGHLIGHT -->
+        <!-- EMS -->
         <div appScrollReveal class="mb-10">
-          <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-olive/40">
-            <div class="absolute top-0 right-0 px-6 py-2 bg-terracotta text-white text-sm font-bold rounded-bl-2xl uppercase tracking-wider z-10">
-              Nowość!
-            </div>
-            <div class="flex flex-col lg:flex-row min-h-[216px] sm:min-h-[260px] lg:min-h-[300px]">
-              <div class="lg:w-2/5 relative">
-                <img src="assets/img/cennik_ems.jpg"
-                     alt="Cennik EMS - Trening Electrical Muscle Stimulation"
-                     class="w-full h-full object-cover min-h-[216px] sm:min-h-[260px] lg:min-h-full">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent lg:bg-gradient-to-r"></div>
+          <div class="bg-endo-sheet rounded-3xl shadow-xl overflow-hidden px-3 sm:px-8 pt-7 pb-5">
+            <ng-container *ngTemplateOutlet="brandLogo"></ng-container>
+
+            <h2 class="font-display text-center uppercase leading-[0.95] mt-5 sm:mt-4 text-[clamp(2rem,10.5vw,3.25rem)] tracking-tight">
+              <span class="text-endo-dark">Cennik</span>
+              <span class="text-endo-accent ml-2 sm:ml-3">EMS</span>
+            </h2>
+            <p class="text-center mt-4 sm:mt-3 text-[10px] sm:text-xs tracking-[0.18em] sm:tracking-[0.35em] leading-relaxed uppercase text-endo-muted">Trening EMS</p>
+
+            <!-- Benefits -->
+            <div class="grid grid-cols-3 gap-2 sm:gap-6 mt-6 sm:mt-5 max-w-2xl mx-auto">
+              <div *ngFor="let b of emsBenefits" class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 sm:justify-center text-center sm:text-left">
+                <span class="flex-shrink-0 w-10 h-10 rounded-full border border-endo-accent/40 bg-endo-accent/5 flex items-center justify-center">
+                  <span class="w-3.5 h-3.5 rounded-full bg-endo-accent"></span>
+                </span>
+                <span class="text-[9px] sm:text-[10px] font-semibold uppercase leading-tight text-endo-dark">
+                  {{ b.line1 }}<br>{{ b.line2 }}
+                </span>
               </div>
-              <div class="lg:w-3/5 p-5 sm:p-7 md:p-10">
-                <div class="flex items-center gap-4 mb-6">
-                  <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-olive to-olive-400 flex items-center justify-center shadow-lg">
-                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <h2 class="font-display text-2xl md:text-3xl font-bold text-gray-900">Trening EMS</h2>
-                    <p class="text-olive text-sm">Electrical Muscle Stimulation</p>
-                  </div>
+            </div>
+
+            <div *ngFor="let sec of emsSections; let first = first"
+                 class="rounded-2xl sm:rounded-3xl bg-endo-dark overflow-hidden"
+                 [ngClass]="first ? 'mt-7 sm:mt-6' : 'mt-4'">
+              <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-4 sm:px-6 pt-3.5 pb-3 sm:pt-3 sm:pb-2.5">
+                <h3 class="font-display uppercase text-endo-cream text-[1.35rem] sm:text-2xl leading-tight whitespace-nowrap">{{ sec.title }}</h3>
+                <span class="flex-1 h-px bg-endo-cream/50 hidden sm:block"></span>
+                <span class="text-[9px] tracking-[0.15em] uppercase text-endo-cream/80 sm:text-endo-cream/90 sm:text-right leading-snug">
+                  {{ sec.note[0] }}<br class="hidden sm:inline"> {{ sec.note[1] }}
+                </span>
+              </div>
+
+              <div class="bg-endo-paper rounded-2xl sm:rounded-3xl px-3 sm:px-4 pt-3 pb-3 space-y-2">
+                <div class="hidden sm:grid grid-cols-[1fr_auto_1fr] gap-4 px-5 text-[8px] font-bold tracking-[0.15em] uppercase text-endo-muted">
+                  <span>Jednorazowe</span><span class="text-center w-28">Cena</span><span></span>
                 </div>
-                <div class="bg-olive/5 rounded-xl p-6">
-                  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
-                      <h3 class="font-semibold text-gray-900 text-lg">Trening próbny</h3>
-                      <p class="text-gray-500 text-sm mt-1">Pierwszy trening EMS w promocyjnej cenie</p>
-                    </div>
-                    <div class="text-right">
-                      <span class="text-4xl font-bold text-terracotta">90</span>
-                      <span class="text-gray-500 text-lg ml-1">zł</span>
-                    </div>
-                  </div>
+                <p class="sm:hidden px-1 text-[8px] font-bold tracking-[0.15em] uppercase text-endo-muted">Jednorazowe</p>
+
+                <ng-container *ngFor="let row of sec.single">
+                  <ng-container *ngTemplateOutlet="emsRow; context: { $implicit: row }"></ng-container>
+                </ng-container>
+
+                <div class="flex items-center gap-3 py-0.5">
+                  <span class="flex-1 h-px bg-endo-line"></span>
+                  <span class="text-[8px] font-bold tracking-[0.2em] uppercase text-endo-muted">Karnety</span>
+                  <span class="flex-1 h-px bg-endo-line"></span>
                 </div>
+
+                <ng-container *ngFor="let row of sec.passes">
+                  <ng-container *ngTemplateOutlet="emsRow; context: { $implicit: row }"></ng-container>
+                </ng-container>
               </div>
             </div>
           </div>
@@ -330,6 +339,29 @@ interface PricingItem {
         </div>
       </div>
     </div>
+    <ng-template #brandLogo>
+      <div class="text-center">
+        <svg class="mx-auto w-24 h-5 text-endo-accent" viewBox="0 0 120 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M0 10h44l4-6 5 12 5-14 5 12 3-4h54"/>
+        </svg>
+        <p class="font-display text-[1.75rem] sm:text-3xl text-endo-dark mt-1 leading-none">Be Harmony</p>
+        <p class="mt-2 text-[9px] sm:text-[10px] tracking-[0.3em] font-semibold text-endo-muted uppercase">Gabinet terapii ciała</p>
+      </div>
+    </ng-template>
+
+    <ng-template #emsRow let-row>
+      <div class="rounded-xl border px-4 sm:px-5 py-2.5 flex items-center justify-between gap-3 sm:grid sm:grid-cols-[1fr_auto_1fr] sm:gap-4"
+           [ngClass]="row.highlight ? 'bg-[#FDF0E2] border-[#EBCFB0]' : 'bg-white/60 border-endo-line'">
+        <div>
+          <p class="text-sm font-semibold text-endo-dark">{{ row.name }}</p>
+          <p *ngIf="row.per" class="sm:hidden text-[11px] text-endo-muted">{{ row.per }} zł / trening</p>
+        </div>
+        <p class="font-display text-lg md:text-xl font-bold text-endo-accent whitespace-nowrap text-right sm:text-center sm:w-28">{{ row.price }} zł</p>
+        <div class="hidden sm:block">
+          <span *ngIf="row.per" class="block rounded-md bg-endo-pill/70 py-1 text-center text-[11px] text-endo-dark">{{ row.per }} zł / trening</span>
+        </div>
+      </div>
+    </ng-template>
   `,
   styles: []
 })
@@ -355,18 +387,52 @@ export class PricingPageComponent {
     { line1: 'Poprawia krążenie', line2: 'i regenerację', icon: 'M12 21V11M12 14c-4 0-6-3-6-7 4 0 6 3 6 7zM12 11c0-4 2-7 6-7 0 4-2 7-6 7z' },
   ];
 
+  emsBenefits = [
+    { line1: 'Wzmocnienie', line2: 'mięśni' },
+    { line1: 'Modelowanie', line2: 'sylwetki' },
+    { line1: 'Więcej', line2: 'energii' },
+  ];
+
+  emsSections = [
+    {
+      title: 'Trening EMS',
+      note: ['Indywidualny trening', 'pod Twoje cele'],
+      single: [
+        { name: 'Trening próbny', price: '90', highlight: true },
+        { name: '1 Trening', price: '190' },
+      ],
+      passes: [
+        { name: 'Karnet 4', price: '720', per: '180' },
+        { name: 'Karnet 8', price: '1 360', per: '170' },
+        { name: 'Karnet 12', price: '1 920', per: '160' },
+      ],
+    },
+    {
+      title: 'Trening w duecie',
+      note: ['Trenuj razem', 'i motywuj się nawzajem'],
+      single: [
+        { name: '1 trening', price: '320' },
+      ],
+      passes: [
+        { name: 'Karnet 4', price: '1 200', per: '300' },
+        { name: 'Karnet 8', price: '2 240', per: '280' },
+        { name: 'Karnet 12', price: '3 120', per: '260' },
+      ],
+    },
+  ];
+
   endoTiers = [
     { name: 'SOLO',  price: '170', duration: 20, areas: ['twarz / szyja / dekolt', 'brzuch', 'pośladki', 'uda'] },
-    { name: 'DUO',   price: '270', duration: 40, areas: ['uda + pośladki', 'uda + brzuch', 'brzuch + pośladki', 'całe nogi + pośladki'] },
-    { name: 'MULTI', price: '380', duration: 50, areas: ['uda + pośladki + brzuch', 'całe nogi + pośladki', 'własna personalizacja'] },
+    { name: 'DUO',   price: '280', duration: 40, areas: ['uda + pośladki', 'uda + brzuch', 'brzuch + pośladki', 'całe nogi'] },
+    { name: 'MULTI', price: '370', duration: 50, areas: ['uda + pośladki + brzuch', 'całe nogi + pośladki', 'własna personalizacja'] },
   ];
 
   endoPassCounts = ['4 zabiegi', '8 zabiegów', '12 zabiegów'];
 
   endoPasses = [
-    { name: 'SOLO',  duration: 20, prices: ['650', '1 220', '1 730'] },
-    { name: 'DUO',   duration: 40, prices: ['1 030', '1 940', '2 750'] },
-    { name: 'MULTI', duration: 60, prices: ['1 480', '2 810', '3 980'] },
+    { name: 'SOLO',  duration: 20, prices: ['660', '1 090', '1 440'] },
+    { name: 'DUO',   duration: 40, prices: ['1 280', '2 110', '2 780'] },
+    { name: 'MULTI', duration: 60, prices: ['1 860', '3 060', '4 040'] },
   ];
 
   packages = [
