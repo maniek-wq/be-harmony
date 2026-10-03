@@ -17,7 +17,8 @@ import { AnnouncementBarComponent } from './components/announcement-bar/announce
     <app-loading-screen *ngIf="showLoading"></app-loading-screen>
     <div [class.opacity-0]="showLoading" class="transition-opacity duration-500">
       <app-navbar></app-navbar>
-      <app-announcement-bar></app-announcement-bar>
+      <!-- Pasek z komunikatem o okresie urlopowym - odkomentuj, aby wlaczyc ponownie -->
+      <!-- <app-announcement-bar></app-announcement-bar> -->
       <main>
         <router-outlet></router-outlet>
       </main>
