@@ -277,82 +277,104 @@ interface PricingItem {
         </div>
 
         <!-- PAKIETY -->
-        <div appScrollReveal class="mt-12 mb-4">
-          <div class="text-center mb-8">
-            <span class="inline-block px-4 py-1.5 bg-terracotta text-white rounded-full text-sm font-medium mb-4">Pakiety</span>
-            <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              Be Harmony <span class="text-terracotta">Pakiety</span>
-            </h2>
-            <p class="text-gray-500 max-w-xl mx-auto">EMS + Endoterapia — skuteczne duo dla sylwetki, którą widać i czuć.</p>
-          </div>
+        <div appScrollReveal class="relative mt-12 mb-4 rounded-3xl overflow-hidden bg-gradient-to-br from-endo-sheet via-endo-paper to-endo-sheet shadow-xl px-4 sm:px-8 pt-10 pb-8">
+          <!-- Tło: plama i gałązka -->
+          <div class="pointer-events-none absolute -left-32 top-8 w-80 h-[28rem] rounded-full bg-endo-accent/20 blur-2xl"></div>
+          <div class="pointer-events-none absolute -left-20 -bottom-24 w-72 h-72 rounded-full bg-endo-accent/10 blur-2xl"></div>
+          <svg class="pointer-events-none absolute -right-10 -top-10 sm:-right-6 sm:-top-4 w-28 sm:w-56 text-[#7F8462] opacity-40 sm:opacity-60" viewBox="0 0 200 220" fill="currentColor" aria-hidden="true">
+            <path d="M196 4C150 40 110 90 70 216" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <g>
+              <ellipse cx="0" cy="0" rx="10" ry="26" transform="translate(168 30) rotate(-60)"/>
+              <ellipse cx="0" cy="0" rx="11" ry="30" transform="translate(150 22) rotate(30)"/>
+              <ellipse cx="0" cy="0" rx="12" ry="32" transform="translate(140 70) rotate(-55)"/>
+              <ellipse cx="0" cy="0" rx="12" ry="32" transform="translate(116 58) rotate(25)"/>
+              <ellipse cx="0" cy="0" rx="13" ry="34" transform="translate(112 118) rotate(-50)"/>
+              <ellipse cx="0" cy="0" rx="13" ry="34" transform="translate(86 104) rotate(20)"/>
+              <ellipse cx="0" cy="0" rx="12" ry="32" transform="translate(92 168) rotate(-45)"/>
+              <ellipse cx="0" cy="0" rx="12" ry="30" transform="translate(64 156) rotate(15)"/>
+            </g>
+          </svg>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch pt-6">
-            <div *ngFor="let pkg of packages"
-                 class="relative flex flex-col rounded-3xl transition-all duration-300"
-                 [ngClass]="pkg.highlight
-                   ? 'bg-gradient-to-b from-terracotta to-terracotta-700 shadow-2xl shadow-terracotta/25 md:scale-[1.03] ring-2 ring-terracotta/50'
-                   : 'bg-white border-2 border-gray-100 hover:border-terracotta/30 shadow-sm hover:shadow-md'">
+          <div class="relative">
+            <div class="text-center mb-10">
+              <span class="inline-block px-4 py-1.5 bg-terracotta/85 text-white rounded-full text-sm font-medium mb-4">Pakiety</span>
+              <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900">
+                Be Harmony <span class="text-terracotta">Pakiety</span>
+              </h2>
+              <p class="font-display uppercase leading-none mt-6 text-[clamp(2rem,9vw,3.5rem)] tracking-tight">
+                <span class="text-olive-600">EMS</span>
+                <span class="text-gray-900 mx-1 sm:mx-2">+</span><br class="sm:hidden">
+                <span class="text-endo-accent">Endoterapia</span>
+              </p>
+              <p class="mt-4 text-[11px] sm:text-xs font-semibold tracking-[0.12em] text-endo-muted">
+                Skuteczne duo dla sylwetki, którą widać i czuć.
+              </p>
+            </div>
 
-              <div *ngIf="pkg.badge" class="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                <span class="px-5 py-1.5 bg-[#1a1f16] text-white text-xs font-bold rounded-full uppercase tracking-wider shadow-lg whitespace-nowrap">
-                  {{ pkg.badge }}
-                </span>
-              </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch pt-4">
+              <div *ngFor="let pkg of packages"
+                   class="relative flex flex-col rounded-3xl"
+                   [ngClass]="pkg.highlight
+                     ? 'bg-gradient-to-b from-[#A65A36] to-[#7A3A20] shadow-2xl shadow-terracotta/30 md:scale-[1.03] ring-1 ring-[#C98A63]/60'
+                     : 'bg-white/75 backdrop-blur-sm border border-endo-line shadow-sm'">
 
-              <div class="p-7 flex flex-col flex-1">
-                <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4"
-                     [ngClass]="pkg.highlight ? 'bg-white/20' : 'bg-terracotta/10'">
-                  <span class="text-xl font-bold" [ngClass]="pkg.highlight ? 'text-white' : 'text-terracotta'">{{ pkg.size }}</span>
-                </div>
-
-                <h3 class="font-display text-lg font-bold mb-1" [ngClass]="pkg.highlight ? 'text-white' : 'text-gray-900'">
-                  {{ pkg.name }}
-                </h3>
-
-                <div class="flex items-center gap-3 flex-wrap mb-6 mt-2">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-3xl font-bold" [ngClass]="pkg.highlight ? 'text-white' : 'text-terracotta'">{{ pkg.price }}</span>
-                    <span class="font-medium" [ngClass]="pkg.highlight ? 'text-white/70' : 'text-gray-400'">zł</span>
-                  </div>
-                  <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border"
-                        [ngClass]="pkg.highlight
-                          ? 'bg-white/15 text-white border-white/30'
-                          : 'bg-green-500/10 text-green-600 border-green-500/25'">
-                    Oszczędzasz {{ pkg.savings }} zł
+                <div *ngIf="pkg.badge" class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
+                  <span class="px-5 py-1.5 bg-endo-dark text-white text-xs font-bold rounded-full uppercase tracking-wider shadow-lg whitespace-nowrap">
+                    {{ pkg.badge }}
                   </span>
                 </div>
 
-                <ul class="space-y-2.5 flex-1 mb-6">
-                  <li *ngFor="let item of pkg.items" class="flex items-start gap-2.5 text-sm">
-                    <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"
-                         [ngClass]="pkg.highlight ? 'text-white/80' : 'text-terracotta'">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                    </svg>
-                    <span [ngClass]="pkg.highlight ? 'text-white/90' : 'text-gray-600'">
-                      <strong [ngClass]="pkg.highlight ? 'text-white' : 'text-gray-900'">{{ item.count }}</strong>
-                      {{ item.label }}
-                    </span>
-                  </li>
-                </ul>
+                <div class="p-6 sm:p-7 flex flex-col flex-1">
+                  <div class="inline-flex items-center justify-center w-11 h-11 rounded-xl mb-4"
+                       [ngClass]="pkg.highlight ? 'bg-white/20' : 'bg-terracotta/10'">
+                    <span class="text-lg font-semibold" [ngClass]="pkg.highlight ? 'text-white' : 'text-terracotta'">{{ pkg.size }}</span>
+                  </div>
 
-                <button (click)="navigateToContact()"
-                        class="w-full py-3 rounded-xl font-semibold text-sm transition-all duration-300"
-                        [ngClass]="pkg.highlight
-                          ? 'bg-white text-terracotta hover:bg-gray-50'
-                          : 'bg-terracotta/10 text-terracotta border border-terracotta/30 hover:bg-terracotta hover:text-white'">
-                  Zapytaj o pakiet
-                </button>
-                <p class="text-center text-xs mt-3"
-                   [ngClass]="pkg.highlight ? 'text-white/50' : 'text-gray-400'">
-                  * Możliwość indywidualnego dopasowania
-                </p>
+                  <h3 class="font-display text-3xl font-bold pb-4 border-b"
+                      [ngClass]="pkg.highlight ? 'text-white border-white/20' : 'text-gray-900 border-endo-line'">
+                    {{ pkg.name }}
+                  </h3>
+
+                  <ul class="space-y-1.5 py-4 border-b" [ngClass]="pkg.highlight ? 'border-white/20' : 'border-endo-line'">
+                    <li *ngFor="let item of pkg.items" class="flex items-center gap-3 text-[15px]"
+                        [ngClass]="pkg.highlight ? 'text-white' : 'text-gray-800'">
+                      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                           [ngClass]="pkg.highlight ? 'text-white/80' : 'text-terracotta'">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      {{ item }}
+                    </li>
+                  </ul>
+
+                  <div class="flex-1 divide-y mb-5" [ngClass]="pkg.highlight ? 'divide-white/20' : 'divide-endo-line'">
+                    <div *ngFor="let row of pkg.prices; let last = last" class="py-3 text-center">
+                      <p class="leading-none whitespace-nowrap" [ngClass]="pkg.highlight ? 'text-white' : 'text-endo-accent'">
+                        <span class="font-display text-[1.75rem] font-bold">{{ row.price }}</span>
+                        <span class="text-[10px] font-bold ml-1">PLN</span>
+                      </p>
+                      <p class="text-xs mt-1" [ngClass]="pkg.highlight ? 'text-white/75' : 'text-endo-muted'">{{ row.label }}</p>
+                      <span *ngIf="last && pkg.savings"
+                            class="inline-block mt-2 -rotate-6 px-2.5 py-1 rounded-md bg-green-50 border border-green-500/25 text-green-600 text-[10px] font-bold shadow-sm whitespace-nowrap">
+                        Oszczędzasz {{ pkg.savings }} zł
+                      </span>
+                    </div>
+                  </div>
+
+                  <button (click)="navigateToContact()"
+                          class="w-full py-3 rounded-xl font-bold text-xs uppercase tracking-[0.08em] transition-all duration-300"
+                          [ngClass]="pkg.highlight
+                            ? 'bg-white text-terracotta hover:bg-endo-paper'
+                            : 'bg-terracotta/5 text-terracotta border border-terracotta/40 hover:bg-terracotta hover:text-white'">
+                    Zapytaj o pakiet
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <p class="text-center text-gray-400 text-sm mt-8">
-            Już wkrótce więcej pakietów — z terapią ciała i nie tylko.
-          </p>
+            <p class="text-center text-endo-muted text-sm mt-8">
+              Zakres terapii dopasowujemy indywidualnie do Twoich potrzeb.
+            </p>
+          </div>
         </div>
 
         <!-- CTA -->
@@ -463,28 +485,30 @@ export class PricingPageComponent {
 
   packages = [
     {
-      size: 'S', name: 'Pakiet „S"', price: 1450, savings: 330, highlight: false, badge: '',
-      items: [
-        { count: '4×', label: 'Trening EMS' },
-        { count: '4×', label: 'Endoterapia Uda + Pośladki' },
-        { count: '1×', label: 'Masaż relaksacyjny twarzy i głowy' },
+      size: 'S', name: 'Pakiet S', highlight: false, badge: '', savings: 150,
+      items: ['4 × Trening EMS', '4 × Endo SOLO'],
+      prices: [
+        { price: '1 340', label: '1 partia ciała' },
+        { price: '1 760', label: '2 partie ciała' },
+        { price: '2 100', label: 'zakres rozszerzony' },
       ],
     },
     {
-      size: 'M', name: 'Pakiet „M"', price: 2250, savings: 710, highlight: true, badge: 'Najpopularniejszy',
-      items: [
-        { count: '8×', label: 'Trening EMS' },
-        { count: '6×', label: 'Endoterapia Uda + Pośladki' },
-        { count: '1×', label: 'Masaż relaksacyjny całego ciała' },
+      size: 'M', name: 'Pakiet M', highlight: true, badge: 'Najpopularniejszy', savings: 550,
+      items: ['8 × Trening EMS', '8 × Endo SOLO'],
+      prices: [
+        { price: '2 510', label: '1 partia ciała' },
+        { price: '3 300', label: '2 partie ciała' },
+        { price: '3 930', label: 'zakres rozszerzony' },
       ],
     },
     {
-      size: 'L', name: 'Pakiet „L"', price: 3260, savings: 1060, highlight: false, badge: '',
-      items: [
-        { count: '12×', label: 'Trening EMS' },
-        { count: '8×', label: 'Endoterapia Uda + Pośladki' },
-        { count: '1×', label: 'Masaż tkanek głębokich' },
-        { count: '1×', label: 'Masaż relaksacyjny całego ciała' },
+      size: 'L', name: 'Pakiet L', highlight: false, badge: '', savings: 1200,
+      items: ['12 × Trening EMS', '12 × Endo SOLO'],
+      prices: [
+        { price: '3 510', label: '1 partia ciała' },
+        { price: '4 630', label: '2 partie ciała' },
+        { price: '5 510', label: 'zakres rozszerzony' },
       ],
     },
   ];
