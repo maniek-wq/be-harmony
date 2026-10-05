@@ -57,12 +57,11 @@ interface PricingItem {
             </p>
 
             <!-- Benefits -->
-            <div class="grid grid-cols-3 gap-2 sm:gap-6 mt-6 sm:mt-5 max-w-2xl mx-auto">
-              <div *ngFor="let b of endoBenefits" class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 sm:justify-center text-center sm:text-left">
-                <span class="flex-shrink-0 w-10 h-10 rounded-full border border-endo-accent/40 bg-endo-accent/5 flex items-center justify-center text-endo-accent">
-                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                    <path [attr.d]="b.icon"/>
-                  </svg>
+            <div class="grid grid-cols-3 gap-2 sm:gap-0 mt-6 sm:mt-5 max-w-2xl mx-auto sm:divide-x sm:divide-endo-line">
+              <div *ngFor="let b of endoBenefits; let i = index" class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 sm:justify-center sm:px-4 text-center sm:text-left">
+                <span class="relative flex-shrink-0 w-6 h-6 rounded-full bg-endo-accent/15 flex items-center justify-center">
+                  <span class="absolute w-3 h-3 rounded-full bg-endo-accent animate-dot-pulse motion-reduce:animate-none" [style.animation-delay.ms]="i * 400"></span>
+                  <span class="relative w-3 h-3 rounded-full bg-endo-accent"></span>
                 </span>
                 <span class="text-[9px] sm:text-[10px] font-semibold uppercase leading-tight text-endo-dark">
                   {{ b.line1 }}<br>{{ b.line2 }}
@@ -79,7 +78,31 @@ interface PricingItem {
                   Zakres dobieramy<br class="hidden sm:inline"> do Twoich potrzeb
                 </span>
               </div>
-              <div class="bg-endo-paper rounded-2xl sm:rounded-3xl grid grid-cols-1 md:grid-cols-3 md:divide-x divide-y md:divide-y-0 divide-endo-line">
+              <div class="bg-endo-paper rounded-2xl sm:rounded-3xl">
+                <!-- ENDO START -->
+                <div class="p-2 sm:p-3 pb-0 sm:pb-0">
+                  <div class="rounded-2xl bg-endo-accent text-white shadow-lg shadow-endo-accent/25 px-4 sm:px-6 py-3.5 sm:py-3
+                              flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center">
+                    <div class="flex flex-col items-center gap-1">
+                      <span class="px-2.5 py-0.5 rounded-full bg-endo-dark/70 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.08em] whitespace-nowrap">
+                        Dla nowych osób · tylko jednorazowo
+                      </span>
+                      <span class="text-base sm:text-lg font-extrabold uppercase tracking-[0.08em] leading-none">Endo Start</span>
+                    </div>
+                    <div class="flex items-center gap-3 sm:gap-4">
+                      <span class="px-3 py-1 rounded-full bg-white text-endo-dark text-xs sm:text-sm font-extrabold whitespace-nowrap">1+1 GRATIS</span>
+                      <span class="w-px h-6 bg-white/50"></span>
+                      <span class="text-[11px] sm:text-xs font-semibold leading-tight">2 partie ciała<br class="sm:hidden"> w cenie 1</span>
+                      <span class="w-px h-6 bg-white/50"></span>
+                      <span class="px-4 py-1 rounded-full bg-white text-endo-accent whitespace-nowrap">
+                        <span class="font-display text-xl sm:text-2xl font-bold leading-none">170</span>
+                        <span class="text-[9px] font-bold ml-0.5">PLN</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 md:divide-x divide-y md:divide-y-0 divide-endo-line">
                 <div *ngFor="let t of endoTiers" class="px-4 py-5 md:px-5 md:pt-5 md:pb-6">
                   <div class="flex items-center justify-between gap-3 md:flex-col md:justify-start md:text-center">
                     <span class="inline-block px-4 md:px-7 py-1.5 md:py-1 rounded-full bg-endo-pill text-endo-dark text-xs md:text-sm font-bold uppercase whitespace-nowrap">
@@ -101,6 +124,7 @@ interface PricingItem {
                     </li>
                   </ul>
                 </div>
+                </div>
               </div>
             </div>
 
@@ -109,32 +133,32 @@ interface PricingItem {
               <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-4 sm:px-6 pt-3.5 pb-3 sm:pt-3 sm:pb-2.5">
                 <h3 class="font-display uppercase text-endo-cream text-[1.35rem] sm:text-2xl leading-tight whitespace-nowrap">Karnety Endoterapia</h3>
                 <span class="flex-1 h-px bg-endo-cream/50 hidden sm:block"></span>
-                <span class="text-[9px] tracking-[0.15em] uppercase text-endo-cream/80 sm:text-endo-cream/90 sm:text-right leading-snug">
-                  Ważne 3 miesiące<br class="hidden sm:inline"> od daty zakupu
-                </span>
               </div>
               <div class="bg-endo-paper rounded-2xl sm:rounded-3xl p-3">
                 <!-- Desktop: tabela -->
-                <table class="hidden md:table w-full border-collapse text-endo-dark">
-                  <thead>
-                    <tr class="bg-endo-pill">
-                      <th class="py-2 px-3 text-xs font-bold border border-endo-line rounded-tl-lg">Zakres</th>
-                      <th *ngFor="let c of endoPassCounts" class="py-2 px-3 text-xs font-bold border border-endo-line">{{ c }}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let p of endoPasses; let odd = odd" [class.bg-endo-row]="odd">
-                      <td class="py-2.5 px-3 border border-endo-line">
-                        <p class="text-sm font-bold">Zakres {{ p.name }}</p>
-                        <p class="text-[10px] text-endo-muted">(ok. {{ p.duration }} min)</p>
-                      </td>
-                      <td *ngFor="let price of p.prices" class="py-2.5 px-3 border border-endo-line text-center whitespace-nowrap">
-                        <span class="font-display text-xl font-bold text-endo-accent">{{ price }}</span>
-                        <span class="text-[10px] font-semibold text-endo-accent ml-1">PLN</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="hidden md:block rounded-xl border border-endo-line overflow-hidden shadow-sm">
+                  <table class="w-full border-collapse text-endo-dark">
+                    <thead>
+                      <tr class="bg-endo-pill">
+                        <th class="py-2.5 px-3 text-xs font-bold">Zakres</th>
+                        <th *ngFor="let c of endoPassCounts" class="py-2.5 px-3 text-xs font-bold border-l border-endo-line">{{ c }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let p of endoPasses; let odd = odd" class="border-t border-endo-line" [ngClass]="odd ? 'bg-endo-row' : 'bg-white/60'">
+                        <td class="py-3 px-3 w-[28%]">
+                          <p class="text-sm font-bold">Zakres {{ p.name }}</p>
+                          <p class="text-[10px] text-endo-muted">(ok. {{ p.duration }} min)</p>
+                        </td>
+                        <td *ngFor="let price of p.prices; let i = index" class="py-3 px-3 border-l border-endo-line text-center whitespace-nowrap">
+                          <span class="font-display text-xl font-bold text-endo-accent">{{ price }}</span>
+                          <span class="text-[10px] font-semibold text-endo-accent ml-1">PLN</span>
+                          <p *ngIf="p.savings[i]" class="text-[10px] text-endo-muted mt-0.5">oszczędzasz {{ p.savings[i] }} zł</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
                 <!-- Mobile: karty -->
                 <div class="md:hidden space-y-3">
@@ -148,6 +172,7 @@ interface PricingItem {
                         <p class="text-[10px] text-endo-muted">{{ endoPassCounts[i] }}</p>
                         <p class="font-display text-lg sm:text-xl font-bold text-endo-accent leading-tight whitespace-nowrap">{{ price }}</p>
                         <p class="text-[9px] font-semibold text-endo-accent">PLN</p>
+                        <p *ngIf="p.savings[i]" class="text-[9px] text-endo-muted mt-0.5 leading-tight">oszczędzasz<br>{{ p.savings[i] }} zł</p>
                       </div>
                     </div>
                   </div>
@@ -172,9 +197,10 @@ interface PricingItem {
 
             <!-- Benefits -->
             <div class="grid grid-cols-3 gap-2 sm:gap-6 mt-6 sm:mt-5 max-w-2xl mx-auto">
-              <div *ngFor="let b of emsBenefits" class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 sm:justify-center text-center sm:text-left">
-                <span class="flex-shrink-0 w-10 h-10 rounded-full border border-endo-accent/40 bg-endo-accent/5 flex items-center justify-center">
-                  <span class="w-3.5 h-3.5 rounded-full bg-endo-accent"></span>
+              <div *ngFor="let b of emsBenefits; let i = index" class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 sm:justify-center text-center sm:text-left">
+                <span class="relative flex-shrink-0 w-6 h-6 rounded-full bg-endo-accent/15 flex items-center justify-center">
+                  <span class="absolute w-3 h-3 rounded-full bg-endo-accent animate-dot-pulse motion-reduce:animate-none" [style.animation-delay.ms]="i * 400"></span>
+                  <span class="relative w-3 h-3 rounded-full bg-endo-accent"></span>
                 </span>
                 <span class="text-[9px] sm:text-[10px] font-semibold uppercase leading-tight text-endo-dark">
                   {{ b.line1 }}<br>{{ b.line2 }}
@@ -382,9 +408,9 @@ export class PricingPageComponent {
   }
 
   endoBenefits = [
-    { line1: 'Ujędrnia', line2: 'i modeluje sylwetkę', icon: 'M8 3c0 4-2 5-2 9s2 5 2 9M16 3c0 4 2 5 2 9s-2 5-2 9M10 12h4' },
-    { line1: 'Redukuje', line2: 'cellulit', icon: 'M7 4c1 4 0 6 0 9s2 7 5 7 5-4 5-7-1-5 0-9M10 10l2 2 2-2' },
-    { line1: 'Poprawia krążenie', line2: 'i regenerację', icon: 'M12 21V11M12 14c-4 0-6-3-6-7 4 0 6 3 6 7zM12 11c0-4 2-7 6-7 0 4-2 7-6 7z' },
+    { line1: 'Ujędrnia', line2: 'i modeluje sylwetkę' },
+    { line1: 'Redukuje', line2: 'cellulit' },
+    { line1: 'Poprawia krążenie', line2: 'i regenerację' },
   ];
 
   emsBenefits = [
@@ -411,7 +437,7 @@ export class PricingPageComponent {
       title: 'Trening w duecie',
       note: ['Trenuj razem', 'i motywuj się nawzajem'],
       single: [
-        { name: '1 trening', price: '320' },
+        { name: '1 Trening', price: '320' },
       ],
       passes: [
         { name: 'Karnet 4', price: '1 200', per: '300' },
@@ -430,9 +456,9 @@ export class PricingPageComponent {
   endoPassCounts = ['4 zabiegi', '8 zabiegów', '12 zabiegów'];
 
   endoPasses = [
-    { name: 'SOLO',  duration: 20, prices: ['660', '1 090', '1 440'] },
-    { name: 'DUO',   duration: 40, prices: ['1 280', '2 110', '2 780'] },
-    { name: 'MULTI', duration: 60, prices: ['1 860', '3 060', '4 040'] },
+    { name: 'SOLO',  duration: 20, prices: ['660', '1 090', '1 440'], savings: [0, 0, 0] },
+    { name: 'DUO',   duration: 40, prices: ['1 280', '2 110', '2 780'], savings: [80, 130, 180] },
+    { name: 'MULTI', duration: 50, prices: ['1 860', '3 060', '4 040'], savings: [180, 300, 400] },
   ];
 
   packages = [
