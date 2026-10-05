@@ -114,7 +114,6 @@ interface PricingItem {
                         <span class="text-3xl">{{ t.price }}</span>
                         <sup class="text-[10px] font-sans font-semibold ml-1 align-super">PLN</sup>
                       </p>
-                      <p class="text-[11px] md:text-xs font-medium text-endo-muted md:text-endo-dark mt-1">(ok. {{ t.duration }} min)</p>
                     </div>
                   </div>
                   <ul class="mt-3 md:mt-4 flex flex-wrap gap-1.5 md:block md:space-y-1">
@@ -149,7 +148,6 @@ interface PricingItem {
                       <tr *ngFor="let p of endoPasses; let odd = odd" class="border-t border-endo-line" [ngClass]="odd ? 'bg-endo-row' : 'bg-white/60'">
                         <td class="py-3 px-3 w-[28%]">
                           <p class="text-sm font-bold">Zakres {{ p.name }}</p>
-                          <p class="text-[10px] text-endo-muted">(ok. {{ p.duration }} min)</p>
                         </td>
                         <td *ngFor="let price of p.prices; let i = index" class="py-3 px-3 border-l border-endo-line text-center whitespace-nowrap">
                           <span class="font-display text-xl font-bold text-endo-accent">{{ price }}</span>
@@ -166,7 +164,6 @@ interface PricingItem {
                   <div *ngFor="let p of endoPasses" class="rounded-xl border border-endo-line bg-white/60 overflow-hidden">
                     <div class="bg-endo-pill px-4 py-2 flex items-baseline justify-between">
                       <span class="text-sm font-bold text-endo-dark">Zakres {{ p.name }}</span>
-                      <span class="text-[10px] text-endo-muted">(ok. {{ p.duration }} min)</span>
                     </div>
                     <div class="grid grid-cols-3 divide-x divide-endo-line">
                       <div *ngFor="let price of p.prices; let i = index" class="py-3 text-center">
@@ -373,17 +370,17 @@ export class PricingPageComponent {
   ];
 
   endoTiers = [
-    { name: 'SOLO',  price: '170', duration: 20, areas: ['twarz / szyja / dekolt', 'brzuch', 'pośladki', 'uda'] },
-    { name: 'DUO',   price: '280', duration: 40, areas: ['uda + pośladki', 'uda + brzuch', 'brzuch + pośladki', 'całe nogi'] },
-    { name: 'MULTI', price: '370', duration: 50, areas: ['uda + pośladki + brzuch', 'całe nogi + pośladki', 'własna personalizacja'] },
+    { name: 'SOLO',  price: '170', areas: ['twarz / szyja / dekolt', 'brzuch', 'pośladki', 'uda'] },
+    { name: 'DUO',   price: '280', areas: ['uda + pośladki', 'uda + brzuch', 'brzuch + pośladki', 'całe nogi'] },
+    { name: 'MULTI', price: '370', areas: ['uda + pośladki + brzuch', 'całe nogi + pośladki', 'własna personalizacja'] },
   ];
 
   endoPassCounts = ['4 zabiegi', '8 zabiegów', '12 zabiegów'];
 
   endoPasses = [
-    { name: 'SOLO',  duration: 20, prices: ['660', '1 090', '1 440'], savings: [0, 0, 0] },
-    { name: 'DUO',   duration: 40, prices: ['1 280', '2 110', '2 780'], savings: [80, 130, 180] },
-    { name: 'MULTI', duration: 50, prices: ['1 860', '3 060', '4 040'], savings: [180, 300, 400] },
+    { name: 'SOLO', prices: ['660', '1 090', '1 440'], savings: [0, 0, 0] },
+    { name: 'DUO', prices: ['1 280', '2 110', '2 780'], savings: [80, 130, 180] },
+    { name: 'MULTI', prices: ['1 860', '3 060', '4 040'], savings: [180, 300, 400] },
   ];
 
   categories: PricingCategory[] = [
