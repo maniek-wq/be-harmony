@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
+import { PackagesComponent } from '../../components/packages/packages.component';
 
 interface PricingCategory {
   name: string;
@@ -22,9 +23,9 @@ interface PricingItem {
 @Component({
   selector: 'app-pricing-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, ScrollRevealDirective],
+  imports: [CommonModule, RouterLink, ScrollRevealDirective, PackagesComponent],
   template: `
-    <div class="min-h-screen bg-white pt-24 pb-20">
+    <div class="min-h-screen bg-white pt-24 pb-20 overflow-x-hidden">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="text-center mb-16" appScrollReveal>
@@ -277,105 +278,7 @@ interface PricingItem {
         </div>
 
         <!-- PAKIETY -->
-        <div appScrollReveal class="relative mt-12 mb-4 rounded-3xl overflow-hidden bg-gradient-to-br from-endo-sheet via-endo-paper to-endo-sheet shadow-xl px-4 sm:px-8 pt-10 pb-8">
-          <!-- Tło: plama i gałązka -->
-          <div class="pointer-events-none absolute -left-32 top-8 w-80 h-[28rem] rounded-full bg-endo-accent/20 blur-2xl"></div>
-          <div class="pointer-events-none absolute -left-20 -bottom-24 w-72 h-72 rounded-full bg-endo-accent/10 blur-2xl"></div>
-          <svg class="pointer-events-none absolute -right-10 -top-10 sm:-right-6 sm:-top-4 w-28 sm:w-56 text-[#7F8462] opacity-40 sm:opacity-60" viewBox="0 0 200 220" fill="currentColor" aria-hidden="true">
-            <path d="M196 4C150 40 110 90 70 216" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <g>
-              <ellipse cx="0" cy="0" rx="10" ry="26" transform="translate(168 30) rotate(-60)"/>
-              <ellipse cx="0" cy="0" rx="11" ry="30" transform="translate(150 22) rotate(30)"/>
-              <ellipse cx="0" cy="0" rx="12" ry="32" transform="translate(140 70) rotate(-55)"/>
-              <ellipse cx="0" cy="0" rx="12" ry="32" transform="translate(116 58) rotate(25)"/>
-              <ellipse cx="0" cy="0" rx="13" ry="34" transform="translate(112 118) rotate(-50)"/>
-              <ellipse cx="0" cy="0" rx="13" ry="34" transform="translate(86 104) rotate(20)"/>
-              <ellipse cx="0" cy="0" rx="12" ry="32" transform="translate(92 168) rotate(-45)"/>
-              <ellipse cx="0" cy="0" rx="12" ry="30" transform="translate(64 156) rotate(15)"/>
-            </g>
-          </svg>
-
-          <div class="relative">
-            <div class="text-center mb-10">
-              <span class="inline-block px-4 py-1.5 bg-terracotta/85 text-white rounded-full text-sm font-medium mb-4">Pakiety</span>
-              <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900">
-                Be Harmony <span class="text-terracotta">Pakiety</span>
-              </h2>
-              <p class="font-display uppercase leading-none mt-6 text-[clamp(2rem,9vw,3.5rem)] tracking-tight">
-                <span class="text-olive-600">EMS</span>
-                <span class="text-gray-900 mx-1 sm:mx-2">+</span><br class="sm:hidden">
-                <span class="text-endo-accent">Endoterapia</span>
-              </p>
-              <p class="mt-4 text-[11px] sm:text-xs font-semibold tracking-[0.12em] text-endo-muted">
-                Skuteczne duo dla sylwetki, którą widać i czuć.
-              </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch pt-4">
-              <div *ngFor="let pkg of packages"
-                   class="relative flex flex-col rounded-3xl"
-                   [ngClass]="pkg.highlight
-                     ? 'bg-gradient-to-b from-[#A65A36] to-[#7A3A20] shadow-2xl shadow-terracotta/30 md:scale-[1.03] ring-1 ring-[#C98A63]/60'
-                     : 'bg-white/75 backdrop-blur-sm border border-endo-line shadow-sm'">
-
-                <div *ngIf="pkg.badge" class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
-                  <span class="px-5 py-1.5 bg-endo-dark text-white text-xs font-bold rounded-full uppercase tracking-wider shadow-lg whitespace-nowrap">
-                    {{ pkg.badge }}
-                  </span>
-                </div>
-
-                <div class="p-6 sm:p-7 flex flex-col flex-1">
-                  <div class="inline-flex items-center justify-center w-11 h-11 rounded-xl mb-4"
-                       [ngClass]="pkg.highlight ? 'bg-white/20' : 'bg-terracotta/10'">
-                    <span class="text-lg font-semibold" [ngClass]="pkg.highlight ? 'text-white' : 'text-terracotta'">{{ pkg.size }}</span>
-                  </div>
-
-                  <h3 class="font-display text-3xl font-bold pb-4 border-b"
-                      [ngClass]="pkg.highlight ? 'text-white border-white/20' : 'text-gray-900 border-endo-line'">
-                    {{ pkg.name }}
-                  </h3>
-
-                  <ul class="space-y-1.5 py-4 border-b" [ngClass]="pkg.highlight ? 'border-white/20' : 'border-endo-line'">
-                    <li *ngFor="let item of pkg.items" class="flex items-center gap-3 text-[15px]"
-                        [ngClass]="pkg.highlight ? 'text-white' : 'text-gray-800'">
-                      <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                           [ngClass]="pkg.highlight ? 'text-white/80' : 'text-terracotta'">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                      </svg>
-                      {{ item }}
-                    </li>
-                  </ul>
-
-                  <div class="flex-1 divide-y mb-5" [ngClass]="pkg.highlight ? 'divide-white/20' : 'divide-endo-line'">
-                    <div *ngFor="let row of pkg.prices; let last = last" class="py-3 text-center">
-                      <p class="leading-none whitespace-nowrap" [ngClass]="pkg.highlight ? 'text-white' : 'text-endo-accent'">
-                        <span class="font-display text-[1.75rem] font-bold">{{ row.price }}</span>
-                        <span class="text-[10px] font-bold ml-1">PLN</span>
-                      </p>
-                      <p class="text-xs mt-1" [ngClass]="pkg.highlight ? 'text-white/75' : 'text-endo-muted'">{{ row.label }}</p>
-                      <span *ngIf="last && pkg.savings"
-                            class="inline-block mt-2 -rotate-6 px-2.5 py-1 rounded-md bg-green-50 border border-green-500/25 text-green-600 text-[10px] font-bold shadow-sm whitespace-nowrap">
-                        Oszczędzasz {{ pkg.savings }} zł
-                      </span>
-                    </div>
-                  </div>
-
-                  <button (click)="navigateToContact()"
-                          class="w-full py-3 rounded-xl font-bold text-xs uppercase tracking-[0.08em] transition-all duration-300"
-                          [ngClass]="pkg.highlight
-                            ? 'bg-white text-terracotta hover:bg-endo-paper'
-                            : 'bg-terracotta/5 text-terracotta border border-terracotta/40 hover:bg-terracotta hover:text-white'">
-                    Zapytaj o pakiet
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <p class="text-center text-endo-muted text-sm mt-8">
-              Zakres terapii dopasowujemy indywidualnie do Twoich potrzeb.
-            </p>
-          </div>
-        </div>
+        <app-packages class="block mt-12 mb-4 w-screen ml-[calc(50%-50vw)]"></app-packages>
 
         <!-- CTA -->
         <div class="text-center mt-16" appScrollReveal>
@@ -481,36 +384,6 @@ export class PricingPageComponent {
     { name: 'SOLO',  duration: 20, prices: ['660', '1 090', '1 440'], savings: [0, 0, 0] },
     { name: 'DUO',   duration: 40, prices: ['1 280', '2 110', '2 780'], savings: [80, 130, 180] },
     { name: 'MULTI', duration: 50, prices: ['1 860', '3 060', '4 040'], savings: [180, 300, 400] },
-  ];
-
-  packages = [
-    {
-      size: 'S', name: 'Pakiet S', highlight: false, badge: '', savings: 150,
-      items: ['4 × Trening EMS', '4 × Endo SOLO'],
-      prices: [
-        { price: '1 340', label: '1 partia ciała' },
-        { price: '1 760', label: '2 partie ciała' },
-        { price: '2 100', label: 'zakres rozszerzony' },
-      ],
-    },
-    {
-      size: 'M', name: 'Pakiet M', highlight: true, badge: 'Najpopularniejszy', savings: 550,
-      items: ['8 × Trening EMS', '8 × Endo SOLO'],
-      prices: [
-        { price: '2 510', label: '1 partia ciała' },
-        { price: '3 300', label: '2 partie ciała' },
-        { price: '3 930', label: 'zakres rozszerzony' },
-      ],
-    },
-    {
-      size: 'L', name: 'Pakiet L', highlight: false, badge: '', savings: 1200,
-      items: ['12 × Trening EMS', '12 × Endo SOLO'],
-      prices: [
-        { price: '3 510', label: '1 partia ciała' },
-        { price: '4 630', label: '2 partie ciała' },
-        { price: '5 510', label: 'zakres rozszerzony' },
-      ],
-    },
   ];
 
   categories: PricingCategory[] = [
