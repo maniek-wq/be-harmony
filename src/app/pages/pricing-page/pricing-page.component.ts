@@ -6,6 +6,7 @@ import { PackagesComponent } from '../../components/packages/packages.component'
 
 interface PricingCategory {
   name: string;
+  eyebrow: string;
   icon: string;
   items: PricingItem[];
   isEms?: boolean;
@@ -243,35 +244,49 @@ interface PricingItem {
 
         <!-- OTHER CATEGORIES -->
         <div class="space-y-8">
-          <div *ngFor="let category of categories; let ci = index"
-               appScrollReveal [revealDelay]="ci * 0.1"
-               class="bg-white rounded-2xl shadow-sm overflow-hidden border border-olive/25 hover:shadow-md transition-shadow">
-            
-            <div *ngIf="!category.hideHeader" class="px-8 py-6 bg-gradient-to-r from-olive/5 to-white border-b border-olive/25">
-              <div class="flex items-center gap-3">
-                <span class="text-2xl">{{ category.icon }}</span>
-                <h2 class="font-display text-xl md:text-2xl font-bold text-gray-900">{{ category.name }}</h2>
+          <article *ngFor="let category of categories; let ci = index"
+                   appScrollReveal [revealDelay]="ci * 0.1"
+                   class="font-manrope overflow-hidden rounded-[24px] border border-[#eadbc8] bg-[#fffbf5] shadow-[0px_20px_60px_-25px_rgba(106,57,43,0.33)]">
+
+            <!-- Pasek -->
+            <div class="flex items-center justify-between gap-3 px-6 sm:px-8 py-[14px] border-b border-[#eadbc8] bg-[#f4e9db]">
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#a9533a]"></span>
+                <p class="text-[10px] leading-[15px] font-semibold tracking-[1.6px] uppercase text-[#593b2d]">{{ category.eyebrow }}</p>
               </div>
+              <p class="text-[10px] leading-[15px] font-medium whitespace-nowrap text-[#91725f]">0{{ ci + 1 }} / 0{{ categories.length }}</p>
             </div>
 
-            <div class="divide-y divide-gray-100">
-              <div *ngFor="let item of category.items"
-                   class="px-4 sm:px-8 py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-olive/5 transition-colors">
-                <div class="flex-1">
-                  <div class="flex items-center gap-3 flex-wrap">
-                    <h3 *ngIf="item.name" class="font-medium text-gray-900">{{ item.name }}</h3>
-                    <span *ngIf="item.badge" class="px-2.5 py-0.5 bg-terracotta/20 text-terracotta-700 border border-terracotta/30 text-xs font-medium rounded-full">{{ item.badge }}</span>
-                  </div>
-                  <p *ngIf="item.description" class="text-gray-500 text-sm mt-0.5">{{ item.description }}</p>
+            <div class="px-6 sm:px-8 pt-6 pb-7">
+              <!-- Nagłówek -->
+              <div *ngIf="!category.hideHeader" class="flex items-center justify-between gap-4 pb-5 mb-5 border-b border-[#eadbc8]">
+                <h2 class="font-cormorant font-medium text-[30px] sm:text-[38px] leading-[1.15] text-[#293b2e]">{{ category.name }}</h2>
+                <div class="w-12 h-12 flex-shrink-0 rounded-full border border-[#9b5036]/35 flex items-center justify-center">
+                  <span class="text-xl leading-none grayscale-[35%]">{{ category.icon }}</span>
                 </div>
-                <div class="flex items-baseline gap-1 flex-shrink-0">
-                  <span class="text-2xl font-bold text-terracotta">{{ item.price }}</span>
-                  <span *ngIf="item.price !== 'Do ustalenia'" class="text-gray-400 text-sm">zł</span>
-                  <span *ngIf="item.note" class="text-gray-400 text-xs ml-2">({{ item.note }})</span>
+              </div>
+
+              <!-- Pozycje -->
+              <div class="flex flex-col gap-2.5">
+                <div *ngFor="let item of category.items"
+                     class="flex items-center gap-4 px-4 sm:px-5 py-4 rounded-xl border border-[#eadbc8] bg-white">
+                  <div class="flex-1 min-w-0">
+                    <span *ngIf="item.badge" class="mb-2 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#eadfc5]">
+                      <img src="assets/img/pakiety/check-oszczedzasz.svg" alt="" width="12" height="12" class="w-4 h-4">
+                      <span class="text-xs leading-4 font-medium text-[#536441] whitespace-nowrap">{{ item.badge }}</span>
+                    </span>
+                    <p *ngIf="item.name" class="text-[13px] sm:text-sm leading-5 font-semibold text-[#293b2e]">{{ item.name }}</p>
+                    <p *ngIf="item.description" class="pt-1 text-[11px] sm:text-xs leading-[18px] text-[#91725f]">{{ item.description }}</p>
+                  </div>
+                  <p class="flex-shrink-0 whitespace-nowrap text-[#293b2e]">
+                    <span class="font-cormorant text-[28px] sm:text-[30px] leading-8 font-semibold">{{ item.price }}</span>
+                    <span *ngIf="item.price !== 'Do ustalenia'" class="ml-1 text-[10px] leading-[13.5px] font-medium opacity-65">zł</span>
+                    <span *ngIf="item.note" class="ml-2 text-[10px] text-[#91725f]">({{ item.note }})</span>
+                  </p>
                 </div>
               </div>
             </div>
-          </div>
+          </article>
         </div>
 
         <!-- PAKIETY -->
@@ -386,6 +401,7 @@ export class PricingPageComponent {
   categories: PricingCategory[] = [
     {
       name: 'Terapia',
+      eyebrow: 'Praca z ciałem',
       icon: '🧘',
       items: [
         { name: 'Terapia ciała', description: '50 min — kompleksowa praca z ciałem', price: '180' },
@@ -395,6 +411,7 @@ export class PricingPageComponent {
     },
     {
       name: 'Masaż indywidualnie dobrany',
+      eyebrow: 'Relaks i regeneracja',
       icon: '💆',
       items: [
         { name: 'Masaż indywidualnie dopasowany', description: '50 min', price: '180' },
@@ -402,6 +419,7 @@ export class PricingPageComponent {
     },
     {
       name: 'HTR — Holistyczna Terapia Relaksacyjna',
+      eyebrow: 'Głęboki relaks',
       icon: '🌿',
       items: [
         { name: '', description: '90 min — głęboka relaksacja łącząca techniki manualne, oddechowe i energetyczne', price: '380', badge: 'Autorska metoda' },
@@ -409,6 +427,7 @@ export class PricingPageComponent {
     },
     {
       name: 'Trening',
+      eyebrow: 'Ruch i siła',
       icon: '💪',
       items: [
         { name: 'Trening Funkcjonalny', description: '45 min — indywidualny program ćwiczeń', price: '180' },

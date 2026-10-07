@@ -75,6 +75,7 @@ module.exports = {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Playfair Display', 'Georgia', 'serif'],
         manrope: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
+        cormorant: ['Cormorant Garamond', 'Georgia', 'serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out forwards',
