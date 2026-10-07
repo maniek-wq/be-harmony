@@ -28,10 +28,30 @@ import { announcementBarHeight } from '../announcement-bar/announcement-bar.comp
                class="px-4 py-2 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200">
               {{ item.label }}
             </a>
-            <a routerLink="/cennik"
-               class="px-4 py-2 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200">
-              Cennik
-            </a>
+            <div class="relative group" (mouseleave)="pricingOpen = false">
+              <button type="button" (click)="pricingOpen = !pricingOpen" (mouseenter)="pricingOpen = true"
+                      [attr.aria-expanded]="pricingOpen" aria-haspopup="true"
+                      class="flex items-center gap-1 px-4 py-2 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200">
+                Cennik
+                <svg class="w-3.5 h-3.5 transition-transform duration-200" [class.rotate-180]="pricingOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
+              <div class="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-64 transition-all duration-200"
+                   [ngClass]="pricingOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-1'">
+                <div class="rounded-2xl bg-[#fffbf5] border border-[#eadbc8] shadow-[0px_20px_60px_-25px_rgba(106,57,43,0.5)] p-2">
+                  <a href="javascript:void(0)" (click)="navigateToPricing()"
+                     class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-[#a9533a] hover:bg-[#f4e9db] transition-colors">
+                    Cały cennik
+                  </a>
+                  <div class="my-1 h-px bg-[#eadbc8]"></div>
+                  <a *ngFor="let s of pricingSections" href="javascript:void(0)" (click)="navigateToPricing(s.id)"
+                     class="block px-4 py-2.5 rounded-xl text-sm font-medium text-[#293b2e] hover:bg-[#f4e9db] transition-colors">
+                    {{ s.label }}
+                  </a>
+                </div>
+              </div>
+            </div>
             <a href="javascript:void(0)" (click)="navigateToSection('#kontakt')"
                class="ml-2 px-5 py-2.5 bg-olive text-white font-semibold rounded-full hover:bg-olive-600 hover:shadow-lg transition-all duration-300 text-sm">
               Umów wizytę
@@ -51,8 +71,9 @@ import { announcementBarHeight } from '../announcement-bar/announcement-bar.comp
       </div>
 
       <!-- Mobile Menu (offcanvas slide) -->
-      <div class="lg:hidden overflow-hidden transition-all duration-300 ease-out"
-           [style.max-height]="mobileOpen ? '36rem' : '0'"
+      <div class="lg:hidden transition-all duration-300 ease-out"
+           [ngClass]="mobileOpen ? 'overflow-y-auto' : 'overflow-hidden'"
+           [style.max-height]="mobileOpen ? 'calc(100vh - 4rem)' : '0'"
            [class.opacity-100]="mobileOpen"
            [class.opacity-0]="!mobileOpen">
         <div class="bg-terracotta-600 border-t border-white/10">
@@ -72,13 +93,26 @@ import { announcementBarHeight } from '../announcement-bar/announcement-bar.comp
               </span>
               {{ item.label }}
             </a>
-            <a routerLink="/cennik" (click)="toggleMobile()"
-               class="flex items-center gap-3 px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-xl transition-colors text-sm font-medium">
+            <button type="button" (click)="mobilePricingOpen = !mobilePricingOpen" [attr.aria-expanded]="mobilePricingOpen"
+                    class="w-full flex items-center gap-3 px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-xl transition-colors text-sm font-medium">
               <span class="flex-shrink-0 w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
               </span>
               Cennik
-            </a>
+              <svg class="ml-auto w-4 h-4 transition-transform duration-200" [class.rotate-180]="mobilePricingOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div *ngIf="mobilePricingOpen" class="ml-[3.25rem] mr-2 mb-1 pl-3 border-l border-white/20 space-y-0.5">
+              <a href="javascript:void(0)" (click)="navigateToPricing(); toggleMobile()"
+                 class="block px-3 py-2 rounded-lg text-sm font-semibold text-white hover:bg-white/10 transition-colors">
+                Cały cennik
+              </a>
+              <a *ngFor="let s of pricingSections" href="javascript:void(0)" (click)="navigateToPricing(s.id); toggleMobile()"
+                 class="block px-3 py-2 rounded-lg text-sm text-white/85 hover:text-white hover:bg-white/10 transition-colors">
+                {{ s.label }}
+              </a>
+            </div>
             <div class="border-t border-white/10 mt-4 mb-0"></div>
             <div class="pt-6">
               <a href="javascript:void(0)" (click)="navigateToSection('#kontakt'); toggleMobile()"
@@ -107,6 +141,19 @@ export class NavbarComponent {
     { label: 'Kontakt', href: '#kontakt', icon: 'contact' },
   ];
 
+  pricingOpen = false;
+  mobilePricingOpen = false;
+
+  pricingSections = [
+    { label: 'Endoterapia', id: 'cennik-endoterapia' },
+    { label: 'Trening EMS', id: 'cennik-ems' },
+    { label: 'Terapie', id: 'cennik-terapia' },
+    { label: 'Masaże', id: 'cennik-masaz' },
+    { label: 'HTR — Terapia Relaksacyjna', id: 'cennik-htr' },
+    { label: 'Trening funkcjonalny', id: 'cennik-trening' },
+    { label: 'Pakiety EMS + Endoterapia', id: 'pakiety' },
+  ];
+
   constructor(
     private router: Router,
     private el: ElementRef<HTMLElement>
@@ -123,8 +170,11 @@ export class NavbarComponent {
       this.ignoreNextDocumentClick = false;
       return;
     }
-    if (!this.mobileOpen) return;
     const target = event.target as Node;
+    if (this.pricingOpen && target && !this.el.nativeElement.contains(target)) {
+      this.pricingOpen = false;
+    }
+    if (!this.mobileOpen) return;
     if (target && !this.el.nativeElement.contains(target)) {
       this.mobileOpen = false;
     }
@@ -148,6 +198,17 @@ export class NavbarComponent {
       this.router.navigate(['/']).then(() => {
         setTimeout(() => this.scrollToElement(sectionId), 100);
       });
+    }
+  }
+
+  navigateToPricing(sectionId?: string) {
+    this.pricingOpen = false;
+    const scroll = () => sectionId ? this.scrollToElement(sectionId) : window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (this.router.url.startsWith('/cennik')) {
+      scroll();
+    } else {
+      this.router.navigate(['/cennik']).then(() => setTimeout(scroll, 100));
     }
   }
 

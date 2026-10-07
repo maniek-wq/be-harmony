@@ -5,6 +5,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 import { PackagesComponent } from '../../components/packages/packages.component';
 
 interface PricingCategory {
+  id: string;
   name: string;
   eyebrow: string;
   icon: string;
@@ -45,7 +46,7 @@ interface PricingItem {
         </div>
 
         <!-- ENDOTERAPIA HIGHLIGHT -->
-        <div appScrollReveal class="mb-10">
+        <div id="cennik-endoterapia" appScrollReveal class="mb-10 scroll-mt-28">
           <div class="bg-endo-sheet rounded-3xl shadow-xl overflow-hidden px-3 sm:px-8 pt-7 pb-5 sm:pt-7 sm:pb-5">
             <ng-container *ngTemplateOutlet="brandLogo"></ng-container>
 
@@ -98,7 +99,7 @@ interface PricingItem {
                       <span class="w-px h-6 bg-white/50"></span>
                       <span class="px-4 py-1 rounded-full bg-white text-endo-accent whitespace-nowrap">
                         <span class="font-display text-xl sm:text-2xl font-bold leading-none">170</span>
-                        <span class="text-[9px] font-bold ml-0.5">PLN</span>
+                        <span class="text-[9px] font-bold ml-0.5">zł</span>
                       </span>
                     </div>
                   </div>
@@ -113,7 +114,7 @@ interface PricingItem {
                     <div class="text-right md:text-center md:mt-1">
                       <p class="font-display text-endo-accent leading-none whitespace-nowrap">
                         <span class="text-3xl">{{ t.price }}</span>
-                        <sup class="text-[10px] font-sans font-semibold ml-1 align-super">PLN</sup>
+                        <sup class="text-[10px] font-sans font-semibold ml-1 align-super">zł</sup>
                       </p>
                     </div>
                   </div>
@@ -152,7 +153,7 @@ interface PricingItem {
                         </td>
                         <td *ngFor="let price of p.prices; let i = index" class="py-3 px-3 border-l border-endo-line text-center whitespace-nowrap">
                           <span class="font-display text-xl font-bold text-endo-accent">{{ price }}</span>
-                          <span class="text-[10px] font-semibold text-endo-accent ml-1">PLN</span>
+                          <span class="text-[10px] font-semibold text-endo-accent ml-1">zł</span>
                           <p *ngIf="p.savings[i]" class="text-[10px] text-endo-muted mt-0.5">oszczędzasz {{ p.savings[i] }} zł</p>
                         </td>
                       </tr>
@@ -170,7 +171,7 @@ interface PricingItem {
                       <div *ngFor="let price of p.prices; let i = index" class="py-3 text-center">
                         <p class="text-[10px] text-endo-muted">{{ endoPassCounts[i] }}</p>
                         <p class="font-display text-lg sm:text-xl font-bold text-endo-accent leading-tight whitespace-nowrap">{{ price }}</p>
-                        <p class="text-[9px] font-semibold text-endo-accent">PLN</p>
+                        <p class="text-[9px] font-semibold text-endo-accent">zł</p>
                         <p *ngIf="p.savings[i]" class="text-[9px] text-endo-muted mt-0.5 leading-tight">oszczędzasz<br>{{ p.savings[i] }} zł</p>
                       </div>
                     </div>
@@ -184,7 +185,7 @@ interface PricingItem {
         </div>
 
         <!-- EMS -->
-        <div appScrollReveal class="mb-10">
+        <div id="cennik-ems" appScrollReveal class="mb-10 scroll-mt-28">
           <div class="bg-endo-sheet rounded-3xl shadow-xl overflow-hidden px-3 sm:px-8 pt-7 pb-5">
             <ng-container *ngTemplateOutlet="brandLogo"></ng-container>
 
@@ -244,7 +245,7 @@ interface PricingItem {
 
         <!-- OTHER CATEGORIES -->
         <div class="space-y-8">
-          <article *ngFor="let category of categories; let ci = index"
+          <article *ngFor="let category of categories; let ci = index" [id]="category.id"
                    appScrollReveal [revealDelay]="ci * 0.1"
                    class="font-manrope overflow-hidden rounded-[24px] border border-[#eadbc8] bg-[#fffbf5] shadow-[0px_20px_60px_-25px_rgba(106,57,43,0.33)]">
 
@@ -400,6 +401,7 @@ export class PricingPageComponent {
 
   categories: PricingCategory[] = [
     {
+      id: 'cennik-terapia',
       name: 'Terapia',
       eyebrow: 'Praca z ciałem',
       icon: '🧘',
@@ -410,6 +412,7 @@ export class PricingPageComponent {
       ]
     },
     {
+      id: 'cennik-masaz',
       name: 'Masaż indywidualnie dobrany',
       eyebrow: 'Relaks i regeneracja',
       icon: '💆',
@@ -418,6 +421,7 @@ export class PricingPageComponent {
       ]
     },
     {
+      id: 'cennik-htr',
       name: 'HTR — Holistyczna Terapia Relaksacyjna',
       eyebrow: 'Głęboki relaks',
       icon: '🌿',
@@ -426,6 +430,7 @@ export class PricingPageComponent {
       ]
     },
     {
+      id: 'cennik-trening',
       name: 'Trening',
       eyebrow: 'Ruch i siła',
       icon: '💪',
