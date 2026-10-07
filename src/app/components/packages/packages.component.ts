@@ -37,7 +37,7 @@ interface Package {
           </h2>
           <p class="font-cormorant uppercase leading-none mt-4 text-[clamp(2.5rem,9vw,3.75rem)]">
             <span class="text-[#293b2e]">EMS</span>
-            <span class="text-[#293b2e] text-[0.6em] mx-1 sm:mx-2 align-middle">+</span><br class="sm:hidden">
+            <span class="text-[#293b2e] inline-block -translate-y-[0.2em] text-[0.85em] mx-1 sm:mx-3">+</span><br class="sm:hidden">
             <span class="text-[#a9533a]">Endoterapia</span>
           </p>
           <p class="font-manrope mt-5 text-[11px] sm:text-xs font-semibold tracking-[0.18em] text-[#343c30]">
