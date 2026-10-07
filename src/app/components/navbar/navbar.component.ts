@@ -45,7 +45,7 @@ import { announcementBarHeight } from '../announcement-bar/announcement-bar.comp
                     Cały cennik
                   </a>
                   <div class="my-1 h-px bg-[#eadbc8]"></div>
-                  <a *ngFor="let s of pricingSections" href="javascript:void(0)" (click)="navigateToPricing(s.id)"
+                  <a *ngFor="let s of pricingSections" href="javascript:void(0)" (click)="navigateToPricing(s.slug)"
                      class="block px-4 py-2.5 rounded-xl text-sm font-medium text-[#293b2e] hover:bg-[#f4e9db] transition-colors">
                     {{ s.label }}
                   </a>
@@ -108,7 +108,7 @@ import { announcementBarHeight } from '../announcement-bar/announcement-bar.comp
                  class="block px-3 py-2 rounded-lg text-sm font-semibold text-white hover:bg-white/10 transition-colors">
                 Cały cennik
               </a>
-              <a *ngFor="let s of pricingSections" href="javascript:void(0)" (click)="navigateToPricing(s.id); toggleMobile()"
+              <a *ngFor="let s of pricingSections" href="javascript:void(0)" (click)="navigateToPricing(s.slug); toggleMobile()"
                  class="block px-3 py-2 rounded-lg text-sm text-white/85 hover:text-white hover:bg-white/10 transition-colors">
                 {{ s.label }}
               </a>
@@ -145,13 +145,10 @@ export class NavbarComponent {
   mobilePricingOpen = false;
 
   pricingSections = [
-    { label: 'Endoterapia', id: 'cennik-endoterapia' },
-    { label: 'Trening EMS', id: 'cennik-ems' },
-    { label: 'Terapie', id: 'cennik-terapia' },
-    { label: 'Masaże', id: 'cennik-masaz' },
-    { label: 'HTR — Terapia Relaksacyjna', id: 'cennik-htr' },
-    { label: 'Trening funkcjonalny', id: 'cennik-trening' },
-    { label: 'Pakiety EMS + Endoterapia', id: 'pakiety' },
+    { label: 'Terapie', slug: 'terapie' },
+    { label: 'Masaże', slug: 'masaze' },
+    { label: 'Trening EMS', slug: 'trening-ems' },
+    { label: 'Endoterapia', slug: 'endoterapia' },
   ];
 
   constructor(
@@ -201,15 +198,9 @@ export class NavbarComponent {
     }
   }
 
-  navigateToPricing(sectionId?: string) {
+  navigateToPricing(slug?: string) {
     this.pricingOpen = false;
-    const scroll = () => sectionId ? this.scrollToElement(sectionId) : window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    if (this.router.url.startsWith('/cennik')) {
-      scroll();
-    } else {
-      this.router.navigate(['/cennik']).then(() => setTimeout(scroll, 100));
-    }
+    this.router.navigate(slug ? ['/cennik', slug] : ['/cennik']);
   }
 
   private scrollToElement(id: string) {

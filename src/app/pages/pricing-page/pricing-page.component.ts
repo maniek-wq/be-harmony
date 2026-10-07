@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 import { PackagesComponent } from '../../components/packages/packages.component';
 
+type PricingPageSlug = 'terapie' | 'masaze' | 'trening-ems' | 'endoterapia';
+
 interface PricingCategory {
   id: string;
+  page: PricingPageSlug;
   name: string;
   eyebrow: string;
   icon: string;
@@ -25,28 +28,61 @@ interface PricingItem {
 @Component({
   selector: 'app-pricing-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, ScrollRevealDirective, PackagesComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, ScrollRevealDirective, PackagesComponent],
   template: `
     <div class="min-h-screen bg-white pt-24 pb-20 overflow-x-hidden">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
-        <div class="text-center mb-16" appScrollReveal>
-          <a routerLink="/" class="inline-flex items-center gap-2 text-terracotta hover:text-terracotta-600 transition-colors text-sm mb-6">
+        <div class="text-center mb-10" appScrollReveal>
+          <a [routerLink]="current ? '/cennik' : '/'" class="inline-flex items-center gap-2 text-terracotta hover:text-terracotta-600 transition-colors text-sm mb-6">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
-            Powrót do strony głównej
+            {{ current ? 'Wszystkie cenniki' : 'Powrót do strony głównej' }}
           </a>
           <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-            <span class="text-terracotta">Cennik</span> usług
+            <ng-container *ngIf="current; else hubTitle">Cennik <span class="text-terracotta">{{ current.label }}</span></ng-container>
+            <ng-template #hubTitle><span class="text-terracotta">Cennik</span> usług</ng-template>
           </h1>
           <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-            Przejrzysty cennik wszystkich naszych usług. Ceny podane w złotych polskich.
+            {{ current ? current.desc : 'Wybierz rodzaj usługi, aby zobaczyć szczegółowy cennik. Ceny podane w złotych.' }}
           </p>
         </div>
 
+        <!-- Zakładki podstron -->
+        <nav *ngIf="current" class="font-manrope flex flex-wrap justify-center gap-2 mb-12" aria-label="Cennik">
+          <a *ngFor="let pg of pages" [routerLink]="['/cennik', pg.slug]"
+             routerLinkActive="!bg-[#a9533a] !text-white !border-[#a9533a]"
+             class="px-4 sm:px-5 py-2 rounded-full border border-[#eadbc8] bg-[#fffbf5] text-sm font-semibold text-[#593b2d] hover:bg-[#f4e9db] transition-colors">
+            {{ pg.label }}
+          </a>
+        </nav>
+
+        <!-- HUB: kafelki podstron -->
+        <div *ngIf="!current" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <a *ngFor="let pg of pages; let i = index" [routerLink]="['/cennik', pg.slug]"
+             appScrollReveal [revealDelay]="i * 0.1"
+             class="group font-manrope flex flex-col overflow-hidden rounded-[24px] border border-[#eadbc8] bg-[#fffbf5] shadow-[0px_20px_60px_-25px_rgba(106,57,43,0.33)] hover:-translate-y-1 transition-transform duration-300">
+            <div class="flex items-center justify-between gap-3 px-6 sm:px-8 py-[14px] border-b border-[#eadbc8] bg-[#f4e9db]">
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#a9533a]"></span>
+                <p class="text-[10px] leading-[15px] font-semibold tracking-[1.6px] uppercase text-[#593b2d]">{{ pg.eyebrow }}</p>
+              </div>
+              <p class="text-[10px] leading-[15px] font-medium text-[#91725f]">0{{ i + 1 }} / 0{{ pages.length }}</p>
+            </div>
+            <div class="flex flex-col flex-1 px-6 sm:px-8 pt-6 pb-7">
+              <h2 class="font-cormorant font-medium text-[38px] sm:text-[44px] leading-[1.1] text-[#293b2e]">{{ pg.label }}</h2>
+              <p class="pt-3 flex-1 text-[13px] leading-6 text-[#6b655c]">{{ pg.desc }}</p>
+              <span class="mt-6 flex items-center justify-between px-5 py-[15px] rounded-xl bg-[#293b2e] group-hover:bg-[#1f2d23] transition-colors">
+                <span class="text-xs leading-[18px] font-semibold text-[#fff5e6]">Zobacz cennik</span>
+                <img src="assets/img/pakiety/strzalka.svg" alt="" width="20" height="20" class="w-5 h-5">
+              </span>
+            </div>
+          </a>
+        </div>
+
         <!-- ENDOTERAPIA HIGHLIGHT -->
-        <div id="cennik-endoterapia" appScrollReveal class="mb-10 scroll-mt-28">
+        <div *ngIf="current?.slug === 'endoterapia'" id="cennik-endoterapia" appScrollReveal class="mb-10">
           <div class="bg-endo-sheet rounded-3xl shadow-xl overflow-hidden px-3 sm:px-8 pt-7 pb-5 sm:pt-7 sm:pb-5">
             <ng-container *ngTemplateOutlet="brandLogo"></ng-container>
 
@@ -185,7 +221,7 @@ interface PricingItem {
         </div>
 
         <!-- EMS -->
-        <div id="cennik-ems" appScrollReveal class="mb-10 scroll-mt-28">
+        <div *ngIf="current?.slug === 'trening-ems'" id="cennik-ems" appScrollReveal class="mb-10">
           <div class="bg-endo-sheet rounded-3xl shadow-xl overflow-hidden px-3 sm:px-8 pt-7 pb-5">
             <ng-container *ngTemplateOutlet="brandLogo"></ng-container>
 
@@ -244,8 +280,8 @@ interface PricingItem {
         </div>
 
         <!-- OTHER CATEGORIES -->
-        <div class="space-y-8">
-          <article *ngFor="let category of categories; let ci = index" [id]="category.id"
+        <div *ngIf="visibleCategories.length" class="space-y-8">
+          <article *ngFor="let category of visibleCategories; let ci = index" [id]="category.id"
                    appScrollReveal [revealDelay]="ci * 0.1"
                    class="font-manrope overflow-hidden rounded-[24px] border border-[#eadbc8] bg-[#fffbf5] shadow-[0px_20px_60px_-25px_rgba(106,57,43,0.33)]">
 
@@ -255,7 +291,7 @@ interface PricingItem {
                 <span class="w-1.5 h-1.5 rounded-full bg-[#a9533a]"></span>
                 <p class="text-[10px] leading-[15px] font-semibold tracking-[1.6px] uppercase text-[#593b2d]">{{ category.eyebrow }}</p>
               </div>
-              <p class="text-[10px] leading-[15px] font-medium whitespace-nowrap text-[#91725f]">0{{ ci + 1 }} / 0{{ categories.length }}</p>
+              <p class="text-[10px] leading-[15px] font-medium whitespace-nowrap text-[#91725f]">0{{ ci + 1 }} / 0{{ visibleCategories.length }}</p>
             </div>
 
             <div class="px-6 sm:px-8 pt-6 pb-7">
@@ -291,7 +327,7 @@ interface PricingItem {
         </div>
 
         <!-- PAKIETY -->
-        <app-packages class="block mt-12 mb-4 w-screen ml-[calc(50%-50vw)]"></app-packages>
+        <app-packages *ngIf="current?.slug === 'trening-ems' || current?.slug === 'endoterapia'" class="block mt-12 mb-4 w-screen ml-[calc(50%-50vw)]"></app-packages>
 
         <!-- CTA -->
         <div class="text-center mt-16" appScrollReveal>
@@ -330,7 +366,22 @@ interface PricingItem {
   styles: []
 })
 export class PricingPageComponent {
-  constructor(private router: Router) {}
+  pages: { slug: PricingPageSlug; label: string; eyebrow: string; desc: string }[] = [
+    { slug: 'terapie', label: 'Terapie', eyebrow: 'Praca z ciałem', desc: 'Terapia ciała, terapia po zabiegach, terapia wisceralna i HTR.' },
+    { slug: 'masaze', label: 'Masaże', eyebrow: 'Relaks i regeneracja', desc: 'Masaż indywidualnie dobrany do Twoich potrzeb.' },
+    { slug: 'trening-ems', label: 'Trening EMS', eyebrow: 'Ruch i siła', desc: 'Treningi EMS, karnety, trening funkcjonalny i pakiety EMS + Endoterapia.' },
+    { slug: 'endoterapia', label: 'Endoterapia', eyebrow: 'Modelowanie sylwetki', desc: 'Zabiegi, karnety i pakiety EMS + Endoterapia.' },
+  ];
+
+  current: PricingPageComponent['pages'][number] | undefined;
+
+  constructor(private router: Router, route: ActivatedRoute) {
+    this.current = this.pages.find(pg => pg.slug === route.snapshot.data['page']);
+  }
+
+  get visibleCategories() {
+    return this.current ? this.categories.filter(c => c.page === this.current!.slug) : [];
+  }
 
   navigateToContact() {
     this.router.navigate(['/']).then(() => {
@@ -402,6 +453,7 @@ export class PricingPageComponent {
   categories: PricingCategory[] = [
     {
       id: 'cennik-terapia',
+      page: 'terapie',
       name: 'Terapia',
       eyebrow: 'Praca z ciałem',
       icon: '🧘',
@@ -413,6 +465,7 @@ export class PricingPageComponent {
     },
     {
       id: 'cennik-masaz',
+      page: 'masaze',
       name: 'Masaż indywidualnie dobrany',
       eyebrow: 'Relaks i regeneracja',
       icon: '💆',
@@ -422,6 +475,7 @@ export class PricingPageComponent {
     },
     {
       id: 'cennik-htr',
+      page: 'terapie',
       name: 'HTR — Holistyczna Terapia Relaksacyjna',
       eyebrow: 'Głęboki relaks',
       icon: '🌿',
@@ -431,6 +485,7 @@ export class PricingPageComponent {
     },
     {
       id: 'cennik-trening',
+      page: 'trening-ems',
       name: 'Trening',
       eyebrow: 'Ruch i siła',
       icon: '💪',
