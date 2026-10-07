@@ -367,9 +367,9 @@ interface PricingItem {
 })
 export class PricingPageComponent {
   pages: { slug: PricingPageSlug; label: string; eyebrow: string; desc: string }[] = [
-    { slug: 'terapie', label: 'Terapie', eyebrow: 'Praca z ciałem', desc: 'Terapia ciała, terapia po zabiegach, terapia wisceralna i HTR.' },
+    { slug: 'terapie', label: 'Terapie', eyebrow: 'Praca z ciałem', desc: 'Terapia ciała, terapia po zabiegach, terapia wisceralna, trening funkcjonalny i HTR.' },
     { slug: 'masaze', label: 'Masaże', eyebrow: 'Relaks i regeneracja', desc: 'Masaż indywidualnie dobrany do Twoich potrzeb.' },
-    { slug: 'trening-ems', label: 'Trening EMS', eyebrow: 'Ruch i siła', desc: 'Treningi EMS, karnety, trening funkcjonalny i pakiety EMS + Endoterapia.' },
+    { slug: 'trening-ems', label: 'Trening EMS', eyebrow: 'Ruch i siła', desc: 'Treningi EMS, karnety i pakiety EMS + Endoterapia.' },
     { slug: 'endoterapia', label: 'Endoterapia', eyebrow: 'Modelowanie sylwetki', desc: 'Zabiegi, karnety i pakiety EMS + Endoterapia.' },
   ];
 
@@ -461,6 +461,7 @@ export class PricingPageComponent {
         { name: 'Terapia ciała', description: '50 min — kompleksowa praca z ciałem', price: '180' },
         { name: 'Terapia po zabiegach medycyny estetycznej i chirurgii plastycznej', description: '50 min — specjalistyczna terapia wspierająca regenerację', price: '200' },
         { name: 'Terapia wisceralna', description: '50 min — delikatna praca w obrębie jamy brzusznej i klatki piersiowej', price: '200' },
+        { name: 'Trening Funkcjonalny', description: '45 min — indywidualny program ćwiczeń', price: '180' },
       ]
     },
     {
@@ -481,16 +482,6 @@ export class PricingPageComponent {
       icon: '🌿',
       items: [
         { name: '', description: '90 min — głęboka relaksacja łącząca techniki manualne, oddechowe i energetyczne', price: '380', badge: 'Autorska metoda' },
-      ]
-    },
-    {
-      id: 'cennik-trening',
-      page: 'trening-ems',
-      name: 'Trening',
-      eyebrow: 'Ruch i siła',
-      icon: '💪',
-      items: [
-        { name: 'Trening Funkcjonalny', description: '45 min — indywidualny program ćwiczeń', price: '180' },
       ]
     },
   ];
